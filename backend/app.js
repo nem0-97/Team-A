@@ -1,4 +1,4 @@
-import * as MongoDB from "./MongoDB" //import database helpers
+const MongoDB=require("./MongoDB")//import database helpers
 
 /** Express Setup Begin*/
 const express = require('express')
@@ -15,11 +15,7 @@ const jsonParser= express.json();
 //GET
 app.get('/api/v1/rest', function (req, res) { //get a restaurant by name?
     console.log(req.query); //query parameters
-    if (Object.keys(req.query).length==0){//return all restaurants
-        console.log("All rstaurants will be queried");
-    }else{
-        //cycle through req.query 
-    }
+    MongoDB.find('Restaurants',req.query);
     console.log("/rest got get req"); //query database for reestaurants with matching name (req.params.name)
     res.send({"message":'GET request to the homepage'}); //send list of results
 })
@@ -29,6 +25,7 @@ app.post('/api/v1/rest', jsonParser, function (req, res) { //Add a new restauran
     console.log(req);
     console.log("/rest got post req");
     console.log(req.body); //add body to database, maybee have some extra logic here to build db formatted json with info sent over
+    MongoDB.add('Restaurants',req.body);
     res.send({"message":'POST request to the homepage, restaurant ' + req.body.name+' added to database'});
 })
 

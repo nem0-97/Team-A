@@ -1,27 +1,29 @@
 const MongoClient = require('mongodb').MongoClient;
 const hidden=require("./hidden.js"); //hidden file containing passwords/authentication info for MongoDB(won't be pushed to github)
-const client = new MongoClient(hidden.mongo.uri, { useNewUrlParser: true });
+const client = new MongoClient(hidden.mongo.uri, { useNewUrlParser: true ,useUnifiedTopology: true });
 
 /**
- * Add the provided restaurant to the proper collection in our database
- * @param rest new restaurant to add to collection in JSON format 
+ * Add the provided element to the proper collection in our database
+ * @param coll collection to add el to
+ * @param el new item to add to the collection
  * */
-export function addRest(rest){
+exports.add=function (coll,el){
     client.connect(err => {
-        const collection = client.db("FoodWaste").collection("Restaurants");
-        // perform actions on the collection object
+        const collection = client.db("FoodWaste").collection(coll);
+        collection.insertOne(el);
         client.close();
     });
-}
+};
 
 /**
- * Add the provided restaurant to the proper collection in our database
- * @param keywords new restaurant to add to collection in JSON format 
+ * Submit the query to the proper collection in our database
+ * @param coll collection to search through
+ * @param query new restaurant to add to collection in JSON format 
  * */
-export function getRest(keywords){
+exports.find=function (coll,query){
     client.connect(err => {
-        const collection = client.db("FoodWaste").collection("Restaurants");
-        // perform actions on the collection object
+        const collection = client.db("FoodWaste").collection(coll);
+        collection.find(query);
         client.close();
     });
-}
+};
