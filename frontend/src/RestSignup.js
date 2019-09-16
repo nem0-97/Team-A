@@ -1,9 +1,8 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './RestSignup.css';
 const hidden = require('./hidden.js'); //store api paths here
 
-class App extends React.Component{
+class RestSignup extends React.Component{
   constructor(props){
     super(props);
     this.state={
@@ -39,11 +38,8 @@ class App extends React.Component{
     if(error){
       return <div> Error: {error.message}</div>;
     }
-    if (!loaded){
-      return <div> Loading ...</div>;
-    }
-    return <div>{JSON.stringify(response)}</div>;
+    return <div> HI </div>
   }
 }
 
-export default App;
+export default RestSignup;
