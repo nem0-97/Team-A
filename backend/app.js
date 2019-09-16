@@ -1,3 +1,5 @@
+import * as MongoDB from "./MongoDB" //import database helpers
+
 /** Express Setup Begin*/
 const express = require('express')
 const cors = require('cors')
@@ -8,18 +10,6 @@ app.use(cors())
 
 const jsonParser= express.json();
 /** Express Setup End*/
-
-/** Database Setup Begin */
-const MongoClient = require('mongodb').MongoClient;
-const hidden=require("./hidden.js"); //hidden file containing passwords/authentication info for MongoDB(won't be pushed to github)
-const client = new MongoClient(hidden.mongo.uri, { useNewUrlParser: true });
-
-client.connect(err => {
-  const collection = client.db("test").collection("devices");
-  // perform actions on the collection object
-  client.close();
-});
-/** Database Setup End*/
 
 /**RESTAURAUNT INFO API ROUTES*/
 //GET
