@@ -7,38 +7,50 @@ class RestSignup extends React.Component{
     super(props);
     this.state={
       error:null,
-      loaded:false,
-      response:null
+      submitted:false,
+      response:null,
+      name:""
     };
+    this.handleChange=this.handleChange.bind(this);
+    this.handleSubmit=this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
+  handleChange(event){
+    this.setState({name: event.target.value});
+  }
+
+  handleSubmit(event) {
     let data = {
-      "name":"Steak n Shake",
+      "name":this.state.name,
       "location": "SJSU",
-      "desc": "A reestaurant on SJSU campus",
+      "desc": "A restaurant on SJSU campus",
       "rating": 4
     }
     console.log('Sending API request');
     fetch(hidden.apiPaths.base+'/rest', {
-      method: 'GET', // *GET, POST, PUT, DELETE, etc.
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
       headers: {'Content-Type': 'application/json'},
-      //body: JSON.stringify(data) // GET cannot have body:: body data type must match "Content-Type" header 
+      body: JSON.stringify(data) // GET cannot have body:: body data type must match "Content-Type" header 
     })
     .then(res => res.json())
     .then(
-      (result) => {this.setState({loaded: true,response: result});},
-      (error) => {this.setState({loaded: true, error});}
+      (result) => {this.setState({submitted: true,response: result});},
+      (error) => {this.setState({submitted: true, error});}
     )
+    event.preventDefault();
   }
 
   render(){
-    const {error,loaded,response} = this.state;
-    console.log(loaded);
-    if(error){
-      return <div> Error: {error.message}</div>;
+    if(!this.state.submitted){
+      return (<form onSubmit={this.handleSubmit}>
+          <label>
+            Name:
+            <input type="text" value={this.state.name} onChange={this.handleChange} />
+          </label>
+          <input type="submit" value="Submit" />
+        </form>);
     }
-    return <div> HI </div>
+    return <div>{JSON.stringify(this.state.response)}</div>
   }
 }
 

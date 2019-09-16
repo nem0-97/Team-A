@@ -39,7 +39,7 @@ app.post('/api/v1/rest', jsonParser, function (req, res) { //Add a new restauran
     console.log(req);
     console.log("/rest got post req");
     console.log(req.body); //add body to database, maybee have some extra logic here to build db formatted json with info sent over
-    res.send({"message":'POST request to the homepage, restaurant added to database'});
+    res.send({"message":'POST request to the homepage, restaurant ' + req.body.name+' added to database'});
 })
 
 //PUT
