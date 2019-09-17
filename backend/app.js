@@ -15,9 +15,7 @@ const jsonParser= express.json();
 //GET
 app.get('/api/v1/rest', function (req, res) { //get a restaurant by name?
     console.log(req.query); //query parameters
-    MongoDB.find('Restaurants',req.query).then(res=>console.log(res));
-    console.log("/rest got get req"); //query database for reestaurants with matching name (req.params.name)
-    res.send({"message":'GET request to the homepage'}); //send list of results
+    MongoDB.find('Restaurants',req.query).then(rests=>res.send({"results":rests}));//send back query results
 })
   
 //POST
