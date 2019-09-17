@@ -7,7 +7,7 @@ const client = new MongoClient(hidden.mongo.uri, { useNewUrlParser: true ,useUni
  * @param coll collection to add el to
  * @param el new item to add to the collection
  * */
-exports.add=function (coll,el){
+exports.add = function (coll,el){
     client.connect(err => {
         const collection = client.db("FoodWaste").collection(coll);
         collection.insertOne(el);
@@ -20,10 +20,10 @@ exports.add=function (coll,el){
  * @param coll collection to search through
  * @param query new restaurant to add to collection in JSON format 
  * */
-exports.find=function (coll,query){
-    client.connect(err => {
-        const collection = client.db("FoodWaste").collection(coll);
-        collection.find(query);
-        client.close();
-    });
-};
+exports.find = async function (coll,query){
+    await client.connect();
+    const collection = client.db("FoodWaste").collection(coll);
+    const results = await collection.find(query).toArray();
+    client.close();
+    return results;
+}; // TODO: Figure out awaits 

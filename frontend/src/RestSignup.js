@@ -22,15 +22,21 @@ class RestSignup extends React.Component{
   handleSubmit(event) {
     let data = {
       "name":this.state.name,
-      "location": "SJSU",
+      /*"location": "SJSU",
       "desc": "A restaurant on SJSU campus",
-      "rating": 4
+      "rating": 4*/
     }
     console.log('Sending API request');
-    fetch(hidden.apiPaths.base+'/rest', {
-      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    let apiPath=hidden.apiPaths.base+'/rest?';
+    for (let p in data){
+      apiPath+=p+'='+data[p]+'&';
+    }
+    apiPath=apiPath.slice(0,-1);
+    console.log(apiPath);
+    fetch(apiPath, {
+      method: 'GET', // *GET, POST, PUT, DELETE, etc.
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(data) // GET cannot have body:: body data type must match "Content-Type" header 
+      //body: JSON.stringify(data) // GET cannot have body:: body data type must match "Content-Type" header 
     })
     .then(res => res.json())
     .then(
