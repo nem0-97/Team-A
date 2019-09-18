@@ -9,35 +9,50 @@ class RestSignup extends React.Component{
       error:null,
       submitted:false,
       response:null,
-      name:""
+      name:"",
+      operation:"search"
     };
     this.handleChange=this.handleChange.bind(this);
     this.handleSubmit=this.handleSubmit.bind(this);
   }
 
   handleChange(event){
-    this.setState({name: event.target.value});
+    if(event.target.type === 'text'){//text field
+      this.setState({name: event.target.value});
+    }else{//select
+      this.setState({operation: event.target.value});
+    }
   }
 
   handleSubmit(event) {
-    let data = {
-      "name":this.state.name,
-      /*"location": "SJSU",
-      "desc": "A restaurant on SJSU campus",
-      "rating": 4*/
+    let data;
+    let meth;
+    let apiPath=hidden.apiPaths.base+'/rest';
+
+    if(this.state.operation === 'search'){
+      if(this.state.name!==''){
+        apiPath+= "?name="+this.state.name;
+      }
+      meth='GET'
+    }else{
+      data = {
+        "name":this.state.name,
+        "location": "SJSU",
+        "desc": "A restaurant on SJSU campus",
+        "rating": 4
+      }
+      meth='POST'
+    }
+
+    const req={ method: meth, headers: {'Content-Type': 'application/json'} }
+    if(meth !== 'GET'){
+      req["body"]=JSON.stringify(data) // GET cannot have body:: body data type must match "Content-Type" header 
     }
     console.log('Sending API request');
-    let apiPath=hidden.apiPaths.base+'/rest?';
-    for (let p in data){
-      apiPath+=p+'='+data[p]+'&';
-    }
-    apiPath=apiPath.slice(0,-1);
     console.log(apiPath);
-    fetch(apiPath, {
-      method: 'GET', // *GET, POST, PUT, DELETE, etc.
-      headers: {'Content-Type': 'application/json'},
-      //body: JSON.stringify(data) // GET cannot have body:: body data type must match "Content-Type" header 
-    })
+    console.log(req);
+  
+    fetch(apiPath, req)
     .then(res => res.json())
     .then(
       (result) => {this.setState({submitted: true,response: result});},
@@ -52,6 +67,13 @@ class RestSignup extends React.Component{
           <label>
             Name:
             <input type="text" value={this.state.name} onChange={this.handleChange} />
+          </label>
+          <label>
+            Operation:
+            <select value={this.state.operation} onChange={this.handleChange}>
+              <option value="search">Search for A Restaurant by Name</option>
+              <option value="add">New Restaurant</option>
+            </select>
           </label>
           <input type="submit" value="Submit" />
         </form>);

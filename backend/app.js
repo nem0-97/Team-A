@@ -96,7 +96,7 @@ app.get('/api/v1/order', function (req, res) { //get a restaurant by name?
 })
   
 //POST
-app.post('/api/v1/rorder', jsonParser, function (req, res) { //Add a new restaurant into database
+app.post('/api/v1/order', jsonParser, function (req, res) { //Add a new restaurant into database
     console.log(req);
     console.log("/rest got post req");
     console.log(req.body); //add body to database, maybee have some extra logic here to build db formatted json with info sent over

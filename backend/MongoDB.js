@@ -26,4 +26,4 @@ exports.find = async function (coll,query){
     const results = await collection.find(query).toArray();
     client.close();
     return results;
-}; // TODO: Figure out awaits 
+};
