@@ -1,5 +1,18 @@
 import React from 'react';
 import './RestSignup.css';
+import Button from '@material-ui/core/Button';
+import Avatar from '@material-ui/core/Avatar';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Link from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+
 const hidden = require('./hidden.js'); //store api paths here
 
 class RestSignup extends React.Component{
@@ -61,22 +74,51 @@ class RestSignup extends React.Component{
     event.preventDefault();
   }
 
+
+
+
+
   render(){
     if(!this.state.submitted){
-      return (<form onSubmit={this.handleSubmit}>
-          <label>
-            Name:
-            <input type="text" value={this.state.name} onChange={this.handleChange} />
-          </label>
-          <label>
-            Operation:
-            <select value={this.state.operation} onChange={this.handleChange}>
-              <option value="search">Search for A Restaurant by Name</option>
-              <option value="add">New Restaurant</option>
-            </select>
-          </label>
-          <input type="submit" value="Submit" />
-        </form>);
+      return (<Container component="main" maxWidth="xs">
+        <form onSubmit={this.handleSubmit}>
+        <label>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Name"
+            name="email"
+            autoComplete="email"
+            autoFocus
+          />
+        </label>
+
+
+        <label>
+        <Typography component="h1" variant="h5">
+          Operation:
+        </Typography>
+          <select value={this.state.operation} onChange={this.handleChange}>
+            <option value="search">Search for A Restaurant by Name</option>
+            <option value="add">New Restaurant</option>
+          </select>
+        </label>
+        
+        
+        <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            
+          >
+            Submit
+          </Button>
+      </form>
+      </Container>);
     }
     return <div>{JSON.stringify(this.state.response)}</div>
   }
