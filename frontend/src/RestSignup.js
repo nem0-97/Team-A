@@ -20,20 +20,24 @@ class RestSignup extends React.Component{
       error:null,
       submitted:false,
       response:null,
-      name:"",
+      first_name:"",
+      last_name: "",
+      email: "",
+      password: "",
       operation:"operation"
     };
-   /* this.handleChange=this.handleChange.bind(this);*/
+    this.handleChange=this.handleChange.bind(this);
     this.handleSubmit=this.handleSubmit.bind(this);
   }
 
-/*  handleChange(event){
-    if(event.target.type === 'text'){//text field
-      this.setState({name: event.target.value});
+  handleChange(event){
+    //*this.setState({ event.target.id: event.target.value });*/
+    if(event.target.id === 'firstName'){//text field
+      this.setState({first_name: event.target.value});
     }else{//select
       this.setState({operation: event.target.value});
     }
-  }*/
+  }
 
   handleSubmit(event) {
     let data;
@@ -108,8 +112,7 @@ class RestSignup extends React.Component{
                     id="firstName"
                     label="First Name"
                     autoFocus
-                    value={this.state.first_name}
-                 onChange={this.changeHandler} 
+                      onChange={this.handleChange} 
 
                   />
                 </Grid>
@@ -121,7 +124,7 @@ class RestSignup extends React.Component{
                     id="lastName"
                     label="Last Name"
                     name="lastName"
-                    value={this.state.last_name}
+
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -132,7 +135,7 @@ class RestSignup extends React.Component{
                     id="email"
                     label="Email Address"
                     name="email"
-                    value={this.state.email}
+
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -144,7 +147,7 @@ class RestSignup extends React.Component{
                     label="Password"
                     type="password"
                     id="password"
-                    value={this.state.password}
+
                   />
                 </Grid>
               </Grid>
