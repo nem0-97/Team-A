@@ -26,10 +26,10 @@ class RestSignup extends React.Component{
     };
 
     this.handleSubmit=this.handleSubmit.bind(this);
-    this.handleChange=this.handleChange.bind(this);
+    this.handleFormChange=this.handleFormChange.bind(this);
   }
 
-  handleChange(event){
+  handleFormChange(event){
     this.setState({ [event.target.id] : event.target.value });
   }
 
@@ -88,7 +88,7 @@ class RestSignup extends React.Component{
                     id="firstName"
                     label="First Name"
                     autoFocus
-                      onChange={this.handleChange} 
+                      onChange={this.handleFormChange} 
                       value={this.state.firstName}
 
                   />
@@ -101,7 +101,7 @@ class RestSignup extends React.Component{
                     id="lastName"
                     label="Last Name"
                     name="lastName"
-                      onChange={this.handleChange}
+                      onChange={this.handleFormChange}
                       value={this.state.lastName}
                   />
                 </Grid>
@@ -113,7 +113,7 @@ class RestSignup extends React.Component{
                     id="email"
                     label="Email Address"
                     name="email"
-                      onChange={this.handleChange}
+                      onChange={this.handleFormChange}
                       value={this.state.email}
                   />
                 </Grid>
@@ -126,7 +126,7 @@ class RestSignup extends React.Component{
                     label="Password"
                     type="password"
                     id="password"
-                      onChange={this.handleChange}
+                      onChange={this.handleFormChange}
                       value={this.state.password}
                   />
                 </Grid>
