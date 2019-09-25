@@ -20,34 +20,54 @@ class RestSignup extends React.Component{
       error:null,
       submitted:false,
       response:null,
-      first_name:"",
+      firstName:"",
       last_name: "",
       email: "",
       password: "",
       operation:"operation"
     };
-    this.handleChange=this.handleChange.bind(this);
+
     this.handleSubmit=this.handleSubmit.bind(this);
   }
 
-  handleChange(event){
-    //*this.setState({ event.target.id: event.target.value });*/
+  /*handleChange(event){
+    //*this.setState({ event.target.id: event.target.value });
     if(event.target.id === 'firstName'){//text field
-      this.setState({first_name: event.target.value});
+      this.setState({ first_name: event.target.value});
     }else{//select
       this.setState({operation: event.target.value});
     }
-  }
+  }*/
+
+handleChangeFirstName = (event) => {
+  this.setState({
+    firstName: event.target.value
+  })
+}
+handleChangeLastName = (event) =>{
+  this.setState({
+    lastName: event.target.value
+  })
+}
+handleChangeEmail = (event) =>{
+  this.setState({
+    email:event.target.value
+  })
+}
+handleChangePassword = (event) =>{
+  this.setState({
+    password: event.target.value
+  })
+}
 
   handleSubmit(event) {
     let data;
     let meth;
     let apiPath = hidden.apiPaths.base +'/cust';
-
-    if(this.state.operation === 'operation'){
+    if (this.state.operation === 'operation') {
       data = {
-        "first_name": this.state.first_name,
-        "last_name": this.state.last_name,
+        "firstName": this.state.firstName,
+        "lastName": this.state.lastName,
         "email": this.state.email,
         "password": this.state.password
       }
@@ -76,29 +96,13 @@ class RestSignup extends React.Component{
   
   render(){
     if(!this.state.submitted){
-      return (/*<form onSubmit={this.handleSubmit}>
-          <label>
-            Name:
-            <input type="text" value={this.state.name} onChange={this.handleChange} />
-          </label>
-          <label>
-            Operation:
-            <select value={this.state.operation} onChange={this.handleChange}>
-              <option value="search">Search for A Restaurant by Name</option>
-              <option value="add">New Restaurant</option>
-            </select>
-          </label>
-        
-        <Button variant="contained" color="primary" type="submit" value="Submit">
-          Search
-    </Button> */
-
+      return (
         <Container component="main" maxWidth="xs">
-<Paper id="signup-paper">
+          <Paper id="signup-paper">
           <div >
           
             <Typography component="h1" variant="h5" id="tagline">
-              Customer signup
+              Restaurant Signup
         </Typography>
             <form noValidate onSubmit={this.handleSubmit}>
               <Grid container spacing={2}>
@@ -112,7 +116,8 @@ class RestSignup extends React.Component{
                     id="firstName"
                     label="First Name"
                     autoFocus
-                      onChange={this.handleChange} 
+                      onChange={this.handleChangeFirstName} 
+                      value={this.state.firstName}
 
                   />
                 </Grid>
@@ -124,7 +129,8 @@ class RestSignup extends React.Component{
                     id="lastName"
                     label="Last Name"
                     name="lastName"
-
+                      onChange={this.handleChangeLastName}
+                      value={this.state.lastName}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -135,7 +141,8 @@ class RestSignup extends React.Component{
                     id="email"
                     label="Email Address"
                     name="email"
-
+                      onChange={this.handleChangeEmail}
+                      value={this.state.email}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -147,7 +154,8 @@ class RestSignup extends React.Component{
                     label="Password"
                     type="password"
                     id="password"
-
+                      onChange={this.handleChangePassword}
+                      value={this.state.password}
                   />
                 </Grid>
               </Grid>
@@ -176,7 +184,15 @@ class RestSignup extends React.Component{
 
         /*</form>*/);
     }
-    return <div>{JSON.stringify(this.state.response)} </div>
+    return <div>
+      <Container component="main" maxWidth="xs">
+        <Paper id="signup-paper">
+          <Typography component="h1" variant="h5" id="tagline">
+            Account created successfully
+        </Typography>
+        </Paper>
+        </Container>
+    </div>
   }
 }
 
