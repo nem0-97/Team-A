@@ -184,6 +184,7 @@ handleChangePassword = (event) =>{
 
         /*</form>*/);
     }
+    
     return <div>
       <Container component="main" maxWidth="xs">
         <Paper id="signup-paper">
