@@ -11,8 +11,6 @@ import Container from '@material-ui/core/Container';
 import './RestSignup.css';
 const hidden = require('./hidden.js'); //store api paths here
 
-
-
 class RestSignup extends React.Component{
   constructor(props){
     super(props);
@@ -21,44 +19,19 @@ class RestSignup extends React.Component{
       submitted:false,
       response:null,
       firstName:"",
-      last_name: "",
+      lastName: "",
       email: "",
       password: "",
       operation:"operation"
     };
 
     this.handleSubmit=this.handleSubmit.bind(this);
+    this.handleChange=this.handleChange.bind(this);
   }
 
-  /*handleChange(event){
-    //*this.setState({ event.target.id: event.target.value });
-    if(event.target.id === 'firstName'){//text field
-      this.setState({ first_name: event.target.value});
-    }else{//select
-      this.setState({operation: event.target.value});
-    }
-  }*/
-
-handleChangeFirstName = (event) => {
-  this.setState({
-    firstName: event.target.value
-  })
-}
-handleChangeLastName = (event) =>{
-  this.setState({
-    lastName: event.target.value
-  })
-}
-handleChangeEmail = (event) =>{
-  this.setState({
-    email:event.target.value
-  })
-}
-handleChangePassword = (event) =>{
-  this.setState({
-    password: event.target.value
-  })
-}
+  handleChange(event){
+    this.setState({ [event.target.id] : event.target.value });
+  }
 
   handleSubmit(event) {
     let data;
@@ -92,7 +65,6 @@ handleChangePassword = (event) =>{
     )
     event.preventDefault();
   }
-
   
   render(){
     if(!this.state.submitted){
@@ -116,7 +88,7 @@ handleChangePassword = (event) =>{
                     id="firstName"
                     label="First Name"
                     autoFocus
-                      onChange={this.handleChangeFirstName} 
+                      onChange={this.handleChange} 
                       value={this.state.firstName}
 
                   />
@@ -129,7 +101,7 @@ handleChangePassword = (event) =>{
                     id="lastName"
                     label="Last Name"
                     name="lastName"
-                      onChange={this.handleChangeLastName}
+                      onChange={this.handleChange}
                       value={this.state.lastName}
                   />
                 </Grid>
@@ -141,7 +113,7 @@ handleChangePassword = (event) =>{
                     id="email"
                     label="Email Address"
                     name="email"
-                      onChange={this.handleChangeEmail}
+                      onChange={this.handleChange}
                       value={this.state.email}
                   />
                 </Grid>
@@ -154,7 +126,7 @@ handleChangePassword = (event) =>{
                     label="Password"
                     type="password"
                     id="password"
-                      onChange={this.handleChangePassword}
+                      onChange={this.handleChange}
                       value={this.state.password}
                   />
                 </Grid>
