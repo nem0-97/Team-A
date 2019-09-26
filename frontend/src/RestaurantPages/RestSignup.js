@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import './RestSignup.css';
+import '../PageComponents/Signup.css';
 
 const hidden = require('../hidden.js'); //store api paths here
 
@@ -57,7 +57,7 @@ FIXME:
   handleSubmit(event) {
     let data;
     let meth;
-    let apiPath = hidden.apiPaths.base + '/cust'; //this path is defining which API-patch to use #will display like: http://localhost:3000/api/v1/cust
+    let apiPath = hidden.apiPaths.base + '/rest'; //this path is defining which API-patch to use #will display like: http://localhost:3000/api/v1/cust
     if (this.state.operation === 'signup') {
       data = {
         "firstName": this.state.firstName,
@@ -111,8 +111,8 @@ FIXME:
                     id="firstName"
                     label="First Name"
                     autoFocus
-                      onChange={this.handleFormChange} 
-                      value={this.state.firstName}
+                    onChange={this.handleFormChange} 
+                    value={this.state.firstName}
 
                   />
                 </Grid>
@@ -124,8 +124,8 @@ FIXME:
                     id="lastName"
                     label="Last Name"
                     name="lastName"
-                      onChange={this.handleFormChange}
-                      value={this.state.lastName}
+                    onChange={this.handleFormChange}
+                    value={this.state.lastName}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -136,8 +136,8 @@ FIXME:
                     id="email"
                     label="Email Address"
                     name="email"
-                      onChange={this.handleFormChange}
-                      value={this.state.email}
+                    onChange={this.handleFormChange}
+                    value={this.state.email}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -149,8 +149,8 @@ FIXME:
                     label="Password"
                     type="password"
                     id="password"
-                      onChange={this.handleFormChange}
-                      value={this.state.password}
+                    onChange={this.handleFormChange}
+                    value={this.state.password}
                   />
                 </Grid>
               </Grid>
@@ -189,6 +189,7 @@ FIXME:
         </Paper>
         </Container>
     </div>
+      
   }
 }
 

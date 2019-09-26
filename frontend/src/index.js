@@ -1,9 +1,30 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route,Redirect, Link, Switch } from "react-router-dom"; 
 import './index.css';
 import RestSignup from './RestaurantPages/RestSignup';
+import CustSignup from './CustomerPages/CustSignup';
+import NotFound from './PageComponents/NotFound';
 import * as serviceWorker from './serviceWorker';
+
+/*
+
+TODO:
+# Add front-end to our nav-bar
+# Add bottom-nav component for customer/restaurant view
+# Handle login
+    # Maybe look here: https://reacttraining.com/react-router/web/example/auth-workflow
+        IDEAS:
+        - IF RESTAURANT IS LOGGED IN => SHOW DASHBOARD/OVERVIEW-COMPONENT/REDIRECT
+            ELSE => SHOW LOGIN-FORM-COMPONENT
+
+
+### Docs for routing: https://reacttraining.com/react-router/web/guides/quick-start
+
+
+
+*/
+
 
 function Index() {
     return <h2>Home</h2>;
@@ -14,8 +35,9 @@ function Restaurant() {
 }
 
 function Customer() {
-    return <h2>Customer Signup page</h2>;
+    return <CustSignup />
 }
+
 
 
 
@@ -39,10 +61,12 @@ class App extends Component{
                                 </li>
                             </ul>
                         </nav>
-
-                        <Route path="/" exact component={Index} />
-                        <Route path="/Restaurant/" component={Restaurant} />
-                        <Route path="/Customer/" component={Customer} />
+                        <Switch>
+                            <Route path="/" exact component={Index} />
+                            <Route path="/Restaurant/" component={Restaurant} />
+                            <Route path="/Customer/" component={Customer} />
+                            <Route component={NotFound} />
+                        </Switch>
                     </div>
                 </Router>
             </div>
