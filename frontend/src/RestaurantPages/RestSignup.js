@@ -168,7 +168,7 @@ FIXME:
               <Grid container justify="flex-end">
                 <Grid item>
                   <Link href="#" variant="body2">
-                    Already have an account? Sign in here
+                      Already have an account? Sign in here <i class="material-icons small-icon">account_circle</i>
               </Link>
                 </Grid>
               </Grid>
@@ -183,7 +183,7 @@ FIXME:
       <Container component="main" maxWidth="xs">
         <Paper id="signup-paper">
           <Typography component="h1" variant="h5" id="tagline">
-            <i className="material-icons green">check_box</i> <br/>
+            <i className="material-icons green large-icon">check_box</i> <br/>
             Account created successfully
         </Typography>
         </Paper>
