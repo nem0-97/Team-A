@@ -1,6 +1,4 @@
 import React from 'react';
-
-
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
@@ -8,9 +6,26 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import Zoom from '@material-ui/core/Zoom';
 import './RestSignup.css';
 const hidden = require('./hidden.js'); //store api paths here
 
+
+/*
+TODO: 
+# Encrypt password
+    * https://github.com/agorlov/javascript-blowfish - Useful algorithm for encryption
+# Check if email is already used
+# Redirect to login-page/dashboard
+# Make signup/login page default view
+# Check if user is logged in
+    * Through Cookies or sessions?
+
+
+FIXME:
+# fix console errors
+
+*/
 
 
 class RestSignup extends React.Component{
@@ -24,21 +39,15 @@ class RestSignup extends React.Component{
       last_name: "",
       email: "",
       password: "",
-      operation:"operation"
+      operation:"signup"
     };
 
     this.handleSubmit=this.handleSubmit.bind(this);
   }
 
-  /*handleChange(event){
-    //*this.setState({ event.target.id: event.target.value });
-    if(event.target.id === 'firstName'){//text field
-      this.setState({ first_name: event.target.value});
-    }else{//select
-      this.setState({operation: event.target.value});
-    }
-  }*/
-
+/*
+FIXME: Refactor to handle all the multiple inputs in one func
+*/
 handleChangeFirstName = (event) => {
   this.setState({
     firstName: event.target.value
@@ -60,11 +69,17 @@ handleChangePassword = (event) =>{
   })
 }
 
+
+/*
+FIXME:
+# Make pretty
+# Make possible to use the same component for both customer and restaurant
+*/
   handleSubmit(event) {
     let data;
     let meth;
-    let apiPath = hidden.apiPaths.base +'/cust';
-    if (this.state.operation === 'operation') {
+    let apiPath = hidden.apiPaths.base + '/cust'; //this path is defining which API-patch to use #will display like: http://localhost:3000/api/v1/cust
+    if (this.state.operation === 'signup') {
       data = {
         "firstName": this.state.firstName,
         "lastName": this.state.lastName,
@@ -96,13 +111,14 @@ handleChangePassword = (event) =>{
   
   render(){
     if(!this.state.submitted){
+      
       return (
         <Container component="main" maxWidth="xs">
           <Paper id="signup-paper">
           <div >
           
             <Typography component="h1" variant="h5" id="tagline">
-              Restaurant Signup
+                Restaurant Signup
         </Typography>
             <form noValidate onSubmit={this.handleSubmit}>
               <Grid container spacing={2}>
@@ -181,13 +197,14 @@ handleChangePassword = (event) =>{
           </div>
           </Paper>
         </Container>
-
-        /*</form>*/);
+        );
     }
+/* What happens when submit */
     return <div>
       <Container component="main" maxWidth="xs">
         <Paper id="signup-paper">
           <Typography component="h1" variant="h5" id="tagline">
+            <i className="material-icons green">check_box</i> <br/>
             Account created successfully
         </Typography>
         </Paper>
