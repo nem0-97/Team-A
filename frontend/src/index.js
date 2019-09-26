@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import RestSignup from './RestSignup';
+import RestSignup from './RestaurantPages/RestSignup';
 import * as serviceWorker from './serviceWorker';
 
 
