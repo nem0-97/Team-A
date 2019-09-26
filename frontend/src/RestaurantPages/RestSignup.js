@@ -7,9 +7,9 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import Zoom from '@material-ui/core/Zoom';
 import './RestSignup.css';
-const hidden = require('./hidden.js'); //store api paths here
+
+const hidden = require('../hidden.js'); //store api paths here
 
 
 /*
@@ -92,10 +92,11 @@ FIXME:
       
       return (
         <Container component="main" maxWidth="xs">
-          <Paper id="signup-paper">
+          <Paper id="signup-paper" className="text-center">
           <div >
           
             <Typography component="h1" variant="h5" id="tagline">
+                <i className="material-icons large-icon d-block">local_dining</i>
                 Restaurant Signup
         </Typography>
             <form noValidate onSubmit={this.handleSubmit}>
