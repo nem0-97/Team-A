@@ -36,38 +36,19 @@ class RestSignup extends React.Component{
       submitted:false,
       response:null,
       firstName:"",
-      last_name: "",
+      lastName: "",
       email: "",
       password: "",
       operation:"signup"
     };
 
     this.handleSubmit=this.handleSubmit.bind(this);
+    this.handleFormChange=this.handleFormChange.bind(this);
   }
 
-/*
-FIXME: Refactor to handle all the multiple inputs in one func
-*/
-handleChangeFirstName = (event) => {
-  this.setState({
-    firstName: event.target.value
-  })
-}
-handleChangeLastName = (event) =>{
-  this.setState({
-    lastName: event.target.value
-  })
-}
-handleChangeEmail = (event) =>{
-  this.setState({
-    email:event.target.value
-  })
-}
-handleChangePassword = (event) =>{
-  this.setState({
-    password: event.target.value
-  })
-}
+  handleFormChange(event){
+    this.setState({ [event.target.id] : event.target.value });
+  }
 
 
 /*
@@ -107,7 +88,6 @@ FIXME:
     )
     event.preventDefault();
   }
-
   
   render(){
     if(!this.state.submitted){
@@ -132,7 +112,7 @@ FIXME:
                     id="firstName"
                     label="First Name"
                     autoFocus
-                      onChange={this.handleChangeFirstName} 
+                      onChange={this.handleFormChange} 
                       value={this.state.firstName}
 
                   />
@@ -145,7 +125,7 @@ FIXME:
                     id="lastName"
                     label="Last Name"
                     name="lastName"
-                      onChange={this.handleChangeLastName}
+                      onChange={this.handleFormChange}
                       value={this.state.lastName}
                   />
                 </Grid>
@@ -157,7 +137,7 @@ FIXME:
                     id="email"
                     label="Email Address"
                     name="email"
-                      onChange={this.handleChangeEmail}
+                      onChange={this.handleFormChange}
                       value={this.state.email}
                   />
                 </Grid>
@@ -170,7 +150,7 @@ FIXME:
                     label="Password"
                     type="password"
                     id="password"
-                      onChange={this.handleChangePassword}
+                      onChange={this.handleFormChange}
                       value={this.state.password}
                   />
                 </Grid>
