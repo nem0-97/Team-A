@@ -1,6 +1,6 @@
 import React from 'react';
-import './RestSignup.css';
-const hidden = require('./hidden.js'); //store api paths here
+//import './RestSignup.css';
+const hidden = require('../hidden.js'); //store api paths here
 
 class RestSignup extends React.Component{
   constructor(props){
