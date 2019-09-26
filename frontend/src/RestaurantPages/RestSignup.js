@@ -1,6 +1,30 @@
+  
 import React from 'react';
-//import './RestSignup.css';
-const hidden = require('../hidden.js'); //store api paths here
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Link from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
+import Zoom from '@material-ui/core/Zoom';
+import './RestSignup.css';
+const hidden = require('./hidden.js'); //store api paths here
+
+
+/*
+TODO: 
+# Encrypt password
+    * https://github.com/agorlov/javascript-blowfish - Useful algorithm for encryption
+# Check if email is already used
+# Redirect to login-page/dashboard
+# Make signup/login page default view
+# Check if user is logged in
+    * Through Cookies or sessions?
+FIXME:
+# fix console errors
+*/
+
 
 class RestSignup extends React.Component{
   constructor(props){
@@ -9,44 +33,46 @@ class RestSignup extends React.Component{
       error:null,
       submitted:false,
       response:null,
-      name:"",
-      operation:"search"
+      firstName:"",
+      lastName: "",
+      email: "",
+      password: "",
+      operation:"signup"
     };
-    this.handleChange=this.handleChange.bind(this);
+
     this.handleSubmit=this.handleSubmit.bind(this);
+    this.handleFormChange=this.handleFormChange.bind(this);
   }
 
-  handleChange(event){
-    if(event.target.type === 'text'){//text field
-      this.setState({name: event.target.value});
-    }else{//select
-      this.setState({operation: event.target.value});
-    }
+  handleFormChange(event){
+    this.setState({ [event.target.id] : event.target.value });
   }
 
+
+/*
+FIXME:
+# Make pretty
+# Make possible to use the same component for both customer and restaurant
+*/
   handleSubmit(event) {
     let data;
     let meth;
-    let apiPath=hidden.apiPaths.base+'/rest';
-
-    if(this.state.operation === 'search'){
-      if(this.state.name!==''){
-        apiPath+= "?name="+this.state.name;
-      }
-      meth='GET'
-    }else{
+    let apiPath = hidden.apiPaths.base + '/cust'; //this path is defining which API-patch to use #will display like: http://localhost:3000/api/v1/cust
+    if (this.state.operation === 'signup') {
       data = {
-        "name":this.state.name,
-        "location": "SJSU",
-        "desc": "A restaurant on SJSU campus",
-        "rating": 4
+        "firstName": this.state.firstName,
+        "lastName": this.state.lastName,
+        "email": this.state.email,
+        "password": this.state.password
       }
-      meth='POST'
+      console.log("data er:" + JSON.stringify(data));
+      meth = 'POST'
     }
 
     const req={ method: meth, headers: {'Content-Type': 'application/json'} }
     if(meth !== 'GET'){
-      req["body"]=JSON.stringify(data) // GET cannot have body:: body data type must match "Content-Type" header 
+      req["body"]=JSON.stringify(data); // GET cannot have body:: body data type must match "Content-Type" header 
+      console.log(JSON.stringify(data));
     }
     console.log('Sending API request');
     console.log(apiPath);
@@ -60,25 +86,108 @@ class RestSignup extends React.Component{
     )
     event.preventDefault();
   }
-
+  
   render(){
     if(!this.state.submitted){
-      return (<form onSubmit={this.handleSubmit}>
-          <label>
-            Name:
-            <input type="text" value={this.state.name} onChange={this.handleChange} />
-          </label>
-          <label>
-            Operation:
-            <select value={this.state.operation} onChange={this.handleChange}>
-              <option value="search">Search for A Restaurant by Name</option>
-              <option value="add">New Restaurant</option>
-            </select>
-          </label>
-          <input type="submit" value="Submit" />
-        </form>);
+      
+      return (
+        <Container component="main" maxWidth="xs">
+          <Paper id="signup-paper">
+          <div >
+          
+            <Typography component="h1" variant="h5" id="tagline">
+                Restaurant Signup
+        </Typography>
+            <form noValidate onSubmit={this.handleSubmit}>
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    autoComplete="fname"
+                    name="firstName"
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="firstName"
+                    label="First Name"
+                    autoFocus
+                      onChange={this.handleFormChange} 
+                      value={this.state.firstName}
+
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="lastName"
+                    label="Last Name"
+                    name="lastName"
+                      onChange={this.handleFormChange}
+                      value={this.state.lastName}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                      onChange={this.handleFormChange}
+                      value={this.state.email}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                      onChange={this.handleFormChange}
+                      value={this.state.password}
+                  />
+                </Grid>
+              </Grid>
+              <Button
+                type="submit"
+                fullWidth
+                size="large"
+                variant="contained"
+                color="primary"
+                id="signup-button"
+                value="Submit"
+              >
+                Sign up!
+          </Button>
+              <Grid container justify="flex-end">
+                <Grid item>
+                  <Link href="#" variant="body2">
+                    Already have an account? Sign in here
+              </Link>
+                </Grid>
+              </Grid>
+            </form>
+          </div>
+          </Paper>
+        </Container>
+        );
     }
-    return <div>{JSON.stringify(this.state.response)}</div>
+/* What happens when submit */
+    return <div>
+      <Container component="main" maxWidth="xs">
+        <Paper id="signup-paper">
+          <Typography component="h1" variant="h5" id="tagline">
+            <i className="material-icons green">check_box</i> <br/>
+            Account created successfully
+        </Typography>
+        </Paper>
+        </Container>
+    </div>
   }
 }
 
