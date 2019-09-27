@@ -1,196 +1,118 @@
-  
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
+import Stepper from '@material-ui/core/Stepper';
+import Step from '@material-ui/core/Step';
+import StepLabel from '@material-ui/core/StepLabel';
+import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
-import '../PageComponents/Signup.css';
+import AccountInfo from './SignupComponents/AccountInfo';
+import RestInfo from './SignupComponents/RestInfo';
 
-const hidden = require('../hidden.js'); //store api paths here
+const useStyles = makeStyles(theme => ({
+  layout: {
+    width: 'auto',
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
+      width: 720,
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    },
+  },
+  paper: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    padding: theme.spacing(2),
+    [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
+      marginTop: theme.spacing(6),
+      marginBottom: theme.spacing(6),
+      padding: theme.spacing(3),
+    },
+  },
+  buttons: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+  button: {
+    marginTop: theme.spacing(3),
+    marginLeft: theme.spacing(1),
+  },
+}));
 
+const steps = ['Restaurant Information', 'Account Information', 'Payment information'];
 
-/*
-TODO: 
-# Encrypt password
-    * https://github.com/agorlov/javascript-blowfish - Useful algorithm for encryption
-# Check if email is already used
-# Redirect to login-page/dashboard
-# Make signup/login page default view
-# Check if user is logged in
-    * Through Cookies or sessions?
-FIXME:
-# fix console errors
-*/
-
-
-class RestSignup extends React.Component{
-  constructor(props){
-    super(props);
-    this.state={
-      error:null,
-      submitted:false,
-      response:null,
-      firstName:"",
-      lastName: "",
-      email: "",
-      password: "",
-      operation:"signup"
-    };
-
-    this.handleSubmit=this.handleSubmit.bind(this);
-    this.handleFormChange=this.handleFormChange.bind(this);
-  }
-
-  handleFormChange(event){
-    this.setState({ [event.target.id] : event.target.value });
-  }
-
-
-/*
-FIXME:
-# Make pretty
-# Make possible to use the same component for both customer and restaurant
-*/
-  handleSubmit(event) {
-    let data;
-    let meth;
-    let apiPath = hidden.apiPaths.base + '/rest'; //this path is defining which API-patch to use #will display like: http://localhost:3000/api/v1/cust
-    if (this.state.operation === 'signup') {
-      data = {
-        "firstName": this.state.firstName,
-        "lastName": this.state.lastName,
-        "email": this.state.email,
-        "password": this.state.password
-      }
-      console.log("data er:" + JSON.stringify(data));
-      meth = 'POST'
-    }
-
-    const req={ method: meth, headers: {'Content-Type': 'application/json'} }
-    if(meth !== 'GET'){
-      req["body"]=JSON.stringify(data); // GET cannot have body:: body data type must match "Content-Type" header 
-      console.log(JSON.stringify(data));
-    }
-    console.log('Sending API request');
-    console.log(apiPath);
-    console.log(req);
-  
-    fetch(apiPath, req)
-    .then(res => res.json())
-    .then(
-      (result) => {this.setState({submitted: true,response: result});},
-      (error) => {this.setState({submitted: true, error});}
-    )
-    event.preventDefault();
-  }
-  
-  render(){
-    if(!this.state.submitted){
-      
-      return (
-        <Container component="main" maxWidth="xs">
-          <Paper id="signup-paper" className="text-center">
-          <div >
-          
-            <Typography component="h1" variant="h5" id="tagline">
-                <i className="material-icons large-icon d-block">local_dining</i>
-                Restaurant Signup
-        </Typography>
-            <form noValidate onSubmit={this.handleSubmit}>
-              <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    autoComplete="fname"
-                    name="firstName"
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="firstName"
-                    label="First Name"
-                    autoFocus
-                    onChange={this.handleFormChange} 
-                    value={this.state.firstName}
-
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="lastName"
-                    label="Last Name"
-                    name="lastName"
-                    onChange={this.handleFormChange}
-                    value={this.state.lastName}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="email"
-                    label="Email Address"
-                    name="email"
-                    onChange={this.handleFormChange}
-                    value={this.state.email}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    type="password"
-                    id="password"
-                    onChange={this.handleFormChange}
-                    value={this.state.password}
-                  />
-                </Grid>
-              </Grid>
-              <Button
-                type="submit"
-                fullWidth
-                size="large"
-                variant="contained"
-                color="primary"
-                id="signup-button"
-                value="Submit"
-              >
-                Sign up!
-          </Button>
-              <Grid container justify="flex-end">
-                <Grid item>
-                  <Link href="#" variant="body2">
-                      Already have an account? Sign in here <i class="material-icons small-icon">account_circle</i>
-              </Link>
-                </Grid>
-              </Grid>
-            </form>
-          </div>
-          </Paper>
-        </Container>
-        );
-    }
-/* What happens when submit */
-    return <div>
-      <Container component="main" maxWidth="xs">
-        <Paper id="signup-paper">
-          <Typography component="h1" variant="h5" id="tagline">
-            <i className="material-icons green large-icon">check_box</i> <br/>
-            Account created successfully
-        </Typography>
-        </Paper>
-        </Container>
-    </div>
-      
+function getStepContent(step) {
+  switch (step) {
+    case 0:
+      return <RestInfo /> ;
+    case 1:
+      return <AccountInfo />
+    case 2:
+      return <h2>Payment Information</h2>;
+    default:
+      throw new Error('Unknown step');
   }
 }
 
-export default RestSignup;
+export default function CreateRest() {
+  const classes = useStyles();
+  const [activeStep, setActiveStep] = React.useState(0);
+
+  const handleNextBtn = () => {
+    setActiveStep(activeStep + 1);
+  };
+
+  const handleBackBtn = () => {
+    setActiveStep(activeStep - 1);
+  };
+
+  return (
+    <React.Fragment>
+      <CssBaseline />
+      <main className={classes.layout}>
+        <Paper className={classes.paper}>
+          <Typography component="h1" variant="h4" align="center">
+              Create Restaurant
+          </Typography>
+          <Stepper activeStep={activeStep} className={classes.stepper}>
+            {steps.map(label => (
+              <Step key={label}>
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+          <React.Fragment>
+            {activeStep === steps.length ? (
+              <React.Fragment>
+
+              </React.Fragment>
+              ) : (
+                <React.Fragment>
+                  {getStepContent(activeStep)}
+                  <div className={classes.buttons}>
+                    {activeStep !== 0 && (
+                      <Button onClick={handleBackBtn} className={classes.button}>
+                        Back
+                    </Button>
+                    )}
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={handleNextBtn}
+                      className={classes.button}
+                    >
+                      {activeStep === steps.length - 1 ? 'Create Restaurant' : 'Next'}
+                    </Button>
+                  </div>
+                </React.Fragment>
+              )}
+          </React.Fragment>
+        </Paper>
+
+      </main>
+    </React.Fragment>
+  );
+}
