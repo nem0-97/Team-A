@@ -7,6 +7,8 @@
 
 #our file with authentication info hidden stuff, etc.
 hidden.js
+*.cert
+*.key
 
 # testing
 /coverage

@@ -1,6 +1,9 @@
 const MongoDB=require("./MongoDB")//import database helpers
 
 /** Express Setup Begin*/
+const https = require('https')
+const fs = require('fs')
+
 const express = require('express')
 const cors = require('cors')
 const app = express()
@@ -9,6 +12,7 @@ const port = 3000
 app.use(cors())
 
 const jsonParser= express.json();
+
 /** Express Setup End*/
 
 /**RESTAURAUNT INFO API ROUTES*/
@@ -119,5 +123,8 @@ app.delete('/api/v1/order', jsonParser, function (req, res) { //remove a restaur
     res.send({"message":'DELETE request to the homepage'});
 })
 
-
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+//start server
+https.createServer({
+    key: fs.readFileSync('server.key'),
+    cert: fs.readFileSync('server.cert')
+},app).listen(port, () => console.log(`Example app listening on port ${port}!`));
