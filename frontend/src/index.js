@@ -6,6 +6,7 @@ import RestSignup from './RestaurantPages/RestSignup';
 import CustSignup from './CustomerPages/CustSignup';
 import NotFound from './PageComponents/NotFound';
 import * as serviceWorker from './serviceWorker';
+import RestCard from './PageComponents/RestCard';
 
 /*
 
@@ -27,7 +28,7 @@ TODO:
 
 
 function Index() {
-    return <h2>Home</h2>;
+    return <RestCard />
 }
 
 function Restaurant() {
