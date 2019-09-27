@@ -44,8 +44,7 @@ const useStyles = makeStyles(theme => ({
         'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
     },
     avatar: {
-        position: "relative",
-        left: 1500,
+        position: "absolute",
         right: 200,
     },
   }));
@@ -93,7 +92,7 @@ export default function RestCard(){
 
             <div className={classes.root}>
                 <GridList cellHeight={150} className={classes.gridList2}>
-                    <GridListTile cols={4}>
+                    <GridListTile cols={2}>
                         <ListSubheader component="div">RESTAURANTS</ListSubheader>
                     </GridListTile>
                     {tileData.map(tile => (
