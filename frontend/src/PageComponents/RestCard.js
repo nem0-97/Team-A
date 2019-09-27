@@ -11,14 +11,14 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+
 import tileData from './tileData';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+
 import Badge from '@material-ui/core/Badge';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import InfoIcon from '@material-ui/icons/Info';
+
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -62,7 +62,7 @@ export default function RestCard(){
                     </IconButton>    
                     <IconButton>
                         <Badge badgeContent={4} color="primary">
-                            <ShoppingCartIcon />
+
                         </Badge>
                     </IconButton>
                 </Grid>
@@ -81,7 +81,7 @@ export default function RestCard(){
                             }}
                             actionIcon={
                                 <IconButton aria-label={`star ${tile.title}`}>
-                                    <AddShoppingCartIcon className={classes.title} />
+
                                 </IconButton>
                             }
                         />
@@ -102,7 +102,7 @@ export default function RestCard(){
                             title={tile.title}
                             actionIcon={
                                 <IconButton className={classes.icon}>
-                                <AddShoppingCartIcon />
+
                                 </IconButton>
                             }
                             />

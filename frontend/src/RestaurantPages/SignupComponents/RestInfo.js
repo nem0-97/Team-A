@@ -1,7 +1,5 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
@@ -22,10 +20,12 @@ class RestInfo extends React.Component {
             error: null,
             submitted: false,
             response: null,
-            firstName: "",
-            lastName: "",
             email: "",
-            password: "",
+            restName: "",
+            address: "",
+            cuisine: "",
+            openTime: "",
+            closeTime: "",
             operation: "signup"
         };
 
@@ -68,7 +68,7 @@ class RestInfo extends React.Component {
                                         label="Restaurant Name"
                                         autoFocus
                                         onChange={this.handleFormChange}
-                                        value={this.state.firstName}
+                                        value={this.state.restName}
 
                                     />
                                 </Grid>
@@ -81,7 +81,7 @@ class RestInfo extends React.Component {
                                         label="Address"
                                         name="address"
                                         onChange={this.handleFormChange}
-                                        value={this.state.email}
+                                        value={this.state.address}
                                     />
                                 </Grid>
 
@@ -91,8 +91,9 @@ class RestInfo extends React.Component {
                                         variant="outlined"
                                         required
                                         fullWidth
-                                        id="Cuisine"
-
+                                        id="cuisine"
+                                        onChange={this.handleFormChange}
+                                        value={this.state.cuisine}
                                     >
                                         <option value="" />
                                         <option value={10}>American</option>
@@ -104,12 +105,14 @@ class RestInfo extends React.Component {
                                 <Grid item xs={6}>
 
                                     <TextField
-                                        id="time"
+                                        id="openTime"
                                         label="Open time"
                                         type="time"
                                         defaultValue="07:30"
                                         variant="outlined"
                                         fullWidth
+                                        onChange={this.handleFormChange}
+                                        value={this.state.openTime}
                                         InputLabelProps={{
                                             shrink: true,
                                         }}
@@ -121,12 +124,14 @@ class RestInfo extends React.Component {
                                 <Grid item xs={6}>
 
                                     <TextField
-                                        id="time"
+                                        id="closeTime"
                                         label="Close time"
                                         type="time"
                                         defaultValue="07:30"
                                         variant="outlined"
                                         fullWidth
+                                        onChange={this.handleFormChange}
+                                        value={this.state.closeTime}
                                         InputLabelProps={{
                                             shrink: true,
                                         }}

@@ -6,7 +6,6 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
-import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import AccountInfo from './SignupComponents/AccountInfo';
 import RestInfo from './SignupComponents/RestInfo';
@@ -42,13 +41,18 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+
+ 
+
+
 const steps = ['Restaurant Information', 'Account Information', 'Payment information'];
 
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return <RestInfo /> ;
+      return <RestInfo ref={(restinfo)=>window.restinfo=restinfo}/> ;
     case 1:
+      makeRestInfo();
       return <AccountInfo />
     case 2:
       return <h2>Payment Information</h2>;
@@ -57,7 +61,22 @@ function getStepContent(step) {
   }
 }
 
+function makeRestInfo(){
+  let RestInfo = {
+    restName: window.restinfo.state.restName,
+    email: window.restinfo.state.email,
+    address: window.restInfo.state.address,
+    cuisine: window.restInfo.state.cuisine,
+    openTime: window.restInfo.state.openTime,
+    closeTime: window.restInfo.state.openTime
+
+  }
+  console.log(RestInfo);
+  
+}
+
 export default function CreateRest() {
+  
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
 
