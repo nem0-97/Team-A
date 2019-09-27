@@ -20,7 +20,6 @@ class RestInfo extends React.Component {
             error: null,
             submitted: false,
             response: null,
-            email: "",
             restName: "",
             address: "",
             cuisine: "",
