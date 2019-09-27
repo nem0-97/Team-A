@@ -1,4 +1,9 @@
+/* Database */
 const MongoDB=require("./MongoDB")//import database helpers
+
+/**Login */
+const passport = require('passport')
+const bcrypt = require('bcrypt')
 
 /** Express Setup Begin*/
 const https = require('https')
@@ -9,10 +14,17 @@ const app = express()
 const port = 3000
 
 app.use(cors())
+app.use(express.json());
 
-const jsonParser= express.json();
 /** Express Setup End*/
 
+app.post('/login', function (req, res) {
+    
+})
+
+app.post('/logout', function (req, res) {
+
+})
 /** API ROUTES*/
 
 /**RESTAURAUNT*/
@@ -23,7 +35,7 @@ app.get('/api/v1/rest', function (req, res) { //get a restaurant by name?
 })
   
 //POST
-app.post('/api/v1/rest', jsonParser, function (req, res) { //Add a new restaurant into database
+app.post('/api/v1/rest', function (req, res) { //Add a new restaurant into database
     console.log(req);
     console.log("/rest got post req");
     console.log(req.body); //add body to database, maybee have some extra logic here to build db formatted json with info sent over
@@ -32,7 +44,7 @@ app.post('/api/v1/rest', jsonParser, function (req, res) { //Add a new restauran
 })
 
 //PUT
-app.put('/api/v1/rest', jsonParser, function (req, res) { //Update given property of a restaurant with given value
+app.put('/api/v1/rest', function (req, res) { //Update given property of a restaurant with given value
     console.log(req);
     console.log("/rest got put req");
     console.log(req.body); // retreive rest name, fields to update and new values theen update in DB
@@ -51,7 +63,7 @@ app.delete('/api/v1/rest', jsonParser, function (req, res) { //remove a restaura
 /**CUSTOMER*/
 //GET
 app.get('/api/v1/cust', function (req, res) {
-    
+
 })
   
 //POST
