@@ -18,7 +18,7 @@ exports.add = function (coll,el){
 /**
  * Submit the query to the proper collection in our database
  * @param coll collection to search through
- * @param query new restaurant to add to collection in JSON format 
+ * @param query What to search for
  * */
 exports.find = async function (coll,query){
     await client.connect();
