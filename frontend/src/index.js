@@ -7,6 +7,7 @@ import CustSignup from './CustomerPages/CustSignup';
 import NotFound from './PageComponents/NotFound';
 import * as serviceWorker from './serviceWorker';
 import RestCard from './PageComponents/RestCard';
+import ButtonAppBar from './PageComponents/NavBar';
 
 /*
 
@@ -48,6 +49,7 @@ class App extends Component{
             <div className="App">
 
                 <Router>
+                <ButtonAppBar/>
                     <div>
                         <nav>
                             <ul>
