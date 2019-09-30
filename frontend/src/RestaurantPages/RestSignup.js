@@ -85,22 +85,77 @@ function makeRestInfo(step){
     }
     console.log(restInfo);
   }
-
-  
-  
-  
-  
 }
+
+
+/* 
+TODO: 
+# Need to check if restaurant name is already on the DB
+# Need to check if the email already is registered
+
+  First make a GET-request to the server to check if the restaurant exists
+    If it exists, throw error
+    else 
+      Make POST-request to the server to add the restaurant
+
+*/
+
+
+
 function handleSubmit(){
   let data = restInfo;
-  let meth = "POST";
+  let meth = "GET";
   let apiPath = hidden.apiPaths.base + '/rest'; //this path is defining which API-patch to use #will display like: http://localhost:3000/api/v1/cust
-  const req = { method: meth, headers: { 'Content-Type': 'application/json' } }
-  req["body"] = JSON.stringify(data);
-  console.log(req);
+  let isSubmitted = false; //check if there has already been a submit
+  let submit = false; //decides if the func should submit or not
+  if(!isSubmitted && !submit){
+  /* this function will check if the restaurant is already registered  */
+  /*
+    TODO: 
+    # Need to check for email and maybe location
+  */
+    fetch(apiPath + "/" + data.restinfo.restName)
+      .then(response => {
+        return response.json();
+      }).then(results => {
+        /* FIXME: */
+          /* If there is less than 1 restaurants with that name */
+          if(results.results.length < 1){
+            submit = true;
+            submitRequest();
+            console.log("There is no restaurants with that name");
+          }
+          /* if there is one restaurant with that name */
+          else if(results.results.length >= 1){
+            console.log("There is one or more restaurants with that name");
+            submit = false; 
+          }
+      }).catch(error => {
+        console.log(error);
+      });
+    console.log(submit);
+  }
+  function submitRequest(){
+    meth = "POST";
+    const req = { method: meth, headers: { 'Content-Type': 'application/json' } }
+    req["body"] = JSON.stringify(data);
+    console.log("FETCHING POST to REST API...");
   /* FIXME: Need to implement exception */
   fetch(apiPath, req)
-    .then(res => res.json())
+    .then(res => res.json()  )
+    .catch(error => console.log(error));
+  }
+  
+  
+  /*
+  THIS CODE SUBMITS THE RESTAURANT
+  const req = { method: meth, headers: { 'Content-Type': 'application/json' } }
+
+  req["body"] = JSON.stringify(data);
+
+  /* FIXME: Need to implement exception 
+  fetch(apiPath, req)
+    .then(res => res.json())*/
 }
 
 export default function CreateRest() {
