@@ -6,7 +6,7 @@ const log = require("./login");
 const passport = require('passport');
 const locStrat = require('passport-local').Strategy;
 
-passport.use(new locStrat({
+passport.use(new locStrat({ //TODO test
     usernameField: "email",
     passwordField: "password",
     passReqToCallback : true
@@ -36,14 +36,17 @@ app.use(express.json());
 /** Express Setup End*/
 
 /** Account Routes*/
-app.post('/register', function (req, res) {
-    
+app.post('/register', function (req, res) { 
+    //TODO test, have one of these for customer and rest call log.hashPass(password) before adding to database
 })
 
-app.post('/login', passport.authenticate('local',{ successRedirect: '/', failureRedirect: '/login'}));
+app.post('/login', 
+    passport.authenticate('local',{ successRedirect: '/', failureRedirect: '/login'})
+); //TODO test redirects with a frontend
 
-app.post('/logout', function (req, res) {
-
+app.post('/logout', function (req, res) { //TODO test
+    req.logout();
+    res.direct();
 })
 /** End Account Routes*/
 
