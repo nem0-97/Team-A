@@ -2,8 +2,25 @@
 const MongoDB=require("./MongoDB")//import database helpers
 
 /**Login */
-const passport = require('passport')
-const bcrypt = require('bcrypt')
+const log = require("./login");
+const passport = require('passport');
+const locStrat = require('passport-local').Strategy;
+
+passport.use(new locStrat({
+    usernameField: "email",
+    passwordField: "password",
+    passReqToCallback : true
+},
+function(req,user,pass,done){
+    let cust = MongoDB.find('Customers',{email:user});
+    if(!cust){
+        return done(null, false, { message: 'Incorrect username.' });
+    }
+    if(!log.passIsHash(pass,cust.password)){
+        return done(null, false, { message: 'Incorrect password.' });
+    }
+    return done(null, cust);
+}));
 
 /** Express Setup Begin*/
 const https = require('https')
@@ -18,13 +35,18 @@ app.use(express.json());
 
 /** Express Setup End*/
 
-app.post('/login', function (req, res) {
+/** Account Routes*/
+app.post('/register', function (req, res) {
     
 })
+
+app.post('/login', passport.authenticate('local',{ successRedirect: '/', failureRedirect: '/login'}));
 
 app.post('/logout', function (req, res) {
 
 })
+/** End Account Routes*/
+
 /** API ROUTES*/
 
 /**RESTAURAUNT*/
@@ -52,7 +74,7 @@ app.put('/api/v1/rest', function (req, res) { //Update given property of a resta
 })
 
 //DELETE
-app.delete('/api/v1/rest', jsonParser, function (req, res) { //remove a restaurant from database by name
+app.delete('/api/v1/rest', function (req, res) { //remove a restaurant from database by name
     console.log(req);
     console.log("/rest got delete req");
     console.log(req.body); //remove restaurant from database
@@ -67,17 +89,17 @@ app.get('/api/v1/cust', function (req, res) {
 })
   
 //POST
-app.post('/api/v1/cust', jsonParser, function (req, res) {
+app.post('/api/v1/cust', function (req, res) {
 
 })
 
 //PUT
-app.put('/api/v1/cust', jsonParser, function (req, res) {
+app.put('/api/v1/cust', function (req, res) {
  
 })
 
 //DELETE
-app.delete('/api/v1/cust', jsonParser, function (req, res) {
+app.delete('/api/v1/cust', function (req, res) {
 
 })
 
@@ -89,24 +111,19 @@ app.get('/api/v1/order', function (req, res) {
 })
   
 //POST
-app.post('/api/v1/order', jsonParser, function (req, res) { 
+app.post('/api/v1/order', function (req, res) { 
     
 })
 
 //PUT
-app.put('/api/v1/order', jsonParser, function (req, res) { 
+app.put('/api/v1/order', function (req, res) { 
 
 })
 
 //DELETE
-app.delete('/api/v1/order', jsonParser, function (req, res) { 
+app.delete('/api/v1/order', function (req, res) { 
     
 })
-
-
-
-
-
 
 
 //start server
