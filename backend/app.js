@@ -41,7 +41,7 @@ app.post('/register', function (req, res) {
 })
 
 app.post('/login', 
-    passport.authenticate('local',{ successRedirect: '/', failureRedirect: '/login'})
+    passport.authenticate('local',{ successRedirect: 'http::/localhost:3001/', failureRedirect: 'http::/localhost:3001/login'})
 ); //TODO test redirects with a frontend
 
 app.post('/logout', function (req, res) { //TODO test
