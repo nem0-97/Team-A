@@ -1,13 +1,22 @@
 import React from 'react';
+
 import { makeStyles } from '@material-ui/core/styles';
 import { BrowserRouter as Router, Route, Redirect, Link, Switch } from "react-router-dom"; 
 import CssBaseline from '@material-ui/core/CssBaseline';
+
+
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Link from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
+
 import Paper from '@material-ui/core/Paper';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+
 import AccountInfo from './SignupComponents/AccountInfo';
 import RestInfo from './SignupComponents/RestInfo';
 const hidden = require('../hidden.js'); //store api paths here
@@ -45,6 +54,45 @@ const useStyles = makeStyles(theme => ({
 
 
 const steps = ['Restaurant Information', 'Account Information', 'Payment information'];
+
+import Container from '@material-ui/core/Container';
+import Zoom from '@material-ui/core/Zoom';
+
+const hidden = require('../hidden.js'); //store api paths here
+
+
+/*
+TODO: 
+# Encrypt password
+    * https://github.com/agorlov/javascript-blowfish - Useful algorithm for encryption
+# Check if email is already used
+# Redirect to login-page/dashboard
+# Make signup/login page default view
+# Check if user is logged in
+    * Through Cookies or sessions?
+FIXME:
+# fix console errors
+*/
+
+
+class RestSignup extends React.Component{
+  constructor(props){
+    super(props);
+    this.state={
+      error:null,
+      submitted:false,
+      response:null,
+      firstName:"",
+      lastName: "",
+      email: "",
+      password: "",
+      operation:"signup"
+    };
+
+    this.handleSubmit=this.handleSubmit.bind(this);
+    this.handleFormChange=this.handleFormChange.bind(this);
+  }
+
 
 let restInfo = {};
 function getStepContent(step) {

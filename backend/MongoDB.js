@@ -18,7 +18,7 @@ exports.add = function (coll,el){
 /**
  * Submit the query to the proper collection in our database
  * @param coll collection to search through
- * @param query What to search for
+ * @param query parameters to find items in the collection using 
  * */
 exports.find = async function (coll,query){
     await client.connect();
@@ -26,4 +26,17 @@ exports.find = async function (coll,query){
     const results = await collection.find(query).toArray();
     client.close();
     return results;
+};
+
+/**
+ * Submit the query to the proper collection in our database
+ * @param coll collection to search through
+ * @param query parameters to find an itme in the collection using
+ * */
+exports.findOne = async function (coll,query){
+    await client.connect();
+    const collection = client.db("FoodWaste").collection(coll);
+    const result = await collection.findOne(query);
+    client.close();
+    return result;
 };
