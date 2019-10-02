@@ -6,10 +6,10 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
-import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import AccountInfo from './SignupComponents/AccountInfo';
 import RestInfo from './SignupComponents/RestInfo';
+const hidden = require('../hidden.js'); //store api paths here
 
 const useStyles = makeStyles(theme => ({
   layout: {
@@ -42,22 +42,124 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const steps = ['Restaurant Information', 'Account Information', 'Payment information'];
 
+ 
+
+
+const steps = ['Restaurant Information', 'Account Information', 'Payment information'];
+let restInfo = {};
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return <RestInfo /> ;
+
+      return <RestInfo ref={(restinfo)=>window.restinfo=restinfo}/> ;
     case 1:
-      return <AccountInfo />
-    case 2:
+      makeRestInfo(1);
+      return <AccountInfo ref={(accountinfo) => window.accountinfo = accountinfo}/>
+    case 2:      
+      makeRestInfo(2);
       return <h2>Payment Information</h2>;
     default:
       throw new Error('Unknown step');
   }
 }
 
+function makeRestInfo(step){
+
+  if(step === 1){
+  restInfo.restinfo = {
+      restName: window.restinfo.state.restName,
+      address: window.restinfo.state.address,
+      cuisine: window.restinfo.state.cuisine,
+      openTime: window.restinfo.state.openTime,
+      closeTime: window.restinfo.state.closeTime
+    }
+    console.log(restInfo);
+  }
+  else if (step === 2){
+    restInfo.accountinfo = {
+      firstName: window.accountinfo.state.firstName,
+      lastName: window.accountinfo.state.lastName,
+      email: window.accountinfo.state.email,
+      password: window.accountinfo.state.password
+    }
+    console.log(restInfo);
+  }
+}
+
+
+/* 
+TODO: 
+# Need to check if restaurant name is already on the DB
+# Need to check if the email already is registered
+
+  First make a GET-request to the server to check if the restaurant exists
+    If it exists, throw error
+    else 
+      Make POST-request to the server to add the restaurant
+
+*/
+
+
+
+function handleSubmit(){
+  let data = restInfo;
+  let meth = "GET";
+  let apiPath = hidden.apiPaths.base + '/rest'; //this path is defining which API-patch to use #will display like: http://localhost:3000/api/v1/cust
+  let isSubmitted = false; //check if there has already been a submit
+  let submit = false; //decides if the func should submit or not
+  if(!isSubmitted && !submit){
+  /* this function will check if the restaurant is already registered  */
+  /*
+    TODO: 
+    # Need to check for email and maybe location
+  */
+    fetch(apiPath + "/" + data.restinfo.restName)
+      .then(response => {
+        return response.json();
+      }).then(results => {
+        /* FIXME: */
+          /* If there is less than 1 restaurants with that name */
+          if(results.results.length < 1){
+            submit = true;
+            submitRequest();
+            console.log("There is no restaurants with that name");
+          }
+          /* if there is one restaurant with that name */
+          else if(results.results.length >= 1){
+            console.log("There is one or more restaurants with that name");
+            submit = false; 
+          }
+      }).catch(error => {
+        console.log(error);
+      });
+    console.log(submit);
+  }
+  function submitRequest(){
+    meth = "POST";
+    const req = { method: meth, headers: { 'Content-Type': 'application/json' } }
+    req["body"] = JSON.stringify(data);
+    console.log("FETCHING POST to REST API...");
+  /* FIXME: Need to implement exception */
+  fetch(apiPath, req)
+    .then(res => res.json()  )
+    .catch(error => console.log(error));
+  }
+  
+  
+  /*
+  THIS CODE SUBMITS THE RESTAURANT
+  const req = { method: meth, headers: { 'Content-Type': 'application/json' } }
+
+  req["body"] = JSON.stringify(data);
+
+  /* FIXME: Need to implement exception 
+  fetch(apiPath, req)
+    .then(res => res.json())*/
+}
+
 export default function CreateRest() {
+  
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
 
@@ -65,11 +167,9 @@ export default function CreateRest() {
     setActiveStep(activeStep + 1);
   };
 
-  const handleBackBtn = () => {
-    setActiveStep(activeStep - 1);
-  };
 
   return (
+    <form noValidate onSubmit={e => { e.preventDefault(); }}>
     <React.Fragment>
       <CssBaseline />
       <main className={classes.layout}>
@@ -93,19 +193,27 @@ export default function CreateRest() {
                 <React.Fragment>
                   {getStepContent(activeStep)}
                   <div className={classes.buttons}>
-                    {activeStep !== 0 && (
-                      <Button onClick={handleBackBtn} className={classes.button}>
-                        Back
-                    </Button>
-                    )}
+                    {activeStep !== steps.length - 1 ? (
                     <Button
                       variant="contained"
                       color="primary"
                       onClick={handleNextBtn}
                       className={classes.button}
                     >
-                      {activeStep === steps.length - 1 ? 'Create Restaurant' : 'Next'}
+                      Next
                     </Button>
+
+                    ) : (
+                        <Button
+                          variant="contained"
+                          color="primary"
+                            onClick={handleSubmit}
+                          
+                        >
+                          Create Restaurant
+                        </Button>
+                    )}
+                    
                   </div>
                 </React.Fragment>
               )}
@@ -114,5 +222,6 @@ export default function CreateRest() {
 
       </main>
     </React.Fragment>
+    </form>
   );
 }

@@ -5,7 +5,8 @@ const express = require('express')
 const cors = require('cors')
 const app = express()
 const port = 3000
-
+const https = require('https')
+const fs = require('fs')
 app.use(cors())
 
 const jsonParser= express.json();
@@ -16,8 +17,18 @@ const jsonParser= express.json();
 app.get('/api/v1/rest', function (req, res) { //get a restaurant by name?
     console.log(req.query); //query parameters
     MongoDB.find('Restaurants',req.query).then(rests=>res.send({"results":rests}));//send back query results
-})
-  
+});
+
+app.get('/api/v1/rest/:restName', function (req, res) {
+    let restName = req.params.restName;
+    MongoDB.find('Restaurants',(
+        {
+            "restinfo.restName": restName
+        }
+    )).then(rests => res.send({ "results": rests }));
+    
+});
+
 //POST
 app.post('/api/v1/rest', jsonParser, function (req, res) { //Add a new restaurant into database
     console.log(req);
@@ -121,4 +132,7 @@ app.delete('/api/v1/order', jsonParser, function (req, res) { //remove a order f
 })
 
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+https.createServer({
+    key: fs.readFileSync('server.key'),
+    cert: fs.readFileSync('server.cert')
+}, app).listen(port, () => console.log(`Example app listening on port ${port}!`));
