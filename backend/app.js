@@ -19,6 +19,7 @@ app.get('/api/v1/rest', function (req, res) { //get a restaurant by name?
     MongoDB.find('Restaurants',req.query).then(rests=>res.send({"results":rests}));//send back query results
 });
 
+/** GET restaurant info by quering a name */
 app.get('/api/v1/rest/:restName', function (req, res) {
     let restName = req.params.restName;
     MongoDB.find('Restaurants',(

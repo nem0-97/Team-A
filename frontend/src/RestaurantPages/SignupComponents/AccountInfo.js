@@ -15,9 +15,6 @@ class AccountInfo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            error: null,
-            submitted: false,
-            response: null,
             firstName: "",
             lastName: "",
             email: "",
@@ -27,6 +24,8 @@ class AccountInfo extends React.Component {
 
         
         this.handleFormChange = this.handleFormChange.bind(this);
+        
+
     }
 
     handleFormChange(event) {
@@ -34,14 +33,10 @@ class AccountInfo extends React.Component {
     }
 
 
-    /*
-    FIXME:
-   
-    */
- 
+    
 
     render() {
-        if (!this.state.submitted) {
+
 
             return (
                 <Container component="main" maxWidth="xs">
@@ -51,7 +46,7 @@ class AccountInfo extends React.Component {
 
                                 Account Information
                                </Typography>
-                            <form noValidate onSubmit={this.handleSubmit}>
+                            <form onSubmit={this.handleSubmit}>
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} sm={6}>
                                         <TextField
@@ -110,7 +105,7 @@ class AccountInfo extends React.Component {
                         </div>
                 </Container>
             );
-        }
+
       
 
     }
