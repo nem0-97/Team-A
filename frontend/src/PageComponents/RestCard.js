@@ -20,6 +20,11 @@ import Badge from '@material-ui/core/Badge';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import InfoIcon from '@material-ui/icons/Info';
 
+import { Map, GoogleApiWrapper } from 'google-maps-react';
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+
+import GoogleMapsContainer from './SearchBar';
+
 const useStyles = makeStyles(theme => ({
     root: {
       display: 'flex',
@@ -47,7 +52,28 @@ const useStyles = makeStyles(theme => ({
         position: "absolute",
         right: 200,
     },
+    root2: {
+        padding: '2px 4px',
+        display: 'flex',
+        alignItems: 'center',
+        width: 400,
+      },
+      input: {
+        marginLeft: theme.spacing(1),
+        flex: 1,
+      },
+      iconButton: {
+        padding: 10,
+      },
+      divider: {
+        height: 28,
+        margin: 4,
+      },
+      root3: {
+        
+      }
   }));
+  
 
 export default function RestCard(){
 
@@ -55,6 +81,9 @@ export default function RestCard(){
 
     return(
         <div>
+            <div className={classes.root3}>
+                <GoogleMapsContainer />
+            </div>
             <div>
                 <Grid className={classes.avatar}>
                     <IconButton>
