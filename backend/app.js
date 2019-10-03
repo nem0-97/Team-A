@@ -29,6 +29,7 @@ const express = require('express')
 const cors = require('cors')
 const app = express()
 const port = 3000
+
 app.use(cors())
 app.use(express.json());
 
@@ -37,7 +38,7 @@ app.use(express.json());
 /** Account Routes*/
 app.post('/register', function (req, res) { 
     //TODO test, have one of these for customer and rest call log.hashPass(password) before adding to database
-})
+});
 
 app.post('/login', 
     passport.authenticate('local',{ successRedirect: 'http::/localhost:3001/', failureRedirect: 'http::/localhost:3001/login'})
@@ -46,7 +47,7 @@ app.post('/login',
 app.post('/logout', function (req, res) { //TODO test
     req.logout();
     res.direct();
-})
+});
 /** End Account Routes*/
 
 /** API ROUTES*/
@@ -222,5 +223,4 @@ app.delete('/api/v1/order', function (req, res) {
 https.createServer({
     key: fs.readFileSync('server.key'),
     cert: fs.readFileSync('server.cert')
-},app).listen(port, () => console.log(`Example app listening on port ${port}!`));
-
+},app).listen(port, () => console.log('Example app listening on port ${port}!'));
