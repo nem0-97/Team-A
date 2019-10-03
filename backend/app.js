@@ -6,12 +6,8 @@ const log = require("./login");
 const passport = require('passport');
 const locStrat = require('passport-local').Strategy;
 
-passport.use(new locStrat({ //TODO test
-    usernameField: "email",
-    passwordField: "password",
-    passReqToCallback : true
-},
-function(req,user,pass,done){
+passport.use(new locStrat({usernameField:email},
+function(user,pass,done){
     let cust = MongoDB.find('Customers',{email:user});
     if(!cust){
         return done(null, false, { message: 'Incorrect username.' });
@@ -30,7 +26,10 @@ const cors = require('cors')
 const app = express()
 const port = 3000
 
-app.use(cors())
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(cors());
 app.use(express.json());
 
 /** Express Setup End*/
@@ -40,9 +39,10 @@ app.post('/register', function (req, res) {
     //TODO test, have one of these for customer and rest call log.hashPass(password) before adding to database
 })
 
-app.post('/login', 
-    passport.authenticate('local',{ successRedirect: 'http::/localhost:3001/', failureRedirect: 'http::/localhost:3001/login'})
-); //TODO test redirects with a frontend
+app.post('/login',passport.authenticate('local', { failureRedirect: '/api/v1/cust' }),
+function(req, res) {
+  res.redirect('/api/v1/rest');
+});
 
 app.post('/logout', function (req, res) { //TODO test
     req.logout();
@@ -88,7 +88,7 @@ app.delete('/api/v1/rest', function (req, res) { //remove a restaurant from data
 /**CUSTOMER*/
 //GET
 app.get('/api/v1/cust', function (req, res) {
-
+    res.send({"message":'GET request to the homepage, cust'});
 })
   
 //POST
