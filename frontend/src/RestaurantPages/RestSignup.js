@@ -7,14 +7,12 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 
 import Paper from '@material-ui/core/Paper';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 import AccountInfo from './SignupComponents/AccountInfo';
@@ -55,11 +53,6 @@ const useStyles = makeStyles(theme => ({
 
 const steps = ['Restaurant Information', 'Account Information', 'Payment information'];
 
-import Container from '@material-ui/core/Container';
-import Zoom from '@material-ui/core/Zoom';
-
-const hidden = require('../hidden.js'); //store api paths here
-
 
 /*
 TODO: 
@@ -92,7 +85,7 @@ class RestSignup extends React.Component{
     this.handleSubmit=this.handleSubmit.bind(this);
     this.handleFormChange=this.handleFormChange.bind(this);
   }
-
+}
 
 let restInfo = {};
 function getStepContent(step) {
