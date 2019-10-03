@@ -133,6 +133,7 @@ app.delete('/api/v1/cust', jsonParser, function (req, res) { //remove a customer
     console.log("/cust got delete req");
     console.log(req.body); //remove customer from database
     res.send({"message":'DELETE request to the homepage'});
+})
 
 app.get('/api/v1/cust', function (req, res) {
     res.send({"message":'GET request to the homepage, cust'});
@@ -198,29 +199,3 @@ https.createServer({
     key: fs.readFileSync('server.key'),
     cert: fs.readFileSync('server.cert')
 }, app).listen(port, () => console.log(`Example app listening on port ${port}!`));
-
-app.get('/api/v1/order', function (req, res) { 
-    
-})
-  
-//POST
-app.post('/api/v1/order', function (req, res) { 
-    
-})
-
-//PUT
-app.put('/api/v1/order', function (req, res) { 
-
-})
-
-//DELETE
-app.delete('/api/v1/order', function (req, res) { 
-    
-})
-
-
-//start server
-https.createServer({
-    key: fs.readFileSync('server.key'),
-    cert: fs.readFileSync('server.cert')
-},app).listen(port, () => console.log('Example app listening on port ${port}!'));
