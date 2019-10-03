@@ -17,9 +17,6 @@ class RestInfo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            error: null,
-            submitted: false,
-            response: null,
             restName: "",
             address: "",
             cuisine: "",
@@ -44,7 +41,7 @@ class RestInfo extends React.Component {
 
 
     render() {
-        if (!this.state.submitted) {
+
 
             return (
                 <Container component="main" maxWidth="xs">
@@ -54,7 +51,7 @@ class RestInfo extends React.Component {
 
                             Restaurant Information
                                </Typography>
-                        <form noValidate onSubmit={this.handleSubmit}>
+                        <form  onSubmit={this.handleSubmit}>
                             <Grid container spacing={2}>
                                 <Grid item xs={12} sm={12}>
                                     <TextField
@@ -144,7 +141,7 @@ class RestInfo extends React.Component {
                     </div>
                 </Container>
             );
-        }
+        
 
 
     }
