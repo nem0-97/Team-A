@@ -25,6 +25,8 @@ import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 
 import GoogleMapsContainer from './SearchBar';
 
+import Autocomplete from 'react-google-autocomplete';
+
 const useStyles = makeStyles(theme => ({
     root: {
       display: 'flex',
@@ -81,8 +83,17 @@ export default function RestCard(){
 
     return(
         <div>
+            <Autocomplete
+                style={{width: '90%'}}
+                onPlaceSelected={(place) => {
+                console.log(place.geometry.location.lat());
+                console.log(place.geometry.location.lng())
+                }}
+                types={['address']}
+                componentRestrictions={{country: "us"}}
+            />
             <div className={classes.root3}>
-                <GoogleMapsContainer />
+                {/* <GoogleMapsContainer />      */}
             </div>
             <div>
                 <Grid className={classes.avatar}>
