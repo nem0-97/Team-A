@@ -23,8 +23,6 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import { Map, GoogleApiWrapper } from 'google-maps-react';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 
-import GoogleMapsContainer from './SearchBar';
-
 import Autocomplete from 'react-google-autocomplete';
 
 const useStyles = makeStyles(theme => ({
@@ -72,7 +70,7 @@ const useStyles = makeStyles(theme => ({
         margin: 4,
       },
       root3: {
-        
+        width: 50
       }
   }));
   
@@ -84,7 +82,7 @@ export default function RestCard(){
     return(
         <div>
             <Autocomplete
-                style={{width: '90%'}}
+                style={{width: '40%'}}
                 onPlaceSelected={(place) => {
                 console.log(place.geometry.location.lat());
                 console.log(place.geometry.location.lng())

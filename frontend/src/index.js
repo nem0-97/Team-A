@@ -8,6 +8,7 @@ import NotFound from './PageComponents/NotFound';
 import * as serviceWorker from './serviceWorker';
 import RestCard from './PageComponents/RestCard';
 import ButtonAppBar from './PageComponents/NavBar';
+import RestView from './PageComponents/RestView';
 
 /*
 
@@ -39,6 +40,9 @@ function Restaurant() {
 function Customer() {
     return <CustSignup />
 }
+function RestaurantView() {
+    return <RestView />
+}
 
 
 
@@ -55,6 +59,9 @@ class App extends Component{
                             <ul>
                                 <li>
                                     <Link to="/">Home</Link>
+                                </li>
+                                <li>
+                                    <Link to="/Restaurant View">Restaurant View</Link>
                                 </li>
                                 <li>
                                     <Link to="/Restaurant/">Restaurant</Link>
