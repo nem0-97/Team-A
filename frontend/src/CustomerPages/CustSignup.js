@@ -93,7 +93,6 @@ class CustSignup extends React.Component {
                 <Container component="main" maxWidth="xs">
                     <Paper id="signup-paper" className="text-center">
                         <div >
-
                             <Typography component="h1" variant="h5" id="tagline">
                                 <i className="material-icons large-icon d-block">local_dining</i>
                                 Customer Signup

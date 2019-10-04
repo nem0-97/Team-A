@@ -63,7 +63,7 @@ app.get('/login',function(req, res) {
     </div><div><label>Password:</label><input type="password" name="password"/></div><div><input type="submit" value="Log In"/></div></form>');
 });
 
-app.post('/login',passport.authenticate('local', { failureRedirect: '/login' }),
+app.post('/login',passport.authenticate('local', { failureRedirect: 'http://localhost:3001/Login/' }),
 function(req, res) {
     //req.logIn();
     res.redirect('/api/v1/rest');

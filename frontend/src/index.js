@@ -5,6 +5,7 @@ import './index.css';
 import RestSignup from './RestaurantPages/RestSignup';
 import CustSignup from './CustomerPages/CustSignup';
 import NotFound from './PageComponents/NotFound';
+import Login from './PageComponents/Login';
 import * as serviceWorker from './serviceWorker';
 import RestCard from './PageComponents/RestCard';
 import ButtonAppBar from './PageComponents/NavBar';
@@ -39,6 +40,9 @@ function Restaurant() {
 function Customer() {
     return <CustSignup />
 }
+function LoginComponent(){
+    return <Login />
+}
 
 
 
@@ -49,7 +53,7 @@ class App extends Component{
             <div className="App">
 
                 <Router>
-                <ButtonAppBar/>
+                <ButtonAppBar/> 
                     <div>
                         <nav>
                             <ul>
@@ -62,12 +66,16 @@ class App extends Component{
                                 <li>
                                     <Link to="/Customer/">Customer</Link>
                                 </li>
+                                <li>
+                                    <Link to="/Login/">Login</Link>
+                                </li>
                             </ul>
                         </nav>
                         <Switch>
                             <Route path="/" exact component={Index} />
                             <Route path="/Restaurant/" component={Restaurant} />
                             <Route path="/Customer/" component={Customer} />
+                            <Route path="/Login/" component={LoginComponent} />
                             <Route component={NotFound} />
                         </Switch>
                     </div>
