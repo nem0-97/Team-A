@@ -26,7 +26,7 @@ function(req,user,pass,done){
         // username not found in database
         return done(null, false, { message: 'Incorrect username.' });
     }
-    if(!log.passIsHash(pass,cust.password)){
+    if(!log.passIsHash(pass,cust.accountinfo.password)){
         // password does not match
         return done(null, false, { message: 'Incorrect password.' });
     }
@@ -60,12 +60,12 @@ app.use(passport.session());
 /** Account Routes*/
 app.post('/register', function (req, res) { 
     let user = req.body;
-    user.password = log.hashPass(user.password);
+    user.accountinfo.password = log.hashPass(user.accountinfo.password);
     MongoDB.add('Customers',user);
     res.send({"message":'New user '+user.email+' was added.'});
 });
 
-app.post('/login',passport.authenticate('local', { failureRedirect: 'http://localhost:3001/?failed=true' }),
+app.post('/login',passport.authenticate('local', { failureRedirect: 'http://localhost:3001/login/?failed=true' }),
 function(req, res) {
     res.redirect('/api/v1/rest');
 });
@@ -98,7 +98,7 @@ app.get('/api/v1/rest/:restName', function (req, res) {
 //POST
 app.post('/api/v1/rest', function (req, res) { //Add a new restaurant into database
     MongoDB.add('Restaurants',req.body); //First parm is which namespace to use
-    req.body.password = log.hashPass(user.password);
+    req.body.password = log.hashPass(user.accountinfo.password);
     res.send({"message":'POST request to the homepage, restaurant ' + req.body.name+' added to database'});
 })
 
