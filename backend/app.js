@@ -1,3 +1,4 @@
+//const mongo = require('mongodb');
 const hidden=require("./hidden.js");
 /* Database */
 const MongoDB=require("./MongoDB")//import database helpers
@@ -8,6 +9,7 @@ const app = express()
 const https = require('https')
 const fs = require('fs')
 const cors = require('cors')
+const expressSession = require('express-session');
 const port = 3000
 
 /**Import passport and login helpers */
@@ -34,7 +36,7 @@ passport.serializeUser(function(user, done){
 });
 
 passport.deserializeUser(function(user, done){
-    MongoDB.findOne('Customers',{"_id":user}).then(cust=>{
+    MongoDB.find('Customers',{_id:new MongoDB.ObjId(user)}).then(cust=>{
         done(null,cust);
     });
 });
@@ -42,7 +44,7 @@ passport.deserializeUser(function(user, done){
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded());
-app.use(require('express-session')({ secret: hidden.login.sessionSecret, resave: false, saveUninitialized: false }));//so passport sessions work
+app.use(expressSession({ secret: hidden.login.sessionSecret, resave: false, saveUninitialized: false }));//so passport sessions work
 //require('connect-ensure-login').ensureLoggedIn() useful for routes ensure they are logged in? maybe or just check req.user?
 
 app.use(passport.initialize());
@@ -56,16 +58,20 @@ app.post('/register', function (req, res) {
     res.send({"message":'New user '+user.email+' was added.'});
 });
 
-app.post('/login',passport.authenticate('local', { failureRedirect: '/wrongerror' }),
+app.get('/login',function(req, res) {
+    res.send('<form action="/login" method="post"><div><label>Email:</label><input type="text" name="email"/>\
+    </div><div><label>Password:</label><input type="password" name="password"/></div><div><input type="submit" value="Log In"/></div></form>');
+});
+
+app.post('/login',passport.authenticate('local', { failureRedirect: '/login' }),
 function(req, res) {
     //req.logIn();
-    console.log(req.user);
     res.redirect('/api/v1/rest');
 });
 
 app.get('/logout', function (req, res) { //TODO test
     req.logout();
-    res.direct('/');
+    res.redirect('/api/v1/rest');
 });
 /** End Account Routes*/
 
@@ -74,7 +80,7 @@ app.get('/logout', function (req, res) { //TODO test
 /**RESTAURAUNT*/
 //GET
 app.get('/api/v1/rest', function (req, res) { //get a restaurant by name?
-    console.log(req.user);// TODO include express-session
+    console.log('Session est');console.log(req.user);// TODO include express-session
     MongoDB.find('Restaurants',req.query).then(rests=>res.send({"results":rests}));//send back query results
 });
 
@@ -92,6 +98,7 @@ app.get('/api/v1/rest/:restName', function (req, res) {
 //POST
 app.post('/api/v1/rest', function (req, res) { //Add a new restaurant into database
     MongoDB.add('Restaurants',req.body); //First parm is which namespace to use
+    req.body.password = log.hashPass(user.password);
     res.send({"message":'POST request to the homepage, restaurant ' + req.body.name+' added to database'});
 })
 
