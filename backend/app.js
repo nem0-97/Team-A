@@ -1,4 +1,3 @@
-//const mongo = require('mongodb');
 const hidden=require("./hidden.js");
 /* Database */
 const MongoDB=require("./MongoDB")//import database helpers
@@ -18,23 +17,27 @@ const passport = require('passport');
 const locStrat = require('passport-local').Strategy;
 
 //Passport setup
-passport.use(new locStrat({usernameField:'email'},
+passport.use(new locStrat({usernameField:'email'}, //TODO: select proper collection using form
 function(user,pass,done){
     let cust = MongoDB.findOne('Customers',{email:user}).then(cust=>{
     if(!cust){
+        // username not found in database
         return done(null, false, { message: 'Incorrect username.' });
     }
     if(!log.passIsHash(pass,cust.password)){
+        // password does not match
         return done(null, false, { message: 'Incorrect password.' });
     }
     return done(null, cust);
     });
 }));
 
+// authenticated user must be serialized to the session
 passport.serializeUser(function(user, done){
     done(null,user._id);
 });
 
+// user must be deserialized when subsequent requests are made
 passport.deserializeUser(function(user, done){
     MongoDB.find('Customers',{_id:new MongoDB.ObjId(user)}).then(cust=>{
         done(null,cust);
@@ -47,7 +50,9 @@ app.use(express.urlencoded());
 app.use(expressSession({ secret: hidden.login.sessionSecret, resave: false, saveUninitialized: false }));//so passport sessions work
 //require('connect-ensure-login').ensureLoggedIn() useful for routes ensure they are logged in? maybe or just check req.user?
 
+// configure passport for use with an express-based app
 app.use(passport.initialize());
+// configure passport to support persistent login sessions
 app.use(passport.session());
 
 /** Account Routes*/
@@ -58,14 +63,8 @@ app.post('/register', function (req, res) {
     res.send({"message":'New user '+user.email+' was added.'});
 });
 
-app.get('/login',function(req, res) {
-    res.send('<form action="/login" method="post"><div><label>Email:</label><input type="text" name="email"/>\
-    </div><div><label>Password:</label><input type="password" name="password"/></div><div><input type="submit" value="Log In"/></div></form>');
-});
-
-app.post('/login',passport.authenticate('local', { failureRedirect: 'http://localhost:3001/Login/' }),
+app.post('/login',passport.authenticate('local', { failureRedirect: '/login' }), //TODO send back eerror message saying why login failed
 function(req, res) {
-    //req.logIn();
     res.redirect('/api/v1/rest');
 });
 
@@ -80,7 +79,6 @@ app.get('/logout', function (req, res) { //TODO test
 /**RESTAURAUNT*/
 //GET
 app.get('/api/v1/rest', function (req, res) { //get a restaurant by name?
-    console.log('Session est');console.log(req.user);// TODO include express-session
     MongoDB.find('Restaurants',req.query).then(rests=>res.send({"results":rests}));//send back query results
 });
 
