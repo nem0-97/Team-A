@@ -109,7 +109,7 @@ export default function RestCard(){
                 <GridList className={classes.gridList} cols={2.5}>
                     {tileData.map(tile => (
                         <GridListTile key={tile.img}>
-                            <img src={require('food.png')}/>
+                            <img src={require( "./" + tile.img)} alt={tile.title} />
                             <GridListTileBar
                                 title={tile.title}
                                 classes={{
@@ -130,11 +130,10 @@ export default function RestCard(){
             <div className={classes.root}>
                 <GridList cellHeight={150} className={classes.gridList2}>
                     <GridListTile cols={2}>
-                        <ListSubheader component="div">RESTAURANTS</ListSubheader>
                     </GridListTile>
                     {tileData.map(tile => (
                         <GridListTile key={tile.img}>
-                            <img src={tile.img} alt={tile.title} />
+                            <img src={require( "./" + tile.img)} alt={tile.title} />
                             <GridListTileBar
                             title={tile.title}
                             actionIcon={
