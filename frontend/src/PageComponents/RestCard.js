@@ -69,7 +69,6 @@ const useStyles = makeStyles(theme => ({
         margin: 4,
       },
       root3: {
-        width: 50
       }
   }));
   
@@ -80,15 +79,17 @@ export default function RestCard(){
     fetch('https://localhost:3000/api/v1/rest/').then(res=>{tileData=res;});
     return(
         <div>
-            <Autocomplete
-                style={{width: '40%', alignItems: 'center'}}
-                onPlaceSelected={(place) => {
-                console.log(place.geometry.location.lat());
-                console.log(place.geometry.location.lng())
-                }}
-                types={['address']}
-                componentRestrictions={{country: "us"}}
-            />
+            <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '10vh' }}>
+                <Autocomplete
+                    onPlaceSelected={(place) => {
+                    console.log(place.geometry.location.lat());
+                    console.log(place.geometry.location.lng())
+                    }}
+                    types={['address']}
+                    componentRestrictions={{country: "us"}}
+                />
+            </div>
+
             <div className={classes.root3}>
                 {/* <GoogleMapsContainer />      */}
             </div>
