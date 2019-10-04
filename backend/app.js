@@ -17,8 +17,10 @@ const passport = require('passport');
 const locStrat = require('passport-local').Strategy;
 
 //Passport setup
-passport.use(new locStrat({usernameField:'email'}, //TODO: select proper collection using form
-function(user,pass,done){
+passport.use(new locStrat({usernameField:'email',passReqToCallback:true}, //TODO: select proper collection using form
+function(req,user,pass,done){
+    console.log(req.body.collection);//TODO use this as collection name
+    
     let cust = MongoDB.findOne('Customers',{email:user}).then(cust=>{
     if(!cust){
         // username not found in database
@@ -63,12 +65,12 @@ app.post('/register', function (req, res) {
     res.send({"message":'New user '+user.email+' was added.'});
 });
 
-app.post('/login',passport.authenticate('local', { failureRedirect: '/login' }), //TODO send back eerror message saying why login failed
+app.post('/login',passport.authenticate('local', { failureRedirect: 'http://localhost:3001/?failed=true' }),
 function(req, res) {
     res.redirect('/api/v1/rest');
 });
 
-app.get('/logout', function (req, res) { //TODO test
+app.get('/logout', function (req, res) {
     req.logout();
     res.redirect('/api/v1/rest');
 });
