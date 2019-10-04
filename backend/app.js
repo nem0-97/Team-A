@@ -19,8 +19,9 @@ const locStrat = require('passport-local').Strategy;
 //Passport setup
 passport.use(new locStrat({usernameField:'email',passReqToCallback:true}, //TODO: select proper collection using form
 function(req,user,pass,done){
-    console.log(rq.body);
-    let cust = MongoDB.findOne(req.body.collection,{email:user}).then(cust=>{
+    console.log(req.body.collection);//TODO use this as collection name
+    
+    let cust = MongoDB.findOne('Customers',{email:user}).then(cust=>{
     if(!cust){
         return done(null, false, { message: 'Incorrect username.' });
     }
@@ -63,7 +64,7 @@ function(req, res) {
     res.redirect('/api/v1/rest');
 });
 
-app.get('/logout', function (req, res) { //TODO test
+app.get('/logout', function (req, res) {
     req.logout();
     res.redirect('/api/v1/rest');
 });
