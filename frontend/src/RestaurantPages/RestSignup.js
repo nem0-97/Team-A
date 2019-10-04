@@ -65,6 +65,7 @@ TODO:
     * Through Cookies or sessions?
 FIXME:
 # fix console errors
+# redirect when successful
 */
 
 

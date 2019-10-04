@@ -112,6 +112,25 @@ app.delete('/api/v1/rest', function (req, res) { //remove a restaurant from data
     res.send({"message":'DELETE request to the homepage'});
 })
 
+/** Customer endpoints */
+//POST
+app.post('/api/v1/cust', function (req, res) { //Add a new restaurant into database
+    MongoDB.add('Customers',req.body); //First parm is which namespace to use
+    req.body.password = log.hashPass(user.password);
+    res.send({"message":'POST request to the homepage, customer ' + req.body.name+' added to database'});
+})
+
+//PUT
+app.put('/api/v1/cust', function (req, res) { //Update given property of a restaurant with given value
+    res.send({"message":'PUT request to the homepage, customer fields updatd'});
+})
+
+//DELETE
+app.delete('/api/v1/cust', function (req, res) { //remove a restaurant from database by name
+    res.send({"message":'DELETE request to the homepage'});
+})
+
+
 https.createServer({
     key: fs.readFileSync('server.key'),
     cert: fs.readFileSync('server.cert')
