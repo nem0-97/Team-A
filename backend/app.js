@@ -39,13 +39,14 @@ passport.deserializeUser(function(user, done){
     });
 });
 
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(require('express-session')({ secret: hidden.login.sessionSecret, resave: false, saveUninitialized: false }));//so passport sessions work
-
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded());
+app.use(require('express-session')({ secret: hidden.login.sessionSecret, resave: false, saveUninitialized: false }));//so passport sessions work
+//require('connect-ensure-login').ensureLoggedIn() useful for routes ensure they are logged in? maybe or just check req.user?
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 /** Account Routes*/
 app.post('/register', function (req, res) { 
@@ -58,6 +59,7 @@ app.post('/register', function (req, res) {
 app.post('/login',passport.authenticate('local', { failureRedirect: '/wrongerror' }),
 function(req, res) {
     //req.logIn();
+    console.log(req.user);
     res.redirect('/api/v1/rest');
 });
 
