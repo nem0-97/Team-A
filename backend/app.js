@@ -65,7 +65,7 @@ app.post('/register', function (req, res) {
     res.send({"message":'New user '+user.email+' was added.'});
 });
 
-app.post('/login',passport.authenticate('local', { failureRedirect: 'http://localhost:3001/?failed=true' }),
+app.post('/login',passport.authenticate('local', { failureRedirect: 'http://localhost:3001/login/?failed=true' }),
 function(req, res) {
     res.redirect('/api/v1/rest');
 });
