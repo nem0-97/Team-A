@@ -75,7 +75,7 @@ class App extends Component{
                             <Route path="/" exact component={Index} />
                             <Route path="/Restaurant/" component={Restaurant} />
                             <Route path="/Customer/" component={Customer} />
-                            <Route component={NotFound} />
+                            <Route path="/RestaurantView/" component={RestaurantView} />
                         </Switch>
                     </div>
                 </Router>

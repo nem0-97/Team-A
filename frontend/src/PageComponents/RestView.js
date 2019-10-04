@@ -7,7 +7,7 @@ const useStyles = makeStyles(theme => ({
   }));
   
 
-export default function RestCard(){
+export default function RestView(){
 
     const classes = useStyles();
 

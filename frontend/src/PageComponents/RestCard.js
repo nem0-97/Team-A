@@ -92,19 +92,6 @@ export default function RestCard(){
             <div className={classes.root3}>
                 {/* <GoogleMapsContainer />      */}
             </div>
-            <div>
-                <Grid>
-                    <IconButton>
-                        <Avatar>Hi</Avatar>
-                    </IconButton>    
-                    <IconButton>
-                        <Badge badgeContent={4} color="primary">
-
-                        </Badge>
-                    </IconButton>
-                </Grid>
-            </div>
-
             <div className={classes.root}>
                 <GridList className={classes.gridList} cols={2.5}>
                     {tileData.map(tile => (
