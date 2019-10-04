@@ -20,8 +20,7 @@ import Badge from '@material-ui/core/Badge';
 import ListSubheader from '@material-ui/core/ListSubheader';
 
 
-import { Map, GoogleApiWrapper } from 'google-maps-react';
-import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 import Autocomplete from 'react-google-autocomplete';
 
@@ -82,7 +81,7 @@ export default function RestCard(){
     return(
         <div>
             <Autocomplete
-                style={{width: '40%'}}
+                style={{width: '40%', alignItems: 'center'}}
                 onPlaceSelected={(place) => {
                 console.log(place.geometry.location.lat());
                 console.log(place.geometry.location.lng())
@@ -110,7 +109,7 @@ export default function RestCard(){
                 <GridList className={classes.gridList} cols={2.5}>
                     {tileData.map(tile => (
                         <GridListTile key={tile.img}>
-                            <img src={tile.img} alt={tile.title} />
+                            <img src={require('food.png')}/>
                             <GridListTileBar
                                 title={tile.title}
                                 classes={{
@@ -119,7 +118,7 @@ export default function RestCard(){
                             }}
                             actionIcon={
                                 <IconButton aria-label={`star ${tile.title}`}>
-
+                                    <ArrowForwardIosIcon />
                                 </IconButton>
                             }
                         />
@@ -140,7 +139,7 @@ export default function RestCard(){
                             title={tile.title}
                             actionIcon={
                                 <IconButton className={classes.icon}>
-
+                                    <ArrowForwardIosIcon />
                                 </IconButton>
                             }
                             />

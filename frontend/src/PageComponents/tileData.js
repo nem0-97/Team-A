@@ -1,6 +1,6 @@
 const tileData = [
     {
-      img: '/static/images/grid-list/breakfast.jpg',
+      img: 'food.png',
       title: 'Restaurant',
     },
     {
