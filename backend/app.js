@@ -23,19 +23,23 @@ function(req,user,pass,done){
     
     let cust = MongoDB.findOne('Customers',{email:user}).then(cust=>{
     if(!cust){
+        // username not found in database
         return done(null, false, { message: 'Incorrect username.' });
     }
     if(!log.passIsHash(pass,cust.password)){
+        // password does not match
         return done(null, false, { message: 'Incorrect password.' });
     }
     return done(null, cust);
     });
 }));
 
+// authenticated user must be serialized to the session
 passport.serializeUser(function(user, done){
     done(null,user._id);
 });
 
+// user must be deserialized when subsequent requests are made
 passport.deserializeUser(function(user, done){
     MongoDB.find('Customers',{_id:new MongoDB.ObjId(user)}).then(cust=>{
         done(null,cust);
@@ -48,7 +52,9 @@ app.use(express.urlencoded());
 app.use(expressSession({ secret: hidden.login.sessionSecret, resave: false, saveUninitialized: false }));//so passport sessions work
 //require('connect-ensure-login').ensureLoggedIn() useful for routes ensure they are logged in? maybe or just check req.user?
 
+// configure passport for use with an express-based app
 app.use(passport.initialize());
+// configure passport to support persistent login sessions
 app.use(passport.session());
 
 /** Account Routes*/
