@@ -1,4 +1,3 @@
-//const mongo = require('mongodb');
 const hidden=require("./hidden.js");
 /* Database */
 const MongoDB=require("./MongoDB")//import database helpers
@@ -18,7 +17,7 @@ const passport = require('passport');
 const locStrat = require('passport-local').Strategy;
 
 //Passport setup
-passport.use(new locStrat({usernameField:'email'},
+passport.use(new locStrat({usernameField:'email'}, //TODO: select proper collection using form
 function(user,pass,done){
     let cust = MongoDB.findOne('Customers',{email:user}).then(cust=>{
     if(!cust){
@@ -58,14 +57,8 @@ app.post('/register', function (req, res) {
     res.send({"message":'New user '+user.email+' was added.'});
 });
 
-app.get('/login',function(req, res) {
-    res.send('<form action="/login" method="post"><div><label>Email:</label><input type="text" name="email"/>\
-    </div><div><label>Password:</label><input type="password" name="password"/></div><div><input type="submit" value="Log In"/></div></form>');
-});
-
-app.post('/login',passport.authenticate('local', { failureRedirect: '/login' }),
+app.post('/login',passport.authenticate('local', { failureRedirect: '/login' }), //TODO send back eerror message saying why login failed
 function(req, res) {
-    //req.logIn();
     res.redirect('/api/v1/rest');
 });
 
@@ -80,7 +73,6 @@ app.get('/logout', function (req, res) { //TODO test
 /**RESTAURAUNT*/
 //GET
 app.get('/api/v1/rest', function (req, res) { //get a restaurant by name?
-    console.log('Session est');console.log(req.user);// TODO include express-session
     MongoDB.find('Restaurants',req.query).then(rests=>res.send({"results":rests}));//send back query results
 });
 
