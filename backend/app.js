@@ -1,58 +1,66 @@
 /* Database */
 const MongoDB=require("./MongoDB")//import database helpers
 
-/**Login */
+/* Express import*/
+const express = require('express')
+const app = express()
+const https = require('https')
+const fs = require('fs')
+const cors = require('cors')
+const port = 3000
+
+/**Import passport and login helpers */
 const log = require("./login");
 const passport = require('passport');
 const locStrat = require('passport-local').Strategy;
 
+//Passport setup
 passport.use(new locStrat({usernameField:'email'},
 function(user,pass,done){
-    console.log('hi');
-    let cust = MongoDB.find('Customers',{email:user});
+    let cust = MongoDB.findOne('Customers',{email:user}).then(cust=>{
     if(!cust){
-        console.log('bad username');
         return done(null, false, { message: 'Incorrect username.' });
     }
     if(!log.passIsHash(pass,cust.password)){
-        console.log('bad pass');
         return done(null, false, { message: 'Incorrect password.' });
     }
-    console.log('auth good');
     return done(null, cust);
+    });
 }));
 
-/** Express Setup Begin*/
-const https = require('https')
-const fs = require('fs')
-const express = require('express')
-const cors = require('cors')
-const app = express()
-const port = 3000
+passport.serializeUser(function(user, done){
+    done(null,user._id);
+});
+
+passport.deserializeUser(function(user, done){
+    MongoDB.findOne('Customers',{"_id":user}).then(cust=>{
+        done(null,cust);
+    });
+});
 
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded());
 
-/** Express Setup End*/
+
 
 /** Account Routes*/
 app.post('/register', function (req, res) { 
     //TODO test, have one of these for customer and rest call log.hashPass(password) before adding to database
 });
 
-app.post('/login',
+app.post('/login',passport.authenticate('local', { failureRedirect: '/wrongerror' }),
 function(req, res) {
     //req.logIn();
-    //console.log(req.user);
-  res.redirect('/api/v1/rest');
+    res.redirect('/api/v1/rest');
 });
 
-app.post('/logout', function (req, res) { //TODO test
+app.get('/logout', function (req, res) { //TODO test
     req.logout();
-    res.direct();
+    res.direct('/');
 });
 /** End Account Routes*/
 
@@ -61,6 +69,7 @@ app.post('/logout', function (req, res) { //TODO test
 /**RESTAURAUNT*/
 //GET
 app.get('/api/v1/rest', function (req, res) { //get a restaurant by name?
+    console.log(req.user);// TODO include express-session
     console.log(req.query); //query parameters
     MongoDB.find('Restaurants',req.query).then(rests=>res.send({"results":rests}));//send back query results
 });
