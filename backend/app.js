@@ -6,15 +6,19 @@ const log = require("./login");
 const passport = require('passport');
 const locStrat = require('passport-local').Strategy;
 
-passport.use(new locStrat({usernameField:email},
+passport.use(new locStrat({usernameField:'email'},
 function(user,pass,done){
+    console.log('hi');
     let cust = MongoDB.find('Customers',{email:user});
     if(!cust){
+        console.log('bad username');
         return done(null, false, { message: 'Incorrect username.' });
     }
     if(!log.passIsHash(pass,cust.password)){
+        console.log('bad pass');
         return done(null, false, { message: 'Incorrect password.' });
     }
+    console.log('auth good');
     return done(null, cust);
 }));
 
@@ -39,8 +43,10 @@ app.post('/register', function (req, res) {
     //TODO test, have one of these for customer and rest call log.hashPass(password) before adding to database
 });
 
-app.post('/login',passport.authenticate('local', { failureRedirect: '/api/v1/cust' }),
+app.post('/login',
 function(req, res) {
+    //req.logIn();
+    //console.log(req.user);
   res.redirect('/api/v1/rest');
 });
 
@@ -109,31 +115,6 @@ app.get('/api/v1/cust', function (req, res) { //get a customer by name?
     console.log("/cust got get req"); //query database for customer with matching name (req.params.name)
     res.send({"message":'GET request to the homepage'}); //send list of results
 })
-  
-//POST
-app.post('/api/v1/cust', jsonParser, function (req, res) { //Add a new customre into database
-    /*console.log(req);*/
-    console.log("/cust got post req");
-    console.log(req.body); //add body to database, maybee have some extra logic here to build db formatted json with info sent over
-    MongoDB.add('Customers', req.body);
-    res.send({"message":'POST request to the homepage, customer added to database'});
-})
-
-//PUT
-app.put('/api/v1/cust', jsonParser, function (req, res) { //Update given property of a customer with given value
-    console.log(req);
-    console.log("/cust got put req");
-    console.log(req.body); // retreive rest name, fields to update and new values theen update in DB
-    res.send({"message":'PUT request to the homepage, customer fields updatd'});
-})
-
-//DELETE
-app.delete('/api/v1/cust', jsonParser, function (req, res) { //remove a customer from database by name
-    console.log(req);
-    console.log("/cust got delete req");
-    console.log(req.body); //remove customer from database
-    res.send({"message":'DELETE request to the homepage'});
-})
 
 app.get('/api/v1/cust', function (req, res) {
     res.send({"message":'GET request to the homepage, cust'});
@@ -169,31 +150,6 @@ app.get('/api/v1/order', function (req, res) { //get a order by name?
     console.log("/rest got get req"); //query database for order with matching name (req.params.name)
     res.send({"message":'GET request to the homepage'}); //send list of results
 })
-  
-//POST
-app.post('/api/v1/order', jsonParser, function (req, res) { //Add a new order into database
-    console.log(req);
-    console.log("/rest got post req");
-    console.log(req.body); //add body to database, maybee have some extra logic here to build db formatted json with info sent over
-    res.send({"message":'POST request to the homepage, order added to database'});
-})
-
-//PUT
-app.put('/api/v1/order', jsonParser, function (req, res) { //Update given property of a order with given value
-    console.log(req);
-    console.log("/rest got put req");
-    console.log(req.body); // retreive rest name, fields to update and new values theen update in DB
-    res.send({"message":'PUT request to the homepage, restaurant fields updatd'});
-})
-
-//DELETE
-app.delete('/api/v1/order', jsonParser, function (req, res) { //remove a order from database by name
-    console.log(req);
-    console.log("/rest got delete req");
-    console.log(req.body); //remove order from database
-    res.send({"message":'DELETE request to the homepage'});
-})
-
 
 https.createServer({
     key: fs.readFileSync('server.key'),
