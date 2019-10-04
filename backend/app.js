@@ -17,9 +17,10 @@ const passport = require('passport');
 const locStrat = require('passport-local').Strategy;
 
 //Passport setup
-passport.use(new locStrat({usernameField:'email'}, //TODO: select proper collection using form
-function(user,pass,done){
-    let cust = MongoDB.findOne('Customers',{email:user}).then(cust=>{
+passport.use(new locStrat({usernameField:'email',passReqToCallback:true}, //TODO: select proper collection using form
+function(req,user,pass,done){
+    console.log(rq.body);
+    let cust = MongoDB.findOne(req.body.collection,{email:user}).then(cust=>{
     if(!cust){
         return done(null, false, { message: 'Incorrect username.' });
     }
@@ -57,7 +58,7 @@ app.post('/register', function (req, res) {
     res.send({"message":'New user '+user.email+' was added.'});
 });
 
-app.post('/login',passport.authenticate('local', { failureRedirect: '/login' }), //TODO send back eerror message saying why login failed
+app.post('/login',passport.authenticate('local', { failureRedirect: 'http://localhost:3001/?failed=true' }),
 function(req, res) {
     res.redirect('/api/v1/rest');
 });
