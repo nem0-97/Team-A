@@ -77,7 +77,7 @@ const useStyles = makeStyles(theme => ({
 export default function RestCard(){
 
     const classes = useStyles();
-
+    fetch('https://localhost:3000/api/v1/rest/').then(res=>{tileData=res;});
     return(
         <div>
             <Autocomplete
@@ -93,7 +93,7 @@ export default function RestCard(){
                 {/* <GoogleMapsContainer />      */}
             </div>
             <div>
-                <Grid className={classes.avatar}>
+                <Grid>
                     <IconButton>
                         <Avatar>Hi</Avatar>
                     </IconButton>    
