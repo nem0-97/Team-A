@@ -1,5 +1,5 @@
 /**Login */
-const bcrypt = require('bcrypt')
+//const bcrypt = require('bcrypt')
 
 exports.hashPass = function (pass){
     return bcrypt.hashSync(pass, 10);// 10 rounds
