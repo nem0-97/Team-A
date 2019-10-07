@@ -21,7 +21,7 @@ passport.use(new locStrat({usernameField:'email',passReqToCallback:true}, //TODO
 function(req,user,pass,done){
     console.log(req.body.collection);//TODO use this as collection name
     
-    let cust = MongoDB.findOne('Customers',{email:user}).then(cust=>{
+    let cust = MongoDB.findOne('Customers',{"accountinfo.email":user}).then(cust=>{
     if(!cust){
         // username not found in database
         return done(null, false, { message: 'Incorrect username.' });
@@ -67,7 +67,7 @@ app.post('/register', function (req, res) {
 
 app.post('/login',passport.authenticate('local', { failureRedirect: 'http://localhost:3001/login/?failed=true' }),
 function(req, res) {
-    res.redirect('/api/v1/rest');
+    res.redirect('http://localhost:3001');
 });
 
 app.get('/logout', function (req, res) {
@@ -114,19 +114,19 @@ app.delete('/api/v1/rest', function (req, res) { //remove a restaurant from data
 
 /** Customer endpoints */
 //POST
-app.post('/api/v1/cust', function (req, res) { //Add a new restaurant into database
+app.post('/api/v1/cust', function (req, res) { //Add a new customer into database
     MongoDB.add('Customers',req.body); //First parm is which namespace to use
     req.body.password = log.hashPass(user.password);
     res.send({"message":'POST request to the homepage, customer ' + req.body.name+' added to database'});
 })
 
 //PUT
-app.put('/api/v1/cust', function (req, res) { //Update given property of a restaurant with given value
+app.put('/api/v1/cust', function (req, res) { //Update given property of a customer with given value
     res.send({"message":'PUT request to the homepage, customer fields updatd'});
 })
 
 //DELETE
-app.delete('/api/v1/cust', function (req, res) { //remove a restaurant from database by name
+app.delete('/api/v1/cust', function (req, res) { //remove a customer from database by name
     res.send({"message":'DELETE request to the homepage'});
 })
 

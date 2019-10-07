@@ -24,11 +24,11 @@ class LoginComponent extends React.Component{
             pw: "",
         }
 
-        // FIXME: get query param
+
        
-    
+        // will check the query param to see if there is something that has failed. 
         let params = new URLSearchParams(window.location.search)
-        if(params.get('failed')){
+        if(params.get('failed')){ //if the query param 'failed' is true
             alert("Incorrect login information");
         }
         this.handleSubmit = this.handleSubmit.bind(this);

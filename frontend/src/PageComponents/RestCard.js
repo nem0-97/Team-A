@@ -82,7 +82,7 @@ export default function RestCard(){
     return(
         <div>
             <div className={classes.root3}>
-                <GoogleMapsContainer />
+
             </div>
             <div>
                 <Grid className={classes.avatar}>
