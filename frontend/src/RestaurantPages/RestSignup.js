@@ -56,13 +56,8 @@ const steps = ['Restaurant Information', 'Account Information', 'Payment informa
 
 /*
 TODO: 
-# Encrypt password
-    * https://github.com/agorlov/javascript-blowfish - Useful algorithm for encryption
 # Check if email is already used
-# Redirect to login-page/dashboard
 # Make signup/login page default view
-# Check if user is logged in
-    * Through Cookies or sessions?
 FIXME:
 # fix console errors
 # redirect when successful
