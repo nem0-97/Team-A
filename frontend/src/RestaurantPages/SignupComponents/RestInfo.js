@@ -19,9 +19,10 @@ class RestInfo extends React.Component {
         this.state = {
             restName: "",
             address: "",
-            cuisine: "",
             openTime: "",
             closeTime: "",
+            city:"",
+            zipCode:"",
             operation: "signup"
         };
 
@@ -80,24 +81,31 @@ class RestInfo extends React.Component {
                                         value={this.state.address}
                                     />
                                 </Grid>
-
-                                <Grid item xs={12}>
-                                    <InputLabel htmlFor="age-native-simple">Cuisine</InputLabel>
-                                    <Select
+                                <Grid item xs={6}>
+                                <TextField
                                         variant="outlined"
                                         required
                                         fullWidth
-                                        id="cuisine"
+                                        id="city"
+                                        label="City"
+                                        name="city"
                                         onChange={this.handleFormChange}
-                                        value={this.state.cuisine}
-                                    >
-                                        <option value="" />
-                                        <option value={10}>American</option>
-                                        <option value={20}>Chineese</option>
-                                        <option value={30}>Danish</option>
-                                    </Select>
-
+                                        value={this.state.city}
+                                    />
                                 </Grid>
+                                <Grid item xs={6}>
+                                <TextField
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        id="zipCode"
+                                        label="Zip code"
+                                        name="zipCode"
+                                        onChange={this.handleFormChange}
+                                        value={this.state.zipCode}
+                                    />
+                                </Grid>
+
                                 <Grid item xs={6}>
 
                                     <TextField

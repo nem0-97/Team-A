@@ -17,6 +17,7 @@ import Typography from '@material-ui/core/Typography';
 
 import AccountInfo from './SignupComponents/AccountInfo';
 import RestInfo from './SignupComponents/RestInfo';
+import PaymentInfo from './SignupComponents/PaymentInfo';
 const hidden = require('../hidden.js'); //store api paths here
 
 const useStyles = makeStyles(theme => ({
@@ -82,19 +83,28 @@ class RestSignup extends React.Component{
     this.handleFormChange=this.handleFormChange.bind(this);
   }
 }
-
+var test = "test";
 let restInfo = {};
 function getStepContent(step) {
   switch (step) {
     case 0:
 
-      return <RestInfo ref={(restinfo) => window.restinfo = restinfo} /> ;
+      return <RestInfo ref={(restinfo) => window.restinfo = restinfo} />;
     case 1:
       makeRestInfo(1);
       return <AccountInfo ref={(accountinfo) => window.accountinfo = accountinfo}/>
     case 2:      
       makeRestInfo(2);
-      return <h2>Payment Information</h2>;
+      return <PaymentInfo 
+      restName={restInfo.restinfo.restName}
+      address={restInfo.restinfo.address}
+      city={restInfo.restinfo.city}
+      zipCode={restInfo.restinfo.zipCode}
+      openTime={restInfo.restinfo.openTime}
+      closeTime={restInfo.restinfo.closeTime}
+      firstName={restInfo.accountinfo.firstName}
+      lastName={restInfo.accountinfo.lastName}
+      email={restInfo.accountinfo.email} />
     default:
       throw new Error('Unknown step');
   }
@@ -106,7 +116,8 @@ function makeRestInfo(step){
   restInfo.restinfo = {
       restName: window.restinfo.state.restName,
       address: window.restinfo.state.address,
-      cuisine: window.restinfo.state.cuisine,
+      city: window.restinfo.state.city,
+      zipCode: window.restinfo.state.zipCode,
       openTime: window.restinfo.state.openTime,
       closeTime: window.restinfo.state.closeTime
     }

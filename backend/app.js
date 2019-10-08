@@ -65,14 +65,14 @@ app.post('/register', function (req, res) {
     res.send({"message":'New user '+user.email+' was added.'});
 });
 
-app.post('/login',passport.authenticate('local', { failureRedirect: 'http://localhost:3001/login/?failed=true' }),
+app.post('/login',passport.authenticate('local', { failureRedirect: 'http://localhost:3001/login/?failed=true' }), //FIXME: Why not use successRedirect: '/' here?
 function(req, res) {
     res.redirect('http://localhost:3001');
 });
 
 app.get('/logout', function (req, res) {
     req.logout();
-    res.redirect('/api/v1/rest');
+    res.redirect('htt://localhost:3001');
 });
 /** End Account Routes*/
 
