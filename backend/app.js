@@ -98,7 +98,7 @@ app.get('/api/v1/rest/:restName', function (req, res) {
 //POST
 app.post('/api/v1/rest', function (req, res) { //Add a new restaurant into database
     MongoDB.add('Restaurants',req.body); //First parm is which namespace to use
-    req.body.password = log.hashPass(user.accountinfo.password);
+    req.body.accountinfo.password = log.hashPass(req.body.accountinfo.password);
     res.send({"message":'POST request to the homepage, restaurant ' + req.body.name+' added to database'});
 })
 
@@ -117,7 +117,7 @@ app.delete('/api/v1/rest', function (req, res) { //remove a restaurant from data
 app.post('/api/v1/cust', function (req, res) { //Add a new customer into database
     MongoDB.add('Customers',req.body); //First parm is which namespace to use
     req.body.password = log.hashPass(user.password);
-    res.send({"message":'POST request to the homepage, customer ' + req.body.name+' added to database'});
+    res.send({"message":'POST request to the homepage, customer ' + req.body.restinfo.name+' added to database'});
 })
 
 //PUT
