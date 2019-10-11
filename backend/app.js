@@ -19,9 +19,7 @@ const locStrat = require('passport-local').Strategy;
 //Passport setup
 passport.use(new locStrat({usernameField:'email',passReqToCallback:true}, //TODO: select proper collection using form
 function(req,user,pass,done){
-    console.log(req.body.collection);//TODO use this as collection name
-    
-    let cust = MongoDB.findOne('Customers',{"accountinfo.email":user}).then(cust=>{
+    let cust = MongoDB.findOne(req.body.loginType,{"accountinfo.email":user}).then(cust=>{
     if(!cust){
         // username not found in database
         return done(null, false, { message: 'Incorrect username.' });
@@ -67,7 +65,7 @@ app.post('/register', function (req, res) {
 
 app.post('/login',passport.authenticate('local', { failureRedirect: 'http://localhost:3001/login/?failed=true' }), //FIXME: Why not use successRedirect: '/' here?
 function(req, res) {
-    res.redirect('http://localhost:3001');
+    res.redirect('/api/v1/rest');
 });
 
 app.get('/logout', function (req, res) {
