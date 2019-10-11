@@ -1,4 +1,3 @@
-//const mongo = require('mongodb');
 const hidden=require("./hidden.js");
 /* Database */
 const MongoDB=require("./MongoDB")//import database helpers
@@ -18,23 +17,29 @@ const passport = require('passport');
 const locStrat = require('passport-local').Strategy;
 
 //Passport setup
-passport.use(new locStrat({usernameField:'email'},
-function(user,pass,done){
-    let cust = MongoDB.findOne('Customers',{email:user}).then(cust=>{
+passport.use(new locStrat({usernameField:'email',passReqToCallback:true}, //TODO: select proper collection using form
+function(req,user,pass,done){
+    console.log(req.body.collection);//TODO use this as collection name
+    
+    let cust = MongoDB.findOne('Customers',{"accountinfo.email":user}).then(cust=>{
     if(!cust){
+        // username not found in database
         return done(null, false, { message: 'Incorrect username.' });
     }
-    if(!log.passIsHash(pass,cust.password)){
+    if(!log.passIsHash(pass,cust.accountinfo.password)){
+        // password does not match
         return done(null, false, { message: 'Incorrect password.' });
     }
     return done(null, cust);
     });
 }));
 
+// authenticated user must be serialized to the session
 passport.serializeUser(function(user, done){
     done(null,user._id);
 });
 
+// user must be deserialized when subsequent requests are made
 passport.deserializeUser(function(user, done){
     MongoDB.find('Customers',{_id:new MongoDB.ObjId(user)}).then(cust=>{
         done(null,cust);
@@ -47,31 +52,27 @@ app.use(express.urlencoded());
 app.use(expressSession({ secret: hidden.login.sessionSecret, resave: false, saveUninitialized: false }));//so passport sessions work
 //require('connect-ensure-login').ensureLoggedIn() useful for routes ensure they are logged in? maybe or just check req.user?
 
+// configure passport for use with an express-based app
 app.use(passport.initialize());
+// configure passport to support persistent login sessions
 app.use(passport.session());
 
 /** Account Routes*/
 app.post('/register', function (req, res) { 
     let user = req.body;
-    user.password = log.hashPass(user.password);
+    user.accountinfo.password = log.hashPass(user.accountinfo.password);
     MongoDB.add('Customers',user);
     res.send({"message":'New user '+user.email+' was added.'});
 });
 
-app.get('/login',function(req, res) {
-    res.send('<form action="/login" method="post"><div><label>Email:</label><input type="text" name="email"/>\
-    </div><div><label>Password:</label><input type="password" name="password"/></div><div><input type="submit" value="Log In"/></div></form>');
-});
-
-app.post('/login',passport.authenticate('local', { failureRedirect: '/login' }),
+app.post('/login',passport.authenticate('local', { failureRedirect: 'http://localhost:3001/login/?failed=true' }), //FIXME: Why not use successRedirect: '/' here?
 function(req, res) {
-    //req.logIn();
-    res.redirect('/api/v1/rest');
+    res.redirect('http://localhost:3001');
 });
 
-app.get('/logout', function (req, res) { //TODO test
+app.get('/logout', function (req, res) {
     req.logout();
-    res.redirect('/api/v1/rest');
+    res.redirect('htt://localhost:3001');
 });
 /** End Account Routes*/
 
@@ -80,7 +81,6 @@ app.get('/logout', function (req, res) { //TODO test
 /**RESTAURAUNT*/
 //GET
 app.get('/api/v1/rest', function (req, res) { //get a restaurant by name?
-    console.log('Session est');console.log(req.user);// TODO include express-session
     MongoDB.find('Restaurants',req.query).then(rests=>res.send({"results":rests}));//send back query results
 });
 
@@ -98,7 +98,7 @@ app.get('/api/v1/rest/:restName', function (req, res) {
 //POST
 app.post('/api/v1/rest', function (req, res) { //Add a new restaurant into database
     MongoDB.add('Restaurants',req.body); //First parm is which namespace to use
-    req.body.password = log.hashPass(user.password);
+    req.body.accountinfo.password = log.hashPass(req.body.accountinfo.password);
     res.send({"message":'POST request to the homepage, restaurant ' + req.body.name+' added to database'});
 })
 
@@ -111,6 +111,25 @@ app.put('/api/v1/rest', function (req, res) { //Update given property of a resta
 app.delete('/api/v1/rest', function (req, res) { //remove a restaurant from database by name
     res.send({"message":'DELETE request to the homepage'});
 })
+
+/** Customer endpoints */
+//POST
+app.post('/api/v1/cust', function (req, res) { //Add a new customer into database
+    MongoDB.add('Customers',req.body); //First parm is which namespace to use
+    req.body.password = log.hashPass(user.password);
+    res.send({"message":'POST request to the homepage, customer ' + req.body.restinfo.name+' added to database'});
+})
+
+//PUT
+app.put('/api/v1/cust', function (req, res) { //Update given property of a customer with given value
+    res.send({"message":'PUT request to the homepage, customer fields updatd'});
+})
+
+//DELETE
+app.delete('/api/v1/cust', function (req, res) { //remove a customer from database by name
+    res.send({"message":'DELETE request to the homepage'});
+})
+
 
 https.createServer({
     key: fs.readFileSync('server.key'),

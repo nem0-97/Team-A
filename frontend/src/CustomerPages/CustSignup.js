@@ -59,10 +59,12 @@ class CustSignup extends React.Component {
         let apiPath = hidden.apiPaths.base + '/cust'; //this path is defining which API-patch to use #will display like: http://localhost:3000/api/v1/cust
         if (this.state.operation === 'signup') {
             data = {
-                "firstName": this.state.firstName,
-                "lastName": this.state.lastName,
-                "email": this.state.email,
-                "password": this.state.password
+                "accountinfo":{
+                    "firstName": this.state.firstName,
+                    "lastName": this.state.lastName,
+                    "email": this.state.email,
+                    "password": this.state.password
+            }
             }
             console.log("data er:" + JSON.stringify(data));
             meth = 'POST'
@@ -93,7 +95,6 @@ class CustSignup extends React.Component {
                 <Container component="main" maxWidth="xs">
                     <Paper id="signup-paper" className="text-center">
                         <div >
-
                             <Typography component="h1" variant="h5" id="tagline">
                                 <i className="material-icons large-icon d-block">local_dining</i>
                                 Customer Signup
