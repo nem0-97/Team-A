@@ -6,8 +6,27 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+.green{
+  color:#2ecc71;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+.large-icon{
+  font-size:42px;
+}
+.small-icon{
+  font-size:20px;
+  position: relative;
+  top:3px;
+
+}
+.d-block{
+  display:block;
+}
+.text-center{
+  text-align: center;
+  margin: 0 auto;
+}
+
