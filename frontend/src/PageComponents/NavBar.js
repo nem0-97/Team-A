@@ -7,6 +7,11 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import {Link} from 'react-router-dom';
+import Avatar from '@material-ui/core/Avatar';
+import Grid from '@material-ui/core/Grid';
+import Badge from '@material-ui/core/Badge';
+
+
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -41,10 +46,19 @@ export default function ButtonAppBar() {
             
 
           </Typography>
-          
           <Link to="/Login/">
           <Button color="inherit ">Login</Button>
           </Link>
+          <Grid>
+                    <IconButton>
+                        <Avatar>Hi</Avatar>
+                    </IconButton>    
+                    <IconButton>
+                        <Badge badgeContent={4} color= 'secondary'>
+
+                        </Badge>
+                    </IconButton>
+                </Grid>
         </Toolbar>
       </AppBar>
     </div>

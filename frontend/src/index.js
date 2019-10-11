@@ -9,6 +9,7 @@ import Login from './PageComponents/Login';
 import * as serviceWorker from './serviceWorker';
 import RestCard from './PageComponents/RestCard';
 import ButtonAppBar from './PageComponents/NavBar';
+import RestView from './PageComponents/RestView';
 
 /*
 
@@ -43,6 +44,10 @@ function Customer() {
 function LoginComponent(){
     return <Login />
 }
+function RestaurantView()
+{
+    return <RestView />
+}
 
 
 
@@ -61,6 +66,9 @@ class App extends Component{
                                     <Link to="/">Home</Link>
                                 </li>
                                 <li>
+                                    <Link to="/Restaurant View">Restaurant View</Link>
+                                </li>
+                                <li>
                                     <Link to="/Restaurant/">Restaurant</Link>
                                 </li>
                                 <li>
@@ -75,6 +83,7 @@ class App extends Component{
                             <Route path="/" exact component={Index} />
                             <Route path="/Restaurant/" component={Restaurant} />
                             <Route path="/Customer/" component={Customer} />
+                            <Route path="/RestaurantView/" component={RestaurantView} />
                             <Route path="/Login/" component={LoginComponent} />
                             <Route component={NotFound} />
                         </Switch>
