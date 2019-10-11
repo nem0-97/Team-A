@@ -17,7 +17,7 @@ const passport = require('passport');
 const locStrat = require('passport-local').Strategy;
 
 //Passport setup
-passport.use(new locStrat({usernameField:'email',passReqToCallback:true}, //TODO: select proper collection using form
+passport.use(new locStrat({usernameField:'email',passReqToCallback:true},
 function(req,user,pass,done){
     let cust = MongoDB.findOne(req.body.loginType,{"accountinfo.email":user}).then(cust=>{
     if(!cust){
@@ -32,13 +32,15 @@ function(req,user,pass,done){
     });
 }));
 
+//TODO Change serialize and deserialize below to include collection not just _id
+
 // authenticated user must be serialized to the session
 passport.serializeUser(function(user, done){
     done(null,user._id);
 });
 
 // user must be deserialized when subsequent requests are made
-passport.deserializeUser(function(user, done){
+passport.deserializeUser(function(user, done){ 
     MongoDB.find('Customers',{_id:new MongoDB.ObjId(user)}).then(cust=>{
         done(null,cust);
     });
@@ -79,6 +81,7 @@ app.get('/logout', function (req, res) {
 /**RESTAURAUNT*/
 //GET
 app.get('/api/v1/rest', function (req, res) { //get a restaurant by name?
+    console.log(req.user);
     MongoDB.find('Restaurants',req.query).then(rests=>res.send({"results":rests}));//send back query results
 });
 
