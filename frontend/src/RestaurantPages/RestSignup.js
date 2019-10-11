@@ -173,7 +173,7 @@ function handleSubmit(){
     
 }
 
-export default function CreateRest() {
+export default function   Rest() {
   
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);

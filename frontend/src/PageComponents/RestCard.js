@@ -6,25 +6,25 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 
-import tileData from './tileData';
+//import tileData from './tileData';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
 
 import Badge from '@material-ui/core/Badge';
 import ListSubheader from '@material-ui/core/ListSubheader';
 
-
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 import Autocomplete from 'react-google-autocomplete';
+let tileData = []
 
-const useStyles = makeStyles(theme => ({
+const useStyles = theme => ({
     root: {
       display: 'flex',
       flexWrap: 'wrap',
@@ -70,70 +70,84 @@ const useStyles = makeStyles(theme => ({
       },
       root3: {
       }
-  }));
+  });
   
+class RestCard extends React.Component{
+        constructor(props){
+          super(props);
+          this.state={
+              tileData:[]
+          }
+        }
+        componentDidMount() {
+            fetch('https://localhost:3000/api/v1/rest').then(response => response.json()).then(response1 => {this.setState({tileData: response1.results})});
+        }
 
-export default function RestCard(){
-
-    const classes = useStyles();
-    fetch('https://localhost:3000/api/v1/rest/').then(res=>{tileData=res;});
-    return(
-        <div>
-            <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '10vh' }}>
-                <Autocomplete
-                    onPlaceSelected={(place) => {
-                    console.log(place.geometry.location.lat());
-                    console.log(place.geometry.location.lng())
-                    }}
-                    types={['address']}
-                    componentRestrictions={{country: "us"}}
-                />
-            </div>
-
-            <div className={classes.root3}>
-                {/* <GoogleMapsContainer />      */}
-            </div>
-            <div className={classes.root}>
-                <GridList className={classes.gridList} cols={2.5}>
-                    {tileData.map(tile => (
-                        <GridListTile key={tile.img}>
-                            <img src={require( "./" + tile.img)} alt={tile.title} />
-                            <GridListTileBar
-                                title={tile.title}
-                                classes={{
-                                    root: classes.titleBar,
-                                    title: classes.title,
-                            }}
-                            actionIcon={
-                                <IconButton aria-label={`star ${tile.title}`}>
-                                    <ArrowForwardIosIcon />
-                                </IconButton>
-                            }
-                        />
-                        </GridListTile>
-                    ))}
-                </GridList>
-            </div>
-
-            <div className={classes.root}>
-                <GridList cellHeight={150} className={classes.gridList2}>
-                    <GridListTile cols={2}>
-                    </GridListTile>
-                    {tileData.map(tile => (
-                        <GridListTile key={tile.img}>
-                            <img src={require( "./" + tile.img)} alt={tile.title} />
-                            <GridListTileBar
-                            title={tile.title}
-                            actionIcon={
-                                <IconButton className={classes.icon}>
-                                    <ArrowForwardIosIcon />
-                                </IconButton>
-                            }
+        render() {
+            //console.log(this.state.tileData)
+            const {classes} = this.props;
+            return (
+                <div>
+                <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '10vh' }}>
+                    <Autocomplete
+                        onPlaceSelected={(place) => {
+                        console.log(place.geometry.location.lat());
+                        console.log(place.geometry.location.lng())
+                        }}
+                        types={['address']}
+                        componentRestrictions={{country: "us"}}
+                    />
+                </div>
+    
+                <div className={classes.root3}>
+                    {/* <GoogleMapsContainer />      */}
+                </div>
+                <div className={classes.root}>
+                    <GridList className={classes.gridList} cols={2.5}>
+                        {this.state.tileData.map(tile => (
+                            <GridListTile key={tile._id}>
+                                <img src={require( "./food.png")} alt={tile.restinfo.restName} />
+                                <GridListTileBar
+                                    title={tile.restinfo.restName}
+                                    classes={{
+                                        root: classes.titleBar,
+                                        title: classes.title,
+                                }}
+                                actionIcon={
+                                    <IconButton aria-label={`star ${tile.restinfo.restName}`}>
+                                        <ArrowForwardIosIcon />
+                                    </IconButton>
+                                }
                             />
+                            </GridListTile>
+                        ))}
+                    </GridList>
+                </div>
+    
+                <div className={classes.root}>
+                    <GridList cellHeight={150} className={classes.gridList2}>
+                        <GridListTile cols={2}>
                         </GridListTile>
-                    ))}
-                </GridList>
+                        {this.state.tileData.map(tile => (
+                            <GridListTile key={tile._id}>
+                                <img src={require( "./food1.jpg")} alt={tile.restinfo.restName} />
+                                <GridListTileBar
+                                title={tile.restinfo.restName}
+                                actionIcon={
+                                    <IconButton className={classes.icon}>
+                                        <ArrowForwardIosIcon />
+                                    </IconButton>
+                                }
+                                />
+                            </GridListTile>
+                        ))}
+                    </GridList>
+                </div>
             </div>
-        </div>
-    );
+            );
+            
+        }
 }
+
+
+export default withStyles(useStyles)(RestCard);
