@@ -66,7 +66,7 @@ class App extends Component{
                                     <Link to="/">Home</Link>
                                 </li>
                                 <li>
-                                    <Link to="/Restaurant View">Restaurant View</Link>
+                                    <Link to="/RestaurantView">Restaurant View</Link>
                                 </li>
                                 <li>
                                     <Link to="/Restaurant/">Restaurant</Link>
