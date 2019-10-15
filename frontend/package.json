@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.4.3",
     "@material-ui/icons": "^4.4.3",
+    "@material-ui/lab": "^4.0.0-alpha.29",
     "google-maps-react": "^2.0.2",
     "material-ui": "^0.20.2",
     "material-ui-places": "^1.1.7",
