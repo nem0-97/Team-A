@@ -114,9 +114,9 @@ app.delete('/api/v1/rest', function (req, res) { //remove a restaurant from data
 /** Customer endpoints */
 //POST
 app.post('/api/v1/cust', function (req, res) { //Add a new customer into database
-    req.body.password = log.hashPass(user.password);
+    req.body.accountinfo.password = log.hashPass(req.body.accountinfo.password);
     MongoDB.add('Customers',req.body); //First parm is which namespace to use
-    res.send({"message":'POST request to the homepage, customer ' + req.body.restinfo.name+' added to database'});
+    res.send({"message":'POST request to the homepage, customer ' + req.body.accountinfo.firstName+' added to database'});
 })
 
 //PUT
