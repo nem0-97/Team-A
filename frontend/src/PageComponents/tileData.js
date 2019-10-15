@@ -1,4 +1,4 @@
-exports.tileData = [
+const tileData = [
     {
       img: 'food.png',
       title: 'Restaurant',
@@ -49,4 +49,4 @@ exports.tileData = [
     },
   ];
   
-  //export default tileData;
+  export default tileData;
