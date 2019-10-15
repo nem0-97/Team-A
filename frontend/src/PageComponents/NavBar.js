@@ -7,7 +7,9 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import {Link} from 'react-router-dom';
-
+import Avatar from '@material-ui/core/Avatar';
+import Grid from '@material-ui/core/Grid';
+import Badge from '@material-ui/core/Badge';
 
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -25,9 +27,7 @@ import MailIcon from '@material-ui/icons/Mail';
 
 const drawerWidth = 240;
 
-import Avatar from '@material-ui/core/Avatar';
-import Grid from '@material-ui/core/Grid';
-import Badge from '@material-ui/core/Badge';
+
 
 
 
@@ -86,6 +86,14 @@ const useStyles = makeStyles(theme => ({
       marginLeft: 0,
     },
 }));
+const divStyle = {
+  display: 'inline-block',
+  position: 'relative',
+  top: '10px'
+};
+const floatRight = {
+  marginLeft: '60%',
+}
 
 
 
@@ -112,6 +120,8 @@ export default function Sidebar() {
         })}
       >
         <Toolbar>
+
+        <div>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -121,14 +131,16 @@ export default function Sidebar() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
+          <Typography variant="h6" noWrap style={divStyle}>
             Food Waste Prevention Website (Name)
           </Typography>
 
+         
+          </div>
+<div style={floatRight}>
           <Link to="/Login/">
           <Button color="inherit ">Login</Button>
           </Link>
-          <Grid>
                     <IconButton>
                         <Avatar>Hi</Avatar>
                     </IconButton>    
@@ -137,7 +149,7 @@ export default function Sidebar() {
 
                         </Badge>
                     </IconButton>
-                </Grid>
+                    </div>
 
         </Toolbar>
       </AppBar>
@@ -164,19 +176,24 @@ export default function Sidebar() {
               </ListItemIcon>
               <ListItemText primary={"Home"} />
             </ListItem>
-
+            <ListItem button key={"Restaurant Dashboard"} component={Link} to="/RestaurantView">
+              <ListItemIcon>
+                { <InboxIcon> </InboxIcon>} 
+              </ListItemIcon>
+              <ListItemText primary={"Restaurant Dashboard"} />
+            </ListItem>
             <ListItem button key={"customer"} component={Link} to="/customer">
               <ListItemIcon>
                 { <InboxIcon> </InboxIcon>} 
               </ListItemIcon>
-              <ListItemText primary={"Customer"} />
+              <ListItemText primary={"Customer Signup"} />
             </ListItem>
 
             <ListItem button key={"restaurant"} component={Link} to="/Restaurant">
               <ListItemIcon>
                 { <InboxIcon> </InboxIcon>} 
               </ListItemIcon>
-              <ListItemText primary={"Restaurant"} />
+              <ListItemText primary={"Create Restaurant"} />
             </ListItem>
 
             <ListItem button key={"login"} component={Link} to="/Login">

@@ -60,25 +60,7 @@ class App extends Component{
                 <Router>
                 <ButtonAppBar/> 
                     <div>
-                        <nav>
-                            <ul>
-                                <li>
-                                    <Link to="/">Home</Link>
-                                </li>
-                                <li>
-                                    <Link to="/RestaurantView">Restaurant View</Link>
-                                </li>
-                                <li>
-                                    <Link to="/Restaurant/">Restaurant</Link>
-                                </li>
-                                <li>
-                                    <Link to="/Customer/">Customer</Link>
-                                </li>
-                                <li>
-                                    <Link to="/Login/">Login</Link>
-                                </li>
-                            </ul>
-                        </nav>
+                       
                         <Switch>
                             <Route path="/" exact component={Index} />
                             <Route path="/Restaurant/" component={Restaurant} />
