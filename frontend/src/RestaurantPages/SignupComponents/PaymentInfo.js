@@ -4,9 +4,6 @@ import Container from '@material-ui/core/Container';
 
 class PaymentInfo extends React.Component{
     render(){
-        const bold = {
-            fontWeight: "bold"
-        }
         return <div>
             <Container>
                 <Grid container>

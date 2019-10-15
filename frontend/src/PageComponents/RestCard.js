@@ -88,46 +88,9 @@ class RestCard extends React.Component{
             const {classes} = this.props;
             return (
                 <div>
-                <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '10vh' }}>
-                    <Autocomplete
-                        onPlaceSelected={(place) => {
-                        console.log(place.geometry.location.lat());
-                        console.log(place.geometry.location.lng())
-                        }}
-                        types={['address']}
-                        componentRestrictions={{country: "us"}}
-                    />
-                </div>
-    
-                <div className={classes.root3}>
-                    {/* <GoogleMapsContainer />      */}
-                </div>
                 <div className={classes.root}>
-                    <GridList className={classes.gridList} cols={2.5}>
-                        {this.state.tileData.map(tile => (
-                            <GridListTile key={tile._id}>
-                                <img src={require( "./food.png")} alt={tile.restinfo.restName} />
-                                <GridListTileBar
-                                    title={tile.restinfo.restName}
-                                    classes={{
-                                        root: classes.titleBar,
-                                        title: classes.title,
-                                }}
-                                actionIcon={
-                                    <IconButton aria-label={`star ${tile.restinfo.restName}`}>
-                                        <ArrowForwardIosIcon />
-                                    </IconButton>
-                                }
-                            />
-                            </GridListTile>
-                        ))}
-                    </GridList>
-                </div>
-    
-                <div className={classes.root}>
-                    <GridList cellHeight={150} className={classes.gridList2}>
-                        <GridListTile cols={2}>
-                        </GridListTile>
+                    <GridList cellHeight={250} className={classes.gridList2}>
+                      
                         {this.state.tileData.map(tile => (
                             <GridListTile key={tile._id}>
                                 <img src={require( "./food1.jpg")} alt={tile.restinfo.restName} />

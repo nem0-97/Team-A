@@ -1,14 +1,10 @@
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { BrowserRouter as Router, Route, Redirect, Link, Switch } from "react-router-dom"; 
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-
 import Paper from '@material-ui/core/Paper';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -83,7 +79,6 @@ class RestSignup extends React.Component{
     this.handleFormChange=this.handleFormChange.bind(this);
   }
 }
-var test = "test";
 let restInfo = {};
 function getStepContent(step) {
   switch (step) {

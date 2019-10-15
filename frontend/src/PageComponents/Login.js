@@ -3,15 +3,11 @@ import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Textfield from '@material-ui/core/TextField';
-import {Select, MenuItem, FormControl} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { FormControl} from '@material-ui/core';
+
 import Button from '@material-ui/core/Button';
 
-const useStyles = makeStyles(theme => ({
-    dense: {
-        marginTop: 19,
-      }
-}));
+
 const formMargin = {
     margin: '10px'
 }
@@ -41,19 +37,6 @@ class LoginComponent extends React.Component{
     handleSubmit(event){
     }
 
-    /** TODO Use material UI select in form
-     *  <Select id="loginType" value={this.state.loginType} displayEmpty onChange={this.handleChange}>
-                    <MenuItem value="Customers"> Customer login</MenuItem>
-                    <MenuItem value="Restaurants">Restaurant login </MenuItem>
-                </Select>
-                
-                
-                 <select id="loginType" name="loginType" value={this.state.loginType} displayEmpty onChange={this.handleChange}>
-                    <option value="Customers"> Customer login</option>
-                    <option value="Restaurants">Restaurant login </option>
-                </select>
-                
-                */
 
     render(){ //move login post into handlesubmit form is not properly handling the select value
         return    <Container maxWidth="sm">

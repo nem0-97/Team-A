@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route,Redirect, Link, Switch } from "react-router-dom"; 
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"; 
 import './index.css';
 import RestSignup from './RestaurantPages/RestSignup';
 import CustSignup from './CustomerPages/CustSignup';
 import NotFound from './PageComponents/NotFound';
 import Login from './PageComponents/Login';
 import * as serviceWorker from './serviceWorker';
-import RestCard from './PageComponents/RestCard';
 import ButtonAppBar from './PageComponents/NavBar';
 import RestView from './PageComponents/RestView';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import Dashboard from './PageComponents/Dashboard';
 
 /*
