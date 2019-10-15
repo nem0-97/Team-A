@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import {Link} from 'react-router-dom';
 
+
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -23,6 +24,12 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 
 const drawerWidth = 240;
+
+import Avatar from '@material-ui/core/Avatar';
+import Grid from '@material-ui/core/Grid';
+import Badge from '@material-ui/core/Badge';
+
+
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -117,6 +124,21 @@ export default function Sidebar() {
           <Typography variant="h6" noWrap>
             Food Waste Prevention Website (Name)
           </Typography>
+
+          <Link to="/Login/">
+          <Button color="inherit ">Login</Button>
+          </Link>
+          <Grid>
+                    <IconButton>
+                        <Avatar>Hi</Avatar>
+                    </IconButton>    
+                    <IconButton>
+                        <Badge badgeContent={4} color= 'secondary'>
+
+                        </Badge>
+                    </IconButton>
+                </Grid>
+
         </Toolbar>
       </AppBar>
       <Drawer

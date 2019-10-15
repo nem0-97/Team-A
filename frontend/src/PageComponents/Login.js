@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Textfield from '@material-ui/core/TextField';
+import {Select, MenuItem, FormControl} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
@@ -20,11 +21,9 @@ class LoginComponent extends React.Component{
         super(props);
         this.state = {
             email: "",
-            loginType: "Customers", //Setting default login option
-            pw: "",
+            loginType: "Customer", //Setting default login option
+            password: "",
         }
-
-
        
         // will check the query param to see if there is something that has failed. 
         let params = new URLSearchParams(window.location.search)
@@ -33,7 +32,6 @@ class LoginComponent extends React.Component{
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
-     
     }
     handleChange(event){
         this.setState({
@@ -41,12 +39,23 @@ class LoginComponent extends React.Component{
         })
     }
     handleSubmit(event){
-        
     }
 
-    
-    render(){
-        
+    /** TODO Use material UI select in form
+     *  <Select id="loginType" value={this.state.loginType} displayEmpty onChange={this.handleChange}>
+                    <MenuItem value="Customers"> Customer login</MenuItem>
+                    <MenuItem value="Restaurants">Restaurant login </MenuItem>
+                </Select>
+                
+                
+                 <select id="loginType" name="loginType" value={this.state.loginType} displayEmpty onChange={this.handleChange}>
+                    <option value="Customers"> Customer login</option>
+                    <option value="Restaurants">Restaurant login </option>
+                </select>
+                
+                */
+
+    render(){ //move login post into handlesubmit form is not properly handling the select value
         return    <Container maxWidth="sm">
         <Paper id="signup-paper" className="text-center">
         <Grid container alignItems="center" direction="column">
@@ -54,23 +63,22 @@ class LoginComponent extends React.Component{
             <i className="material-icons large-icon d-block">lock</i>
                 <h1>{this.state.loginType} login </h1>
             </Grid>
-            <form className="login" onSubmit={this.handleSubmit} action="https://localhost:3000/login" method="post">
+            <form className="login" onSubmit={this.handleSubmit} action="https://localhost:3000/login" method="post"> 
             <Grid item sm={12} style={formMargin}>
+                <FormControl>
                 <label htmlFor="loginType">Login type: </label>
-                <select id="loginType" value={this.state.loginType} onChange={this.handleChange}>
-                    <option value="Customers">
-                        Customer login
-                    </option>
-                    <option value="Restaurants">
-                        Restaurant login
-                    </option>
+               
+                <select id="loginType" name="loginType" value={this.state.loginType}  onChange={this.handleChange}>
+                    <option value="Customers"> Customer login</option>
+                    <option value="Restaurants">Restaurant login </option>
                 </select>
+                </FormControl>
             </Grid>
             <Grid item sm={12} style={formMargin}>
-                <Textfield value={this.state.value} type="text" onChange={this.handleChange} variant="outlined" name="email" label="Email" maxWidth="lg" margin="dense" ></Textfield>
+                <Textfield value={this.state.value} type="text" onChange={this.handleChange} variant="outlined" id="email" name="email" label="Email" maxWidth="lg" margin="dense" ></Textfield>
             </Grid>
             <Grid item sm={12} style={formMargin}>
-                <Textfield value={this.state.value} type="password" onChange={this.handleChange} variant="outlined" name="password" label="Password" maxWidth="lg" margin="dense" ></Textfield>
+                <Textfield value={this.state.value} type="password" onChange={this.handleChange} variant="outlined" id="password" name="password" label="Password" maxWidth="lg" margin="dense" ></Textfield>
             </Grid>
             <Grid item sm={12} style={formMargin}>
                 <Button type="submit" color="primary" variant="contained">Log in</Button>

@@ -6,6 +6,5 @@ exports.hashPass = function (pass){
 }
 
 exports.passIsHash = function(pass, hash){
-    return pass==hash;//temporary
-    //return bcrypt.compareSync(pass,hash);//works but w have not starteed hashing passwords before putting theem into thee database yet
+    return bcrypt.compareSync(pass,hash);//works but w have not starteed hashing passwords before putting theem into thee database yet
 }

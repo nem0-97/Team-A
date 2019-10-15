@@ -17,11 +17,9 @@ const passport = require('passport');
 const locStrat = require('passport-local').Strategy;
 
 //Passport setup
-passport.use(new locStrat({usernameField:'email',passReqToCallback:true}, //TODO: select proper collection using form
+passport.use(new locStrat({usernameField:'email',passReqToCallback:true},
 function(req,user,pass,done){
-    console.log(req.body.collection);//TODO use this as collection name
-    
-    let cust = MongoDB.findOne('Customers',{"accountinfo.email":user}).then(cust=>{
+    let cust = MongoDB.findOne(req.body.loginType,{"accountinfo.email":user}).then(cust=>{
     if(!cust){
         // username not found in database
         return done(null, false, { message: 'Incorrect username.' });
@@ -30,18 +28,19 @@ function(req,user,pass,done){
         // password does not match
         return done(null, false, { message: 'Incorrect password.' });
     }
+    cust['collection'] = req.body.loginType;
     return done(null, cust);
     });
 }));
 
 // authenticated user must be serialized to the session
 passport.serializeUser(function(user, done){
-    done(null,user._id);
+    done(null,{'collection':user.collection,'id':user._id});
 });
 
 // user must be deserialized when subsequent requests are made
-passport.deserializeUser(function(user, done){
-    MongoDB.find('Customers',{_id:new MongoDB.ObjId(user)}).then(cust=>{
+passport.deserializeUser(function(user, done){ 
+    MongoDB.find(user.collection,{_id:new MongoDB.ObjId(user.id)}).then(cust=>{
         done(null,cust);
     });
 });
@@ -50,7 +49,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(expressSession({ secret: hidden.login.sessionSecret, resave: false, saveUninitialized: false }));//so passport sessions work
-//require('connect-ensure-login').ensureLoggedIn() useful for routes ensure they are logged in? maybe or just check req.user?
 
 // configure passport for use with an express-based app
 app.use(passport.initialize());
@@ -67,7 +65,7 @@ app.post('/register', function (req, res) {
 
 app.post('/login',passport.authenticate('local', { failureRedirect: 'http://localhost:3001/login/?failed=true' }), //FIXME: Why not use successRedirect: '/' here?
 function(req, res) {
-    res.redirect('http://localhost:3001');
+    res.redirect('/api/v1/rest');
 });
 
 app.get('/logout', function (req, res) {
@@ -81,6 +79,7 @@ app.get('/logout', function (req, res) {
 /**RESTAURAUNT*/
 //GET
 app.get('/api/v1/rest', function (req, res) { //get a restaurant by name?
+    console.log(req.user);
     MongoDB.find('Restaurants',req.query).then(rests=>res.send({"results":rests}));//send back query results
 });
 
@@ -97,8 +96,8 @@ app.get('/api/v1/rest/:restName', function (req, res) {
 
 //POST
 app.post('/api/v1/rest', function (req, res) { //Add a new restaurant into database
-    MongoDB.add('Restaurants',req.body); //First parm is which namespace to use
     req.body.accountinfo.password = log.hashPass(req.body.accountinfo.password);
+    MongoDB.add('Restaurants',req.body); //First parm is which namespace to use
     res.send({"message":'POST request to the homepage, restaurant ' + req.body.name+' added to database'});
 })
 
@@ -115,9 +114,9 @@ app.delete('/api/v1/rest', function (req, res) { //remove a restaurant from data
 /** Customer endpoints */
 //POST
 app.post('/api/v1/cust', function (req, res) { //Add a new customer into database
+    req.body.accountinfo.password = log.hashPass(req.body.accountinfo.password);
     MongoDB.add('Customers',req.body); //First parm is which namespace to use
-    req.body.password = log.hashPass(user.password);
-    res.send({"message":'POST request to the homepage, customer ' + req.body.restinfo.name+' added to database'});
+    res.send({"message":'POST request to the homepage, customer ' + req.body.accountinfo.firstName+' added to database'});
 })
 
 //PUT
