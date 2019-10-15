@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Textfield from '@material-ui/core/TextField';
-import {Select, MenuItem} from '@material-ui/core';
+import {Select, MenuItem, FormControl} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
@@ -21,7 +21,7 @@ class LoginComponent extends React.Component{
         super(props);
         this.state = {
             email: "",
-            loginType: "", //Setting default login option
+            loginType: "Customer", //Setting default login option
             password: "",
         }
        
@@ -45,7 +45,15 @@ class LoginComponent extends React.Component{
      *  <Select id="loginType" value={this.state.loginType} displayEmpty onChange={this.handleChange}>
                     <MenuItem value="Customers"> Customer login</MenuItem>
                     <MenuItem value="Restaurants">Restaurant login </MenuItem>
-                </Select> */
+                </Select>
+                
+                
+                 <select id="loginType" name="loginType" value={this.state.loginType} displayEmpty onChange={this.handleChange}>
+                    <option value="Customers"> Customer login</option>
+                    <option value="Restaurants">Restaurant login </option>
+                </select>
+                
+                */
 
     render(){ //move login post into handlesubmit form is not properly handling the select value
         return    <Container maxWidth="sm">
@@ -57,11 +65,14 @@ class LoginComponent extends React.Component{
             </Grid>
             <form className="login" onSubmit={this.handleSubmit} action="https://localhost:3000/login" method="post"> 
             <Grid item sm={12} style={formMargin}>
+                <FormControl>
                 <label htmlFor="loginType">Login type: </label>
-                <select id="loginType" name="loginType" value={this.state.loginType} displayEmpty onChange={this.handleChange}>
+               
+                <select id="loginType" name="loginType" value={this.state.loginType}  onChange={this.handleChange}>
                     <option value="Customers"> Customer login</option>
                     <option value="Restaurants">Restaurant login </option>
                 </select>
+                </FormControl>
             </Grid>
             <Grid item sm={12} style={formMargin}>
                 <Textfield value={this.state.value} type="text" onChange={this.handleChange} variant="outlined" id="email" name="email" label="Email" maxWidth="lg" margin="dense" ></Textfield>
