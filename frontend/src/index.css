@@ -30,3 +30,19 @@ code {
   margin: 0 auto;
 }
 
+
+.marginCenter{
+  margin:0 auto !important;
+}
+.marginTop{
+  margin-top:25px !important;
+}
+.gridItem{
+  border: 1px solid;
+  text-align: center;
+  padding:55px;
+  margin-bottom: 10px;
+}
+.marginLeft{
+  margin-left:45px !important;
+}

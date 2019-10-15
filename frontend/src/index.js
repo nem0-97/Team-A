@@ -10,11 +10,13 @@ import * as serviceWorker from './serviceWorker';
 import RestCard from './PageComponents/RestCard';
 import ButtonAppBar from './PageComponents/NavBar';
 import RestView from './PageComponents/RestView';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Dashboard from './PageComponents/Dashboard';
 
 /*
 
 TODO:
-# Add front-end to our nav-bar
 # Add bottom-nav component for customer/restaurant view
 # Handle login
     # Maybe look here: https://reacttraining.com/react-router/web/example/auth-workflow
@@ -29,9 +31,8 @@ TODO:
 
 */
 
-
 function Index() {
-    return <RestCard />
+    return <Dashboard />
 }
 
 function Restaurant() {
@@ -60,7 +61,11 @@ class App extends Component{
                 <Router>
                 <ButtonAppBar/> 
                     <div>
-                       
+
+
+
+                     
+
                         <Switch>
                             <Route path="/" exact component={Index} />
                             <Route path="/Restaurant/" component={Restaurant} />
