@@ -82,7 +82,7 @@ const useStyles = makeStyles(theme => ({
 
 
 
-export default function PersistentDrawerLeft() {
+export default function Sidebar() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -115,7 +115,7 @@ export default function PersistentDrawerLeft() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Persistent drawer
+            Food Waste Prevention Website (Name)
           </Typography>
         </Toolbar>
       </AppBar>
@@ -135,21 +135,51 @@ export default function PersistentDrawerLeft() {
         </div>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
+
+            <ListItem button key={"home"} component={Link} to="/">
+              <ListItemIcon>
+                { <InboxIcon> </InboxIcon>} 
+              </ListItemIcon>
+              <ListItemText primary={"Home"} />
             </ListItem>
-          ))}
+
+            <ListItem button key={"customer"} component={Link} to="/customer">
+              <ListItemIcon>
+                { <InboxIcon> </InboxIcon>} 
+              </ListItemIcon>
+              <ListItemText primary={"Customer"} />
+            </ListItem>
+
+            <ListItem button key={"restaurant"} component={Link} to="/Restaurant">
+              <ListItemIcon>
+                { <InboxIcon> </InboxIcon>} 
+              </ListItemIcon>
+              <ListItemText primary={"Restaurant"} />
+            </ListItem>
+
+            <ListItem button key={"login"} component={Link} to="/Login">
+              <ListItemIcon>
+                { <InboxIcon> </InboxIcon>} 
+              </ListItemIcon>
+              <ListItemText primary={"Login"} />
+            </ListItem>
+
         </List>
         <Divider />
         <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
+            <ListItem button key={"aboutUs"} component={Link} to="/">
+              <ListItemIcon>
+                { <MailIcon> </MailIcon>} 
+              </ListItemIcon>
+              <ListItemText primary={"About Us"} />
             </ListItem>
-          ))}
+
+            <ListItem button key={"contactUs"} component={Link} to="/">
+              <ListItemIcon>
+                { <MailIcon> </MailIcon>} 
+              </ListItemIcon>
+              <ListItemText primary={"Contact Us"} />
+            </ListItem>
         </List>
       </Drawer>
       <main
@@ -158,19 +188,6 @@ export default function PersistentDrawerLeft() {
         })}
       >
         <div className={classes.drawerHeader} />
-        <Typography variant="h6" className={classes.title}>
-            
-            <Link to="/" > Home </Link>
-
-              <Link to="/customer" > Customer </Link>
-          
-              <Link to="/Restaurant" > Restaurant</Link>
-
-            </Typography>
-            
-            <Link to="/Login/">
-            <Button color="inherit ">Login</Button>
-            </Link>
       </main>
     </div>
   );
