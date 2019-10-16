@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color:#333;
 }
 .green{
   color:#2ecc71;
@@ -29,7 +30,15 @@ code {
   text-align: center;
   margin: 0 auto;
 }
-
+.bold{
+  font-weight:bold !important;
+}
+.text-left{
+  text-align: left !important;
+}
+.heading-padding{
+  padding:15px;
+}
 
 .marginCenter{
   margin:0 auto !important;
@@ -38,10 +47,12 @@ code {
   margin-top:25px !important;
 }
 .gridItem{
-  border: 1px solid;
   text-align: center;
   padding:55px;
   margin-bottom: 10px;
+}
+.gridBorder{
+  border: 1px solid #333;
 }
 .marginLeft{
   margin-left:45px !important;

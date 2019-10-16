@@ -1,0 +1,17 @@
+.MuiGridListTile-tile{
+    transition: all .2s ease-in;    
+    margin-left:15px;
+    border-radius: 4px;
+    margin-bottom:15px;
+
+}
+.MuiGridListTile-tile:hover, .MuiGridListTile-imgFullWidth:hover{
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.96), 0 3px 6px rgba(0,0,0,0.96);
+}
+.MuiIconButton-root{
+    transition: all .6s ease-in;
+}
+.MuiIconButton-root:hover{
+    background-color: rgba(245, 243, 243, 0.27) !important;
+}

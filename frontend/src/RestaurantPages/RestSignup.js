@@ -111,6 +111,8 @@ function makeRestInfo(step){
   restInfo.restinfo = {
       restName: window.restinfo.state.restName,
       address: window.restinfo.state.address,
+      lng: window.restinfo.state.lng,
+      lat: window.restinfo.state.lat,
       city: window.restinfo.state.city,
       zipCode: window.restinfo.state.zipCode,
       openTime: window.restinfo.state.openTime,

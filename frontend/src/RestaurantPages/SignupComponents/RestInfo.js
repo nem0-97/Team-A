@@ -3,7 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-
+import Autocomplete from 'react-google-autocomplete';
 
 /*
 TODO: 
@@ -17,6 +17,8 @@ class RestInfo extends React.Component {
         this.state = {
             restName: "",
             address: "",
+            lng:"",
+            lat:"",
             openTime: "",
             closeTime: "",
             city:"",
@@ -68,16 +70,26 @@ class RestInfo extends React.Component {
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <TextField
-                                        variant="outlined"
-                                        required
-                                        fullWidth
-                                        id="address"
-                                        label="Address"
-                                        name="address"
-                                        onChange={this.handleFormChange}
-                                        value={this.state.address}
-                                    />
+                                 
+                                      <Autocomplete
+                                            style={{width: '100%'}}
+                                            variant="outlined"
+                                            required
+                                            onPlaceSelected={(place) => {
+                                                console.log(place.geometry.location.lat());
+                                                console.log(place);
+                                                this.state.lat = place.geometry.location.lat();
+                                                this.state.lng = place.geometry.location.lng();
+                                                this.state.address = place.formatted_address;
+                                            }}
+                                            className="form-control"
+                                            id="standard-search"
+                                            label="Search field"
+                                            type="search"
+                                            types={['address']}	
+                                            componentRestrictions={{country: "us"}}
+                                            onChange={this.handleFormChange}
+                                     />
                                 </Grid>
                                 <Grid item xs={6}>
                                 <TextField

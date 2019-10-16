@@ -10,7 +10,7 @@ import * as serviceWorker from './serviceWorker';
 import ButtonAppBar from './PageComponents/NavBar';
 import RestView from './PageComponents/RestView';
 import Dashboard from './PageComponents/Dashboard';
-
+import RestSearch from './CustomerPages/RestSearch';
 /*
 
 TODO:
@@ -46,6 +46,10 @@ function RestaurantView()
 {
     return <RestView />
 }
+function restSearch()
+{
+    return <RestSearch />
+}
 
 
 
@@ -59,16 +63,13 @@ class App extends Component{
                 <ButtonAppBar/> 
                     <div>
 
-
-
-                     
-
                         <Switch>
                             <Route path="/" exact component={Index} />
                             <Route path="/Restaurant/" component={Restaurant} />
                             <Route path="/Customer/" component={Customer} />
                             <Route path="/RestaurantView/" component={RestaurantView} />
                             <Route path="/Login/" component={LoginComponent} />
+                            <Route path="/RestSearch/" component={restSearch} />
                             <Route component={NotFound} />
                         </Switch>
                     </div>
