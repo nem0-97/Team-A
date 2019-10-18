@@ -40,7 +40,7 @@ passport.serializeUser(function(user, done){
 
 // user must be deserialized when subsequent requests are made
 passport.deserializeUser(function(user, done){ 
-    MongoDB.find(user.collection,{_id:new MongoDB.ObjId(user.id)}).then(cust=>{
+    MongoDB.findOne(user.collection,{_id:new MongoDB.ObjId(user.id)}).then(cust=>{
         done(null,cust);
     });
 });
@@ -101,14 +101,18 @@ app.post('/api/v1/rest', function (req, res) { //Add a new restaurant into datab
     res.send({"message":'POST request to the homepage, restaurant ' + req.body.name+' added to database'});
 })
 
-//PUT
+//PUT TODO test
 app.put('/api/v1/rest', function (req, res) { //Update given property of a restaurant with given value
-    res.send({"message":'PUT request to the homepage, restaurant fields updatd'});
+    if(MongoDB.update('Restaurant',req.body.query,req.body.newVals))
+        res.send({"message":'A restaurant updated'});
+    else res.send({"message":'Error'});
 })
 
-//DELETE
+//DELETE TODO test
 app.delete('/api/v1/rest', function (req, res) { //remove a restaurant from database by name
-    res.send({"message":'DELETE request to the homepage'});
+    if(MongoDB.delete('Restaurant',req.body.query))
+        res.send({"message":'A restaurant deleted'});
+    else res.send({"message":'Error'});
 })
 
 /** Customer endpoints */
