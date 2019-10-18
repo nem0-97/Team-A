@@ -52,10 +52,10 @@ const useStyles = theme => ({
         height: 28,
         margin: 4,
       },
-      root3: {
-      }
   });
 
+
+/* This is the home page that everyone will see after logging in or entering the website*/
 class RestCard extends React.Component{
     
         constructor(props){
@@ -66,12 +66,12 @@ class RestCard extends React.Component{
           
         }
         
-        componentDidMount() {
+        componentDidMount() { /* Fetches data from backend and inputs data into tileData */
             fetch('https://localhost:3000/api/v1/rest').then(response => response.json()).then(response1 => {this.setState({tileData: response1.results})});
         }
         
 
-        render() {
+        render() { //Renders the components used in the dashboard
             console.log(this.state.tileData)
            
 
