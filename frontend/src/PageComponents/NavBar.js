@@ -23,6 +23,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 const drawerWidth = 240;
 
@@ -91,7 +92,7 @@ const divStyle = {
   top: '10px'
 };
 const floatRight = {
-  marginLeft: '60%',
+  marginLeft: '50%',
 }
 
 
@@ -145,10 +146,12 @@ export default function Sidebar() {
                     </IconButton>    
                     <IconButton>
                         <Badge badgeContent={4} color= 'secondary'>
-
                         </Badge>
                     </IconButton>
-                    </div>
+                    <IconButton onClick={console.log('open')}>
+                    <ShoppingCartIcon color="inherit" className={classes.cart}/>
+                    </IconButton>
+                     </div>
 
         </Toolbar>
       </AppBar>
@@ -200,6 +203,13 @@ export default function Sidebar() {
                 { <InboxIcon> </InboxIcon>} 
               </ListItemIcon>
               <ListItemText primary={"Login"} />
+            </ListItem>
+
+            <ListItem button key={"checkout"} component={Link} to="/">
+              <ListItemIcon>
+                { <InboxIcon> </InboxIcon>} 
+              </ListItemIcon>
+              <ListItemText primary={"Checkout"} />
             </ListItem>
 
         </List>
