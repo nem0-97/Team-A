@@ -14,27 +14,24 @@ class AddressSearch extends React.Component {
         this.state = {
          
         };
-
-        
-       
-        
+     
 
     }
     render() {
             return (   
                 <div class="form-group">
                 <Typography variant="h6"  className="mb-4">
-                        Search Restaurant
+                        Search Restaurant by location
                      </Typography>
                      <div class="input-group mb-2">
                      <div class="input-group-prepend">
                     <div class="input-group-text"><i class="material-icons">my_location</i></div>
                     </div>
                      <Autocomplete
-                     style={{width: '90%'}}
+                     style={{width: '70%'}}
                      onPlaceSelected={(place) => {
-                        console.log(place.geometry.location.lat());
                         console.log(place);
+                        //Store the lat and lng coordinates and use those for the query param
                         let lat = place.geometry.location.lat();
                         let lng = place.geometry.location.lng();
                         window.location.href = "http://localhost:3001/RestSearch?lat="+ lat +"&lng=" + lng + "";

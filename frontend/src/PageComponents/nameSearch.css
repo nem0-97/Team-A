@@ -1,0 +1,15 @@
+.searchBtn{
+    background-color:transparent;
+    border:none;
+    padding:0px;
+    border-top-right-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+    z-index: 100;
+}
+.searchBtn:focus{
+    color: #495057;
+    background-color: #fff;
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
