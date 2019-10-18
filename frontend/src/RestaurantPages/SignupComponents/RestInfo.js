@@ -5,11 +5,6 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Autocomplete from 'react-google-autocomplete';
 
-/*
-TODO: 
-
-*/
-
 
 class RestInfo extends React.Component {
     constructor(props) {
@@ -35,15 +30,8 @@ class RestInfo extends React.Component {
     }
 
 
-    /*
-    FIXME:
-   
-    */
-
 
     render() {
-
-
             return (
                 <Container component="main" maxWidth="xs">
                     <div >

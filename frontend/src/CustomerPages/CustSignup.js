@@ -13,13 +13,7 @@ const hidden = require('../hidden.js'); //store api paths here
 
 /*
 TODO: 
-# Encrypt password
-    * https://github.com/agorlov/javascript-blowfish - Useful algorithm for encryption
 # Check if email is already used
-# Redirect to login-page/dashboard
-# Make signup/login page default view
-# Check if user is logged in
-    * Through Cookies or sessions?
 FIXME:
 # fix console errors
 */
@@ -50,7 +44,6 @@ class CustSignup extends React.Component {
 
     /*
     FIXME:
-    # Make pretty
     # Make possible to use the same component for both customer and restaurant
     */
     handleSubmit(event) {

@@ -4,9 +4,10 @@ import Typography from '@material-ui/core/Typography';
 import '../index.css';
 import RestCard from './RestCard';
 import AddressSearch from './AddressSearch';
+import NameSearch from './NameSearch';
 /*
 TODO: 
-
+    #Make it able to search for restaurant by name
 */
 
 
@@ -14,23 +15,23 @@ class Dashboard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-         
         };
-  
-
     }
 
-
-
-    
-
     render() {
-
-
             return (
                 <Grid container >
                 <Grid item sm={6} className="gridBorder gridItem marginLeft" >
-                    <AddressSearch />
+                    <Grid container>
+                        <Grid item sm={5} >
+                            <AddressSearch />
+                        </Grid>
+                        <Grid item sm={5} className="marginLeft">
+                            <NameSearch/>
+                        </Grid>
+                    </Grid>
+                   
+                    
                 </Grid>
                 <Grid item sm={5} className="gridBorder gridItem marginLeft" >
                 <Typography variant="h6" noWrap >

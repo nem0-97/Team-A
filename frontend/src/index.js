@@ -23,11 +23,10 @@ TODO:
 
 
 ### Docs for routing: https://reacttraining.com/react-router/web/guides/quick-start
-
-
-
 */
 
+
+/* These functions are for the react-router to which component has to be rendered */
 function Index() {
     return <Dashboard />
 }

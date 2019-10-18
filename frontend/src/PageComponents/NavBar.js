@@ -27,10 +27,6 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 const drawerWidth = 240;
 
-
-
-
-
 const useStyles = makeStyles(theme => ({
     root: {
       display: 'flex',
@@ -127,8 +123,7 @@ export default function Sidebar() {
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
-          >
+            className={clsx(classes.menuButton, open && classes.hide)}>
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap style={divStyle}>
@@ -137,21 +132,18 @@ export default function Sidebar() {
 
          
           </div>
-<div style={floatRight}>
-          <Link to="/Login/">
-          <Button color="inherit ">Login</Button>
-          </Link>
-                    <IconButton>
-                        <Avatar>Hi</Avatar>
-                    </IconButton>    
-                    <IconButton>
-                        <Badge badgeContent={4} color= 'secondary'>
-                        </Badge>
-                    </IconButton>
-                    <IconButton onClick={console.log('open')}>
-                    <ShoppingCartIcon color="inherit" className={classes.cart}/>
-                    </IconButton>
-                     </div>
+          <div style={floatRight}>
+            <Link to="/Login/">
+            <Button color="inherit ">Login</Button>
+            </Link>
+            <IconButton>
+                <Avatar>Hi</Avatar>
+            </IconButton>    
+            <IconButton>
+                <Badge badgeContent={4} color= 'secondary'>
+                </Badge>
+            </IconButton>
+          </div>
 
         </Toolbar>
       </AppBar>

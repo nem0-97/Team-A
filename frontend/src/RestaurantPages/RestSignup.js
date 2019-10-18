@@ -13,8 +13,10 @@ import Typography from '@material-ui/core/Typography';
 
 import AccountInfo from './SignupComponents/AccountInfo';
 import RestInfo from './SignupComponents/RestInfo';
-import PaymentInfo from './SignupComponents/PaymentInfo';
+import AccountSummary from './SignupComponents/AccountSummary';
 const hidden = require('../hidden.js'); //store api paths here
+
+/* this component will handle all the signup components for the restaurant */
 
 const useStyles = makeStyles(theme => ({
   layout: {
@@ -48,7 +50,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-const steps = ['Restaurant Information', 'Account Information', 'Payment information'];
+const steps = ['Restaurant Information', 'Account Information', 'Order Summary'];
+
+
 
 
 /*
@@ -90,7 +94,7 @@ function getStepContent(step) {
       return <AccountInfo ref={(accountinfo) => window.accountinfo = accountinfo}/>
     case 2:      
       makeRestInfo(2);
-      return <PaymentInfo 
+      return <AccountSummary 
       restName={restInfo.restinfo.restName}
       address={restInfo.restinfo.address}
       city={restInfo.restinfo.city}

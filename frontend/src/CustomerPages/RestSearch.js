@@ -5,6 +5,8 @@ import Container from '@material-ui/core/Container';
 import './restSearch.css';
 /*
 TODO: 
+    #Google maps dinstance matrix API:
+        #calculate distance between searchquery and restaurants - https://developers.google.com/maps/documentation/distance-matrix/start
 
 */
 
@@ -14,6 +16,7 @@ class RestSearch extends React.Component {
         let params = new URLSearchParams(window.location.search)
         super(props);
         this.state = {
+        /* gets the query param  */
          lng: params.get('lng'),
          lat: params.get('lat'),
         };

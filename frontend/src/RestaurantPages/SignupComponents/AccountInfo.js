@@ -4,13 +4,9 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
-
 /*
-TODO: 
-
+    This component handles all acountinfo for the restaurant signup
 */
-
-
 class AccountInfo extends React.Component {
     constructor(props) {
         super(props);
@@ -21,10 +17,7 @@ class AccountInfo extends React.Component {
             password: "",
             operation: "signup"
         };
-
-        
         this.handleFormChange = this.handleFormChange.bind(this);
-        
 
     }
 
