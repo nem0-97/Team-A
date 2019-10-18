@@ -129,6 +129,14 @@ app.delete('/api/v1/cust', function (req, res) { //remove a customer from databa
     res.send({"message":'DELETE request to the homepage'});
 })
 
+/**ORDERS*/
+//GET
+app.get('/api/v1/order', function (req, res) { //get a restaurant by name?
+    if(req.user) MongoDB.find('Restaurants',req.query).then(rests=>res.send({"results":rests}));//send back query results
+    else res.send({"mess":"You need to be logged in to view orders."});
+
+});
+
 
 https.createServer({
     key: fs.readFileSync('server.key'),
