@@ -86,12 +86,12 @@ app.get('/api/v1/rest', function (req, res) { //get a restaurant by name?
 /** GET restaurant info by querying a name */
 app.get('/api/v1/rest/:restName', function (req, res) {
     let restName = req.params.restName;
+    console.log(restName);
     MongoDB.find('Restaurants',(
         {
-            "restinfo.restName": restName
+            "restinfo.restName": {$regex:restName,$options:'i'}
         }
-    )).then(rests => res.send({ "results": rests }));
-    
+    )).then(rests => {console.log(rests.length);res.send({ "results": rests })});
 });
 
 //POST
