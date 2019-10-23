@@ -19,7 +19,7 @@ const locStrat = require('passport-local').Strategy;
 //Passport setup
 passport.use(new locStrat({usernameField:'email',passReqToCallback:true},
 function(req,user,pass,done){
-    let cust = MongoDB.findOne(req.body.loginType,{"accountinfo.email":user}).then(cust=>{
+    let cust = MongoDB.fullFindOne(req.body.loginType,{"accountinfo.email":user}).then(cust=>{
     if(!cust){
         // username not found in database
         return done(null, false, { message: 'Incorrect username.' });
@@ -136,7 +136,7 @@ app.delete('/api/v1/cust', function (req, res) { //remove a customer from databa
 /**ORDERS*/
 //GET
 app.get('/api/v1/order', function (req, res) { //get a restaurant by name?
-    if(req.user) MongoDB.find('Restaurants',req.query).then(rests=>res.send({"results":rests}));//send back query results
+    if(req.user) MongoDB.find('Orders',req.query).then(rests=>res.send({"results":rests}));//send back query results
     else res.send({"mess":"You need to be logged in to view orders."});
 
 });
