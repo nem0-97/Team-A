@@ -3,7 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-const hidden = require('../hidden.js'); //store api paths here
+
 
 // const steps = ['Shipping address', 'Payment details', 'Review your order'];
 

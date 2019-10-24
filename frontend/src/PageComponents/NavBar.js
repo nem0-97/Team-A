@@ -197,7 +197,7 @@ export default function Sidebar() {
               <ListItemText primary={"Login"} />
             </ListItem>
 
-            <ListItem button key={"checkout"} component={Link} to="/">
+            <ListItem button key={"checkout"} component={Link} to="/Checkout">
               <ListItemIcon>
                 { <InboxIcon> </InboxIcon>} 
               </ListItemIcon>

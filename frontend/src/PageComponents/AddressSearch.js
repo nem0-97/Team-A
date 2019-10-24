@@ -7,15 +7,24 @@ TODO:
 
 */
 
+function fetchRestaurants(){
+    console.log("hej");
+}
 
 class AddressSearch extends React.Component {
     constructor(props) {
+        
         super(props);
         this.state = {
          
-        };
+        }
+       
      
 
+    }
+    componentDidMount(){
+        fetchRestaurants();
+        
     }
     render() {
             return (   

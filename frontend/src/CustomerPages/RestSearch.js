@@ -10,6 +10,10 @@ TODO:
 
 */
 
+function getCoordinates(){
+   
+
+}
 
 class RestSearch extends React.Component {
     constructor(props) {
@@ -19,10 +23,38 @@ class RestSearch extends React.Component {
         /* gets the query param  */
          lng: params.get('lng'),
          lat: params.get('lat'),
+         data: [],
         };
         
         console.log(params.get('lat'));
         console.log(params.get('lng'));
+        
+    }
+    componentDidMount(){
+        getCoordinates();
+        
+        
+        //fetch('https://localhost:3000/api/v1/rest').then(response => response.json()).then(response1 => {this.setState({tileData: response1.results})});
+        //fetch('https://localhost:3000/api/v1/rest').then(response => response.json()).then(response1 => {this.setState({data: response1})});
+
+        /* FIXME: SHOULD NOT FETCH EVERYTHING
+                 RIGHT NOW IT's ALSO fetching password etc from the restaurant collection.
+        
+        */
+        async function apiGetAll () {
+            try {
+              const resp = await fetch('https://localhost:3000/api/v1/rest')
+              
+              
+              return resp.json();
+            } catch (err) {
+                 console.log(err)
+              }
+         }
+         this.data = apiGetAll().then(function(data){
+            console.log(data.results);
+        });;
+
     }
     
     render() {
