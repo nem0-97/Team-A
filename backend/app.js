@@ -48,7 +48,8 @@ passport.deserializeUser(function(user, done){
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded());
-app.use(expressSession({ secret: hidden.login.sessionSecret, resave: false, saveUninitialized: false }));//so passport sessions work
+app.use(expressSession({ secret: hidden.login.sessionSecret, resave: false, saveUninitialized: false, maxAge:1800000 }));//so passport sessions work (eexpires after 30 minutes)
+//app.use(require('cookie-parser')); // TODO: Set a login cookie
 
 // configure passport for use with an express-based app
 app.use(passport.initialize());
@@ -65,6 +66,8 @@ app.post('/register', function (req, res) {
 
 app.post('/login',passport.authenticate('local', { failureRedirect: 'http://localhost:3001/login/?failed=true' }), //FIXME: Why not use successRedirect: '/' here?
 function(req, res) {
+    console.log(req.user);
+    //res.cookie('userInfo', {'type':req.body.loginType,'':}, { maxAge: 1800000, httpOnly: true });
     res.redirect('/api/v1/rest');
 });
 
