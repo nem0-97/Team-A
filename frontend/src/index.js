@@ -11,6 +11,7 @@ import ButtonAppBar from './PageComponents/NavBar';
 import RestView from './PageComponents/RestView';
 import Dashboard from './PageComponents/Dashboard';
 import RestSearch from './CustomerPages/RestSearch';
+import CheckOut from './PageComponents/CheckoutPages/Checkout';
 /*
 
 TODO:
@@ -49,6 +50,9 @@ function restSearch()
 {
     return <RestSearch />
 }
+function checkOut(){
+    return <CheckOut />
+}
 
 
 
@@ -69,6 +73,7 @@ class App extends Component{
                             <Route path="/RestaurantView/" component={RestaurantView} />
                             <Route path="/Login/" component={LoginComponent} />
                             <Route path="/RestSearch/" component={restSearch} />
+                            <Route path="/Checkout/" component={checkOut} />
                             <Route component={NotFound} />
                         </Switch>
                     </div>

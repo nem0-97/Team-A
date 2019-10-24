@@ -19,9 +19,12 @@ class NameSearch extends React.Component {
         this.state = {
             search: "",
         };
-        
+        this.handleFormChange = this.handleFormChange.bind(this);
     }
   
+    handleFormChange(event) {
+        this.setState({ [event.target.id]: event.target.value });
+    }
 
     render() {
             return (   
@@ -35,7 +38,7 @@ class NameSearch extends React.Component {
                             <span className="input-group-text" ><i className="material-icons">search</i></span>
                             </button>
                         </div>
-                        <input type="text" className="form-control" placeholder="Restaurant Name"  />
+                        <input type="text" className="form-control" placeholder="Restaurant Name" id="restName" onChange={this.handleFormChange} value={this.state.search}/>
                     </div>
                   
                  </div>
