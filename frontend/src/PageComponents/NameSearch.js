@@ -22,8 +22,9 @@ class NameSearch extends React.Component {
         this.handleFormChange = this.handleFormChange.bind(this);
     }
   
-    handleFormChange(event) {
-        this.setState({ [event.target.id]: event.target.value });
+    handleFormChange(event) {//fetch('https://localhost:3000/api/v1/rest').then(response => response.json()).then(response1 => {console.log('Hello')});
+        this.setState({ value: event.target.value });
+        
     }
 
     render() {
@@ -38,7 +39,7 @@ class NameSearch extends React.Component {
                             <span className="input-group-text" ><i className="material-icons">search</i></span>
                             </button>
                         </div>
-                        <input type="text" className="form-control" placeholder="Restaurant Name" id="restName" onChange={this.handleFormChange} value={this.state.search}/>
+                        <input type="text" className="form-control" placeholder="Restaurant Name" id="restName" onChange={this.handleFormChange} value={this.state.value}/>
                     </div>
                   
                  </div>

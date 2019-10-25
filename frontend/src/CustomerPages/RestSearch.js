@@ -22,7 +22,7 @@ let restaurants = [];
     To test this functionality: http://localhost:3001/RestSearch?lat=37.34880909999999&lng=-121.89608240000001
 */
 function calcDistance(lat1, lon1, lat2, lon2, unit) {
-	if ((lat1 == lat2) && (lon1 == lon2)) {
+	if ((lat1 === lat2) && (lon1 === lon2)) {
 		return 0;
 	}
 	else {
@@ -37,7 +37,7 @@ function calcDistance(lat1, lon1, lat2, lon2, unit) {
 		dist = Math.acos(dist);
 		dist = dist * 180/Math.PI;
 		dist = dist * 60 * 1.1515;
-		if (unit=="K") { dist = dist * 1.609344 }
+		if (unit==="K") { dist = dist * 1.609344 }
 		return dist;
 	}
 }
