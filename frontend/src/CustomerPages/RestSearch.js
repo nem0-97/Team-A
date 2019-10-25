@@ -19,6 +19,7 @@ let restaurants = [];
     @param lng1 = second longtitude coordinate
     @ unit = if it should use metric or miles, K = metric default is miles
     Credit to:  https://www.geodatasource.com/developers/javascript 
+    To test this functionality: http://localhost:3001/RestSearch?lat=37.34880909999999&lng=-121.89608240000001
 */
 function calcDistance(lat1, lon1, lat2, lon2, unit) {
 	if ((lat1 == lat2) && (lon1 == lon2)) {
