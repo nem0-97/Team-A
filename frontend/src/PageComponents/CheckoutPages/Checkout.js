@@ -3,23 +3,11 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import Button from '@material-ui/core/Button';
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import Paper from '@material-ui/core/Paper';
 
-
-// const steps = ['Shipping address', 'Payment details', 'Review your order'];
-
-// function getStepContent(step) {
-//   switch (step) {
-//     case 0:
-//       return <AddressForm />;
-//     case 1:
-//       return <PaymentForm />;
-//     case 2:
-//       return <Review />;
-//     default:
-//       throw new Error('Unknown step');
-//   }
-// }
-
+const hidden = require('../../hidden.js');
 
 class Checkout extends React.Component {
     constructor(props) {
@@ -27,16 +15,14 @@ class Checkout extends React.Component {
         this.state = {
             firstName: "",
             lastName: "",
-            address1: "",
-            address2: "",
-            city: "",
-            region: "",
-            zip: "",
-            country: "",
-            operation: "signup"
+            email: "",
+            card: "", 
+            month: "", 
+            year: "",
+            operation: "order"
         };
 
-        
+        this.handleSubmit = this.handleSubmit.bind(this);
         this.handleFormChange = this.handleFormChange.bind(this);
         
 
@@ -46,16 +32,46 @@ class Checkout extends React.Component {
         this.setState({ [event.target.id]: event.target.value });
     }
 
-render() {
+    handleSubmit(event) {
+        let data;
+        let meth;
+        let apiPath = hidden.apiPaths.base + '/Checkout'; 
+        if (this.state.operation === 'order') {
+            data = {
+                "checkout":{
+                    firstName: this.state.firstName,
+                    lastName: this.state.lastName,
+                    email: this.state.email,
+                    card: this.state.card,
+                    month: this.state.month,
+                    year: this.state.year,
+                }
+            }
+            meth = 'POST'
+        }
 
+        const req = {method: meth}
 
+        fetch(apiPath, req)
+            .then(res => res.json())
+            .then(
+                (result) => { this.setState({ submitted: true, response: result }); },
+                (error) => { this.setState({ submitted: true, error }); }
+            )
+        event.preventDefault();
+    }
+
+    // TODO(@mannat): Add cart, total price, address, pickup time. Look at: 
+    // https://docs.google.com/drawings/d/12avz1T7cH0vR36rV1BdCg49f1SJ6bsJ3Cba7aP4MF3U/edit?usp=sharing
+    render() {
+        if (!this.state.submitted) {
             return (
                 <Container component="main" maxWidth="xs">
                         <div >
 
                             <Typography component="h1" variant="h5" id="tagline">
 
-                                Account Information
+                                Checkout
                                </Typography>
                             <form onSubmit={this.handleSubmit}>
                                 <Grid container spacing={2}>
@@ -91,11 +107,11 @@ render() {
                                             variant="outlined"
                                             required
                                             fullWidth
-                                            id="address1"
-                                            label="Address line 1"
-                                            name="address1"
+                                            id="email"
+                                            label="Email"
+                                            name="email"
                                             onChange={this.handleFormChange}
-                                            value={this.state.address1}
+                                            value={this.state.email}
                                         />
                                     </Grid>
                                     <Grid item xs={12}>
@@ -103,74 +119,80 @@ render() {
                                             variant="outlined"
                                             required
                                             fullWidth
-                                            id="address2"
-                                            label="Address line 2"
-                                            name="address1"
+                                            id="card"
+                                            label="Card Number"
+                                            name="card"
                                             onChange={this.handleFormChange}
-                                            value={this.state.address2}
+                                            value={this.state.card}
                                         />
                                     </Grid>
-                                    <Grid item xs={12}>
+                                    <Grid item xs={2}>
                                         <TextField
                                             variant="outlined"
                                             required
                                             fullWidth
-                                            name="city"
-                                            label="City"
-                                            type="city"
-                                            id="city"
+                                            id="month"
+                                            label="M"
+                                            name="month"
                                             onChange={this.handleFormChange}
-                                            value={this.state.city}
+                                            value={this.state.month}
                                         />
                                     </Grid>
-                                    <Grid item xs={12}>
+                                    <Grid item xs={2}>
                                         <TextField
                                             variant="outlined"
                                             required
                                             fullWidth
-                                            name="region"
-                                            label="State/Province/Region"
-                                            type="region"
-                                            id="region"
+                                            id="year"
+                                            label="Y"
+                                            name="year"
                                             onChange={this.handleFormChange}
-                                            value={this.state.region}
+                                            value={this.state.year}
                                         />
                                     </Grid>
-                                    <Grid item xs={12}>
+                                    <Grid item xs={3}>
                                         <TextField
                                             variant="outlined"
                                             required
                                             fullWidth
-                                            name="zip"
-                                            label="Zip/Postal Code"
-                                            type="zip"
-                                            id="zip"
+                                            id="cvv"
+                                            label="CVV"
+                                            name="cvv"
                                             onChange={this.handleFormChange}
-                                            value={this.state.zip}
+                                            value={this.state.cvv}
                                         />
                                     </Grid>
-                                    <Grid item xs={12}>
-                                        <TextField
-                                            variant="outlined"
-                                            required
-                                            fullWidth
-                                            name="country"
-                                            label="Country"
-                                            type="country"
-                                            id="country"
-                                            onChange={this.handleFormChange}
-                                            value={this.state.country}
-                                        />
-                                    </Grid>
-
                                 </Grid>
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    size="large"
+                                    variant="contained"
+                                    color="primary"
+                                    id="signup-button"
+                                    value="Submit">
+                                Purchase
+                                </Button>
                             </form>
                         </div>
+
                 </Container>
+
+
             );
+        
+        }
 
-      
-
+        return <div>
+            <Container component="main" maxWidth="xs">
+            <Paper id="signup-paper">
+                    <Typography component="h1" variant="h5" id="tagline">
+                    <CheckCircleOutlineIcon></CheckCircleOutlineIcon><br />
+                        Your receipt has been emailed to you. Please refer to the email for the address and pickup time.
+        </Typography>
+            </Paper>
+            </Container>
+        </div>
     }
 }
 
