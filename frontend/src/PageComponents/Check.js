@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-
+// TODO(@mannat): Take out/fix
 const steps = ['Shipping Address', 'Payment Information', 'Review Your Order'];
 
 class Check extends React.Component{
@@ -61,13 +61,8 @@ class Check extends React.Component{
       	response:null,
       	firstName:"",
       	lastName: "",
-      	address1: "",
-	    address2: "",
-	    city: "",
-	    region: "",
-	    zip: "",
-	    country: "",
-      	operation:"signup"
+        email: "", 
+
     };
 
     this.handleSubmit=this.handleSubmit.bind(this);
