@@ -4,9 +4,6 @@ import Paper from '@material-ui/core/Paper';
 import Container from '@material-ui/core/Container';
 import './restSearch.css';
 
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
 let params = new URLSearchParams(window.location.search); 
 let lng = params.get('lng');
 let lat = params.get('lat');
