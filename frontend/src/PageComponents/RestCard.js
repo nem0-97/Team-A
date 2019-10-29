@@ -7,11 +7,7 @@ import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import Paper from '@material-ui/core/Paper';
 import './RestCard.css';
-import Modal from '@material-ui/core/Modal';
 
-
-
-let tileData = [];
 
 
 const useStyles = theme => ({

@@ -2,21 +2,6 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import './nameSearch.css';
 
-/*const mongo = require('mongodb').MongoClient
-const url = 'mongodb://localhost:27017'
-
-mongo.connect(url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  }, (err, client) => {
-  if (err) {
-    console.error(err)
-    return
-  }
-  //...
-})
-
-const db = client.db('FoodWaste')*/
 /*
 TODO: 
 
@@ -25,7 +10,10 @@ TODO:
 /*
 This function will fetch the necessary data from the database using fetch
 */
-function search(){//fetch('https://localhost:3000/api/v1/rest').then(response => response.json()).then(response1 => {console.log('Hello')});
+
+let searchVal;
+function search(){
+    fetch('https://localhost:3000/api/v1/rest/'+ searchVal).then(response => response.json()).then(response1 => {console.log(response1.results)});
     console.log("Search function triggered");
 
 
@@ -36,6 +24,7 @@ class NameSearch extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            value: "",
             search: "",
         };
         this.handleFormChange = this.handleFormChange.bind(this);
@@ -43,6 +32,8 @@ class NameSearch extends React.Component {
   
     handleFormChange(event) {
         this.setState({ value: event.target.value });
+        searchVal = event.target.value;
+        
         
     }
 
