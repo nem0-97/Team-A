@@ -17,7 +17,7 @@ let restaurants = [];
     We are getting one coordinate from the url param, and the other one we will fetch from the database.
     @param lat1 = first latitude coordinate
     @param lng1 = second longtitude coordinate
-    @ unit = if it should use metric or miles, K = metric default is miles
+    @ unit = if it should use metric or miles, KM = metric default is miles
     Credit to:  https://www.geodatasource.com/developers/javascript 
     To test this functionality: http://localhost:3001/RestSearch?lat=37.34880909999999&lng=-121.89608240000001
 */
@@ -37,7 +37,7 @@ function calcDistance(lat1, lon1, lat2, lon2, unit) {
 		dist = Math.acos(dist);
 		dist = dist * 180/Math.PI;
 		dist = dist * 60 * 1.1515;
-		if (unit==="K") { dist = dist * 1.609344 }
+		if (unit==="KM") { dist = dist * 1.609344 }
 		return dist;
 	}
 }
