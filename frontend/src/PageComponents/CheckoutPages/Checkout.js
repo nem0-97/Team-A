@@ -1,4 +1,4 @@
-import React from 'react';
+/*import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -11,7 +11,7 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import orderData from '../orderData';
 import Paper from '@material-ui/core/Paper';
-import '../checkout.css';
+//import '../checkout.css';
 const hidden = require('../../hidden.js');
 
 class Checkout extends React.Component {
@@ -229,4 +229,4 @@ class Checkout extends React.Component {
     }
 }
 
-export default Checkout;
+export default Checkout;*/
