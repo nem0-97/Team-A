@@ -64,7 +64,7 @@ class RestSearch extends React.Component {
     }
 
     componentDidMount() { 
-        fetch('https://localhost:3000/api/v1/rest/'+ searchVal).then(response => response.json()).then(response1 => {this.setState({tileData: response1.results}, console.log(response1.results))});
+        /*fetch('https://localhost:3000/api/v1/rest/'+ searchVal).then(response => response.json()).then(response1 => {this.setState({tileData: response1.results}, console.log(response1.results))});*/
         console.log("Search function triggered");
     }
 
