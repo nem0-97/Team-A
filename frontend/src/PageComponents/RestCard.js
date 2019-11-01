@@ -28,26 +28,6 @@ const useStyles = theme => ({
     gridList2: {
         width: '100%',
     },
-    title: {
-      color: theme.palette.primary.light,
-    },
-    titleBar: {
-      background:
-        'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
-    },
-    root2: {
-        padding: '2px 4px',
-        display: 'flex',
-        alignItems: 'center',
-        width: 400,
-      },
-      iconButton: {
-        padding: 10,
-      },
-      divider: {
-        height: 28,
-        margin: 4,
-      },
   });
 
 
