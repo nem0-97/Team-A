@@ -61,7 +61,7 @@ class Checkout extends React.Component {
         event.preventDefault();
     }
 
-    // TODO(@mannat): Add cart, total price, address, pickup time. Look at: 
+    // TODO(@mannat): total price, address, pickup time. Look at: 
     // https://docs.google.com/drawings/d/12avz1T7cH0vR36rV1BdCg49f1SJ6bsJ3Cba7aP4MF3U/edit?usp=sharing
     render() {
         if (!this.state.submitted) {
