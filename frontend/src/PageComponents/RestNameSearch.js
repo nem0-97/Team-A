@@ -58,34 +58,14 @@ class RestSearch extends React.Component {
         let params = new URLSearchParams(window.location.search);
 
         this.state = {
-            range: 5,
-            units: "KM",
-            lat:params.get('lat'),
-            lng:params.get('lng'),
-            inRange: [],
-            outRange: []
+            tileData: [],
         }
 
-        console.log("Latitude: " + this.state.lat);
-        console.log("Longtitude: " + this.state.lng);
     }
 
-    componentDidMount() { //TODO maybe store in sorted list closest to furthest and store index of last one in range insteead of outRange and inRange lists?
-        fetch('https://localhost:3000/api/v1/rest').then(response => { return response.json(); }).then(results => {
-            console.log(JSON.stringify(results))
-            let nearby = [];
-            let farAway = [];
-
-            for (let res of results.results) {
-                if (calcDistance(res.restinfo.lat, res.restinfo.lng, this.state.lat, this.state.lng, this.state.units) <= this.state.range) {
-                    nearby.push(res);//put in inRange list
-                } else {
-                    farAway.push(res);
-                }
-            }
-            this.setState({inRange: nearby});
-            this.setState({outRange: farAway});
-        });
+    componentDidMount() { 
+        fetch('https://localhost:3000/api/v1/rest/'+ searchVal).then(response => response.json()).then(response1 => {this.setState({tileData: response1.results}, console.log(response1.results))});
+        console.log("Search function triggered");
     }
 
     render() {
