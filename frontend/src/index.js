@@ -13,6 +13,7 @@ import Dashboard from './PageComponents/Dashboard';
 import RestSearch from './CustomerPages/RestSearch';
 import CheckOut from './PageComponents/CheckoutPages/Checkout';
 import RestNameSearch from './PageComponents/RestNameSearch';
+import RestPage from './PageComponents/RestPage';
 /*
 
 TODO:
@@ -57,6 +58,9 @@ function restNameSearch(){
 function checkOut(){
     return <CheckOut />
 }
+function restPage(){
+    return <RestPage/>
+}
 
 
 
@@ -79,6 +83,7 @@ class App extends Component{
                             <Route path="/RestSearch/" component={restSearch} />
                             <Route path="/Checkout/" component={checkOut} />
                             <Route path="/RestNameSearch/" component={restNameSearch} />
+                            <Route path="/RestPage/" component={restPage} />
                             <Route component={NotFound} />
                         </Switch>
                     </div>
