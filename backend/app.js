@@ -145,6 +145,21 @@ app.get('/api/v1/order', function (req, res) { //get a restaurant by name?
 
 });
 
+/** ENDPOINT FOR SPOT */
+//POST
+app.post('/api/v1/spot', function(req,res){
+    console.log("ENDPOINT FOR SPOT POST");
+});
+
+//GET
+app.get('/api/v1/spot', function(req,res){
+    console.log("ENDPOINT FOR SPOT GET");
+});
+app.delete('api/v1/spot',function(req,res){
+    console.log("ENDPOINT FOR SPOT DELETE");
+})
+
+
 
 https.createServer({
     key: fs.readFileSync('server.key'),
