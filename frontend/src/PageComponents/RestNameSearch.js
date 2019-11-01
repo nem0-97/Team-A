@@ -2,8 +2,6 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Container from '@material-ui/core/Container';
-import {  withStyles } from '@material-ui/core/styles';
-import './restSearch.css';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridList from '@material-ui/core/GridList';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
@@ -52,61 +50,32 @@ const useStyles = theme => ({
 
 
 
-class RestSearch extends React.Component {
+class RestNameSearch extends React.Component {
     constructor(props) {
         super(props);
         let params = new URLSearchParams(window.location.search);
+        console.log(params.get("name"));
 
         this.state = {
+            searchVal: params.get("name"),
             tileData: [],
         }
 
     }
 
     componentDidMount() { 
-        /*fetch('https://localhost:3000/api/v1/rest/'+ searchVal).then(response => response.json()).then(response1 => {this.setState({tileData: response1.results}, console.log(response1.results))});*/
-        console.log("Search function triggered");
+        fetch('https://localhost:3000/api/v1/rest/'+ this.state.searchVal).then(response => response.json()).then(response1 => {this.setState({tileData: response1.results}, console.log(response1.results))});
     }
 
     render() {
         const {classes} = this.props;
         console.log(this.state.inRange);
         return (
-            <Container component="main" maxWidth="md">
-               <div>
-                <Paper style={{paddingTop: '55px', paddingBottom: '55px'}}>
-                <div>
-                <Typography variant="h5"  className="mb-4 ml-4">
-                        Restaurants located within 5 {this.state.units} of location
-                     </Typography>
-                    <GridList cellHeight={250} >
-                        
-                        {this.state.inRange.map(rest => 
-                        <GridListTile >
-                        <img src={require( "../assets/placeholder.jpg")} alt={rest.restinfo.restName} />
-                      
-                    <GridListTileBar
-                    title={rest.restinfo.restName}
-                    subtitle={"$$ | " + rest.restinfo.address + "   | Open Hours: " + rest.restinfo.openTime + "-" + rest.restinfo.closeTime}
-                    
-                    />
-                
-                    </GridListTile>
-                    
-        )}
-</GridList>
+            <div>
 
-</div>
-                    
-
-                    </Paper>
-                
             </div>
-
-
-            </Container>
         );
     }
 }
 
-export default RestSearch;
+export default RestNameSearch;
