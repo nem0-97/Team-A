@@ -8,7 +8,7 @@ import NotFound from './PageComponents/NotFound';
 import Login from './PageComponents/Login';
 import * as serviceWorker from './serviceWorker';
 import ButtonAppBar from './PageComponents/NavBar';
-import RestView from './PageComponents/RestView';
+import RestaurantDashboard from './RestaurantPages/RestaurantDashboard';
 import Dashboard from './PageComponents/Dashboard';
 import RestSearch from './CustomerPages/RestSearch';
 import CheckOut from './PageComponents/CheckoutPages/Checkout';
@@ -45,7 +45,7 @@ function LoginComponent(){
 }
 function RestaurantView()
 {
-    return <RestView />
+    return <RestaurantDashboard />
 }
 function restSearch()
 {
