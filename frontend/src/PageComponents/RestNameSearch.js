@@ -72,7 +72,36 @@ class RestNameSearch extends React.Component {
         console.log(this.state.inRange);
         return (
             <div>
+                <Container component="main" maxWidth="md">
+                            <div>
+                                <Paper style={{paddingTop: '55px', paddingBottom: '55px'}}>
+                                <div>
+                                <Typography variant="h5"  className="mb-4 ml-4">
+                                        Restaurants with the name "{this.state.searchVal}"
+                                    </Typography>
+                                    <GridList cellHeight={250} >
+                                
+                                        {this.state.tileData.map(rest => 
+                                        <GridListTile >
+                                        <img src={require( "../assets/placeholder.jpg")} alt={rest.restinfo.restName} />
+                                    
+                                    <GridListTileBar
+                                    title={rest.restinfo.restName}
+                                    subtitle={"$$ | " + rest.restinfo.address + "   | Open Hours: " + rest.restinfo.openTime + "-" + rest.restinfo.closeTime}
+                                    
+                                    />
+                                
+                                    </GridListTile>
+                                    
+                        )}
+                        </GridList>
+                        </div>
+                                    </Paper>
+                                
+                            </div>
 
+
+                </Container>
             </div>
         );
     }
