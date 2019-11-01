@@ -126,7 +126,9 @@ export default function Sidebar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap style={divStyle}>
-            Food Waste Prevention Website (Name)
+          <i class="material-icons">
+fastfood
+</i> WastePrevent
           </Typography>
 
          
