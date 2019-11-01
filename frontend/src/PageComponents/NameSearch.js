@@ -12,12 +12,6 @@ This function will fetch the necessary data from the database using fetch
 */
 
 let searchVal;
-function search(){
-    fetch('https://localhost:3000/api/v1/rest/'+ searchVal).then(response => response.json()).then(response1 => {console.log(response1.results)});
-    console.log("Search function triggered");
-
-
-}
 
 
 class NameSearch extends React.Component {
@@ -25,18 +19,24 @@ class NameSearch extends React.Component {
         super(props);
         this.state = {
             value: "",
-            search: "",
+            tileData: [],
+            open: false,
         };
         this.handleFormChange = this.handleFormChange.bind(this);
+        this.search = this.search.bind(this);
     }
   
     handleFormChange(event) {
         this.setState({ value: event.target.value });
         searchVal = event.target.value;
-        
-        
     }
 
+    search(){
+        window.location.href = "http://localhost:3001/RestNameSearch?name=" + this.state.value;
+        //fetch('https://localhost:3000/api/v1/rest/'+ searchVal).then(response => response.json()).then(response1 => {this.setState({tileData: response1.results}, console.log(response1.results))});
+        console.log("Search function triggered");
+    }
+    
     render() {
             return (   
                 <div class="form-group">
@@ -45,11 +45,12 @@ class NameSearch extends React.Component {
                      </Typography>
                      <div className="input-group mb-3">
                         <div className="input-group-prepend">
-                            <button type="button" className="searchBtn" onClick={search}>
+                            <button type="button" className="searchBtn" onClick={this.search}>
                             <span className="input-group-text" ><i className="material-icons">search</i></span>
                             </button>
                         </div>
-                        <input type="text" className="form-control" placeholder="Restaurant Name" id="restName" onChange={this.handleFormChange} value={this.state.value}/>
+                        <input type="text" className="form-control" placeholder="Restaurant Name" id="restName" onChange={this.handleFormChange} value={this.state.value}>
+                        </input>
                     </div>
                   
                  </div>
