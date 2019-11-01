@@ -142,11 +142,8 @@ class RestSearch extends React.Component {
                     </GridListTile>
                     
         )}
-</GridList>
-
-</div>
-                    
-
+        </GridList>
+        </div>
                     </Paper>
                 
             </div>

@@ -11,7 +11,7 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import orderData from '../orderData';
 import Paper from '@material-ui/core/Paper';
-import '../checkout.css';
+//import '../checkout.css';
 const hidden = require('../../hidden.js');
 
 class Checkout extends React.Component {
@@ -66,7 +66,7 @@ class Checkout extends React.Component {
         event.preventDefault();
     }
 
-    // TODO(@mannat): Add cart, total price, address, pickup time. Look at: 
+    // TODO(@mannat): total price, address, pickup time. Look at: 
     // https://docs.google.com/drawings/d/12avz1T7cH0vR36rV1BdCg49f1SJ6bsJ3Cba7aP4MF3U/edit?usp=sharing
     render() {
         if (!this.state.submitted) {

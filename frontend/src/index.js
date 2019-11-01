@@ -12,6 +12,7 @@ import RestView from './PageComponents/RestView';
 import Dashboard from './PageComponents/Dashboard';
 import RestSearch from './CustomerPages/RestSearch';
 import CheckOut from './PageComponents/CheckoutPages/Checkout';
+import RestNameSearch from './PageComponents/RestNameSearch';
 /*
 
 TODO:
@@ -50,6 +51,9 @@ function restSearch()
 {
     return <RestSearch />
 }
+function restNameSearch(){
+    return <RestNameSearch />
+}
 function checkOut(){
     return <CheckOut />
 }
@@ -74,6 +78,7 @@ class App extends Component{
                             <Route path="/Login/" component={LoginComponent} />
                             <Route path="/RestSearch/" component={restSearch} />
                             <Route path="/Checkout/" component={checkOut} />
+                            <Route path="/RestNameSearch/" component={restNameSearch} />
                             <Route component={NotFound} />
                         </Switch>
                     </div>
