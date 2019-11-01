@@ -30,8 +30,6 @@ class Dashboard extends React.Component {
                             <NameSearch/>
                         </Grid>
                     </Grid>
-                   
-                    
                 </Grid>
                 <Grid item sm={5} className="gridBorder gridItem marginLeft" >
                 <Typography variant="h6" noWrap >
@@ -43,7 +41,7 @@ class Dashboard extends React.Component {
                         Favorite Restaurant Component
                      </Typography>
                 </Grid>
-                <Grid item sm={10}  className="gridItem marginCenter marginTop">
+                <Grid item sm={10} className="gridItem marginCenter marginTop">
                 <Typography variant="h5" className="bold text-center heading-padding">
                     All Restaurants in San Jose, CA
                 </Typography>
