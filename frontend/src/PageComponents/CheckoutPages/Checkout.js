@@ -5,8 +5,13 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
+import IconButton from '@material-ui/core/IconButton';
+import orderData from '../orderData';
 import Paper from '@material-ui/core/Paper';
-
+import '../checkout.css';
 const hidden = require('../../hidden.js');
 
 class Checkout extends React.Component {
@@ -66,14 +71,13 @@ class Checkout extends React.Component {
     render() {
         if (!this.state.submitted) {
             return (
-                <Container component="main" maxWidth="xs">
-                        <div >
-
-                            <Typography component="h1" variant="h5" id="tagline">
-
-                                Checkout
-                               </Typography>
+                <Grid container>
+                    <Grid item sm={6} className="gridItem marginLeft" >
+                        <Typography component="h1" variant="h5" id="tagline">
+                            Checkout
+                        </Typography>
                             <form onSubmit={this.handleSubmit}>
+                            <Paper id="signup-paper">
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} sm={6}>
                                         <TextField
@@ -173,12 +177,41 @@ class Checkout extends React.Component {
                                     value="Submit">
                                 Purchase
                                 </Button>
+                                </Paper>
                             </form>
-                        </div>
+                    </Grid>
 
-                </Container>
+                    <Grid item sm={5} className="gridItem marginLeft" >
+                    <Typography component="h1" variant="h5" id="tagline">
+                            Order Details
+                        </Typography>
+                    <Paper id="signup-paper">
 
+                    <div className="root">
+                        <GridList cols={1} cellHeight={180} className="gridList">
+                            {orderData.map(tile => (
+                                <GridListTile key={tile.img}>
+                                <img src={tile.img} alt={tile.title} />
+                                <GridListTileBar
+                                    title={tile.title}
+                                />
+                        </GridListTile>
+                        ))}
+                        </GridList>
+                    </div>
 
+                         <Typography variant="h6" noWrap >
+                            Total:
+                         </Typography>
+                         <Typography variant="h6" noWrap >
+                            Pick-up Time: 
+                         </Typography>
+                         <Typography variant="h6" noWrap >
+                            Address: 
+                         </Typography>
+                    </Paper>
+                    </Grid>    
+                </Grid>
             );
         
         }
