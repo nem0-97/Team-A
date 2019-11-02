@@ -149,6 +149,7 @@ app.get('/api/v1/order', function (req, res) { //get a restaurant by name?
 //POST
 app.post('/api/v1/spot', function(req,res){
     console.log("ENDPOINT FOR SPOT POST");
+    MongoDB.add('Spots',req.body); //First parm is which collection to use
 });
 
 //GET

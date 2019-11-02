@@ -22,14 +22,26 @@ class RestaurantDashboard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-        };
+            date: "",
+            hours: "",
+            amount: "",
+            price: ""
+        }
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange(event){
+        this.setState({
+            [event.target.id]: event.target.value
+        });
+        console.log(this.state.price);
     }
 
     render() {
             return (
                 <Grid>
                     <Grid>
-                       <Paper className='w-75 mx-auto' width='75%' overflowX= 'auto'>
+                       <Paper className='w-75 mx-auto' width='75%' >
                         <Table aria-label="simple table">
                                 <TableHead>
                                 <TableRow>
@@ -42,7 +54,7 @@ class RestaurantDashboard extends React.Component {
                                 <TableBody>
                                     <TableRow>
                                     <TableCell component="th" scope="row">
-                                        restaurant
+                                        {this.state.date}
                                     </TableCell>
                                     <TableCell align="center">7:00pm - 12:00am</TableCell>
                                     <TableCell align="center"> 0/50</TableCell>
@@ -59,7 +71,8 @@ class RestaurantDashboard extends React.Component {
                                 <div className="modal-dialog mt-5   " role="document">
                                     <div className="modal-content">
                                     <div className="modal-header">
-                                        <h5 className="modal-title" id="exampleModalLabel">Add Spot</h5>
+                                        <h5 className="modal-title" id="exampleModalLabel"><i className="material-icons icon-height">playlist_add_check
+</i> Create new Spot</h5>
                                         <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                         </button>
@@ -67,39 +80,73 @@ class RestaurantDashboard extends React.Component {
                                     <div className="modal-body">
                                         <div className="container">
                                             <div className="row">
-                                                <div className="col-6">
+                                                <div className="col-6 spotCol">
+                                                    <label for="date" className="spotLabel">
+                                                        Date for spot
+                                                    </label>
                                                     <TextField
-                                                        id="outlined-basic"
-                                                        label="Date"
+                                                        id="date"
+                                                        name="date"
+                                                        
+                                                        required
+                                                        type="date"
                                                         margin="normal"
                                                         variant="outlined"
-                                                    />
-                                                </div>
-                                                <div className="col-6">
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Hours"
-                                                        margin="normal"
-                                                        variant="outlined"
-                                                    />
-                                                </div>
-                                                <div className="col-6">
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Amount"
-                                                        margin="normal"
-                                                        variant="outlined"
-                                                    />
-                                                </div>
-                                                <div className="col-6">
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Price"
-                                                        margin="normal"
-                                                        variant="outlined"
-                                                    />
-                                                </div>
+                                                        value={this.state.date}
+                                                        onChange={this.handleChange}
 
+                                                    />
+                                                </div>
+                                                <div className="col-6 mb-2 spotCol">
+                                                <label for="hours" className="spotLabel">
+                                                        Pickup time (e.g 19pm-21am)
+                                                    </label>
+                                                    <TextField
+                                                        id="hours"
+                                                        name="hours"
+                                                        margin="normal"
+                                                        required
+                                                        variant="outlined"
+                                                        value={this.state.hours}
+                                                        onChange={this.handleChange}
+                                                        
+                                                    />
+                                                </div>
+                                                </div>
+                                                <div className="row mt-2">
+                                                <div className="col-6 spotCol">
+                                                <label for="amount" className="spotLabel">
+                                                        Amount of available spots
+                                                    </label>
+                                                    <TextField
+                                                        id="amount"
+                                                        name="amount"
+                                                        margin="normal"
+                                                        variant="outlined"
+                                                        value={this.state.amount}
+                                                        type="number"
+                                                        required
+                                                        onChange={this.handleChange}
+                                                    />
+                                                </div>
+                                                <div className="col-6 spotCol">
+                                                <label for="price" className="spotLabel">
+                                                        Price pr. spot ($)
+                                                    </label>
+                                                    <TextField
+                                                        id="price"
+                                                        name="price"
+                                                        required
+                                                        margin="normal"
+                                                        variant="outlined"
+                                                        value={this.state.price}
+                                                        type="number"
+                                                        onChange={this.handleChange}
+                                                    />
+                                                </div>
+                                                <div className="col-12">
+                                                    <span className="note">* This will be shown to the customers immediately</span>
+                                                </div>
                                                 
                                             </div>
                                         </div>
