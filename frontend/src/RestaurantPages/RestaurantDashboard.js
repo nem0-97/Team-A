@@ -11,12 +11,33 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import TextField from '@material-ui/core/TextField';
 import '../index.css';
+import { create } from 'jss';
 
 /*
 TODO: 
     #Make it able to search for restaurant by name
 */
+function createSpot(){
+    console.log("saved");
+    const modals = document.getElementsByClassName('modal');
+    console.log('_' + Math.random().toString(36).substr(2, 9));
+    // on every modal change state like in hidden modal
+    for(let i=0; i<modals.length; i++) {
+      modals[i].classList.remove('show');
+      modals[i].setAttribute('aria-hidden', 'true');
+      modals[i].setAttribute('style', 'display: none');
+    }
 
+     // get modal backdrops
+     const modalsBackdrops = document.getElementsByClassName('modal-backdrop');
+
+     // remove every modal backdrop
+     for(let i=0; i<modalsBackdrops.length; i++) {
+       document.body.removeChild(modalsBackdrops[i]);
+     }
+     
+
+}
 
 class RestaurantDashboard extends React.Component {
     constructor(props) {
@@ -36,7 +57,7 @@ class RestaurantDashboard extends React.Component {
         });
         console.log(this.state.price);
     }
-
+    
     render() {
             return (
                 <Grid>
@@ -72,7 +93,7 @@ class RestaurantDashboard extends React.Component {
                                     <div className="modal-content">
                                     <div className="modal-header">
                                         <h5 className="modal-title" id="exampleModalLabel"><i className="material-icons icon-height">playlist_add_check
-</i> Create new Spot</h5>
+                                        </i> Create new Spot</h5>
                                         <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                         </button>
@@ -153,7 +174,7 @@ class RestaurantDashboard extends React.Component {
                                     </div>
                                     <div className="modal-footer">
                                         <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" className="btn btn-primary">Save changes</button>
+                                        <button type="button" className="btn btn-primary" onClick={createSpot}>Save changes</button>
                                     </div>
                                     </div>
                                 </div>

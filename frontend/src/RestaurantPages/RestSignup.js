@@ -76,9 +76,10 @@ class RestSignup extends React.Component{
       lastName: "",
       email: "",
       password: "",
-      operation:"signup"
+      operation:"signup",
+      restaurantID: '_' + Math.random().toString(36).substr(2, 9)
     };
-
+    
     this.handleSubmit=this.handleSubmit.bind(this);
     this.handleFormChange=this.handleFormChange.bind(this);
   }
@@ -132,12 +133,15 @@ function makeRestInfo(step){
       password: window.accountinfo.state.password
     }
     console.log(restInfo);
+    restInfo.restaurantID = '_' + Math.random().toString(36).substr(2, 9);
   }
 }
 
 function handleSubmit(){
  
   let data = restInfo;
+
+  
   let meth = "GET";
   let apiPath = hidden.apiPaths.base + '/rest'; //this path is defining which API-patch to use #will display like: http://localhost:3000/api/v1/cust
   let isSubmitted = false; //check if there has already been a submit
@@ -199,6 +203,7 @@ export default function   Rest() {
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
               Create Restaurant
+              
           </Typography>
           <Stepper activeStep={activeStep} className={classes.stepper}>
             {steps.map(label => (
