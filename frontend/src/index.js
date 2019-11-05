@@ -73,7 +73,6 @@ class App extends Component{
                 <Router>
                 <ButtonAppBar/> 
                     <div>
-
                         <Switch>
                             <Route path="/" exact component={Index} />
                             <Route path="/Restaurant/" component={Restaurant} />

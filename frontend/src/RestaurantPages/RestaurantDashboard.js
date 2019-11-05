@@ -13,6 +13,9 @@ import TextField from '@material-ui/core/TextField';
 import '../index.css';
 import { create } from 'jss';
 
+//Redirect
+import { Redirect } from 'react-router'
+
 //Cookies
 import Cookies from 'js-cookie';
 
@@ -190,7 +193,8 @@ class RestaurantDashboard extends React.Component {
                 </Grid>
             );
         }else{
-            return "Your are not logged in as a restaurant";
+            return (<Redirect to="/Login" />);
+            //return "Your are not logged in as a restaurant";
         }
 
       
