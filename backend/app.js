@@ -74,6 +74,7 @@ function(req, res) {
 
 app.get('/logout', function (req, res) {
     req.logout();
+    res.clearCookie('userInfo');
     res.redirect('http://localhost:3001');
 });
 /** End Account Routes*/

@@ -13,6 +13,9 @@ import TextField from '@material-ui/core/TextField';
 import '../index.css';
 import { create } from 'jss';
 
+//Cookies
+import Cookies from 'js-cookie';
+
 /*
 TODO: 
     #Make it able to search for restaurant by name
@@ -42,7 +45,9 @@ function createSpot(){
 class RestaurantDashboard extends React.Component {
     constructor(props) {
         super(props);
+        console.log(Cookies.get('userInfo'));
         this.state = {
+            loggedIn: (Cookies.get('userInfo') == 'Restaurants'),
             date: "",
             hours: "",
             amount: "",
@@ -50,6 +55,11 @@ class RestaurantDashboard extends React.Component {
         }
         this.handleChange = this.handleChange.bind(this);
     }
+
+    /*componentDidMount(){
+        console.log();
+
+    }*/
 
     handleChange(event){
         this.setState({
@@ -59,6 +69,7 @@ class RestaurantDashboard extends React.Component {
     }
     
     render() {
+        if(this.state.loggedIn){
             return (
                 <Grid>
                     <Grid>
@@ -183,6 +194,9 @@ class RestaurantDashboard extends React.Component {
                        </Grid>
                 </Grid>
             );
+        }else{
+            return "Your are not logged in as a restaurant";
+        }
 
       
 
