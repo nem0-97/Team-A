@@ -45,9 +45,9 @@ function createSpot(){
 class RestaurantDashboard extends React.Component {
     constructor(props) {
         super(props);
-        console.log(Cookies.get('userInfo'));
+        //console.log(Cookies.get('userInfo')); //TODO is this most seecure way? The could just add a cookie themselves that says they're a restaurant (wouldn't be able to grab info though)
         this.state = {
-            loggedIn: (Cookies.get('userInfo') == 'Restaurants'),
+            loggedIn: (Cookies.get('userInfo') == 'Restaurants'), 
             date: "",
             hours: "",
             amount: "",
@@ -55,11 +55,6 @@ class RestaurantDashboard extends React.Component {
         }
         this.handleChange = this.handleChange.bind(this);
     }
-
-    /*componentDidMount(){
-        console.log();
-
-    }*/
 
     handleChange(event){
         this.setState({
