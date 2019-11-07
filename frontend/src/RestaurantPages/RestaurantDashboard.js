@@ -48,12 +48,10 @@ function createSpot(){
 class RestaurantDashboard extends React.Component {
     constructor(props) {
         super(props);
-        let userInfo = Cookies.get('userInfo');
-        console.log(userInfo)
+        let userInfo = Cookies.get('userInfo'); //userInfo cookie has 2 props (collection:(restaurant or customer signed in) ID:the user's mongoDB unique ID )
         if (userInfo){
-            userInfo = (JSON.parse(userInfo).collection == 'Restaurants');
+            userInfo = (JSON.parse(userInfo).collection == 'Restaurants'); 
         }
-        console.log(userInfo)
         this.state = {
             loggedIn: userInfo, 
             date: "",
