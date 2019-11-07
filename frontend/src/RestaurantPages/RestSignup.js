@@ -77,7 +77,6 @@ class RestSignup extends React.Component{
       email: "",
       password: "",
       operation:"signup",
-      restaurantID: '_' + Math.random().toString(36).substr(2, 9)
     };
     
     this.handleSubmit=this.handleSubmit.bind(this);
@@ -133,6 +132,7 @@ function makeRestInfo(step){
       password: window.accountinfo.state.password
     }
     console.log(restInfo);
+    //https://gist.github.com/gordonbrander/2230317
     restInfo.restaurantID = '_' + Math.random().toString(36).substr(2, 9);
   }
 }

@@ -10,17 +10,18 @@ import TableRow from '@material-ui/core/TableRow';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import TextField from '@material-ui/core/TextField';
-import '../index.css';
-import { create } from 'jss';
+import '../index.css';  
 
 /*
 TODO: 
-    #Make it able to search for restaurant by name
+    #Get restaurant ID of the person that is logged in
+        We need that id to connect to each spot, so we can keep track of the spots, and which restaurants they belong to.
+        
 */
 function createSpot(){
-    console.log("saved");
+    
     const modals = document.getElementsByClassName('modal');
-    console.log('_' + Math.random().toString(36).substr(2, 9));
+    
     // on every modal change state like in hidden modal
     for(let i=0; i<modals.length; i++) {
       modals[i].classList.remove('show');

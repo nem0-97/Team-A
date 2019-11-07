@@ -69,7 +69,7 @@ function(req, res) {
     console.log('login');
     console.log(req.user);
     res.cookie('userInfo', req.user.collection, { maxAge: 1800000, httpOnly: false });
-    res.redirect('/api/v1/rest');
+    res.redirect('http://localhost:3001/');
 });
 
 app.get('/logout', function (req, res) {
