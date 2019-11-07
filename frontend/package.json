@@ -9,6 +9,7 @@
     "@material-ui/lab": "^4.0.0-alpha.29",
     "@material-ui/pickers": "^3.2.7",
     "@react-google-maps/api": "^1.7.7",
+    "cypress": "^3.6.0",
     "date-fns": "^2.0.0-beta.5",
     "google-map-react": "^1.1.5",
     "google-maps-react": "^2.0.2",
@@ -29,7 +30,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress:open": "cypress open"
+
   },
   "eslintConfig": {
     "extends": "react-app"
