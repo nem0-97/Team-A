@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom"; 
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import './index.css';
 import RestSignup from './RestaurantPages/RestSignup';
 import CustSignup from './CustomerPages/CustSignup';
@@ -33,47 +33,39 @@ TODO:
 function Index() {
     return <Dashboard />
 }
-
 function Restaurant() {
     return <RestSignup />
 }
-
 function Customer() {
     return <CustSignup />
 }
-function LoginComponent(){
+function LoginComponent() {
     return <Login />
 }
-function RestaurantView()
-{
+function RestaurantView() {
     return <RestaurantDashboard />
 }
-function restSearch()
-{
+function restSearch() {
     return <RestSearch />
 }
-function restNameSearch(){
+function restNameSearch() {
     return <RestNameSearch />
 }
-function checkOut(){
+function checkOut() {
     return <CheckOut />
 }
-function restPage(){
-    return <RestPage/>
+function restPage() {
+    return <RestPage />
 }
 
 
-
-
-class App extends Component{
-    render(){
-        return(
+class App extends Component {
+    render() {
+        return (
             <div className="App">
-
                 <Router>
-                <ButtonAppBar/> 
+                    <ButtonAppBar />
                     <div>
-
                         <Switch>
                             <Route path="/" exact component={Index} />
                             <Route path="/Restaurant/" component={Restaurant} />
@@ -89,7 +81,6 @@ class App extends Component{
                     </div>
                 </Router>
             </div>
-            
         )
     }
 }
