@@ -69,7 +69,6 @@ class RestNameSearch extends React.Component {
 
     render() {
         const {classes} = this.props;
-        console.log(this.state.inRange);
         return (
             <div>
                 <Container component="main" maxWidth="md">
