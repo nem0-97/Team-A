@@ -41,6 +41,7 @@ passport.serializeUser(function(user, done){
 // user must be deserialized when subsequent requests are made
 passport.deserializeUser(function(user, done){ 
     MongoDB.findOne(user.collection,{_id:new MongoDB.ObjId(user.id)}).then(cust=>{
+        cust.collection = user.collection;
         done(null,cust);
     });
 });
@@ -49,7 +50,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(expressSession({ secret: hidden.login.sessionSecret, resave: false, saveUninitialized: false, maxAge:1800000 }));//so passport sessions work (eexpires after 30 minutes)
-app.use(cookies()); // TODO: Set a login cookie
+app.use(cookies());
 
 // configure passport for use with an express-based app
 app.use(passport.initialize());
@@ -66,9 +67,7 @@ app.post('/register', function (req, res) {
 
 app.post('/login',passport.authenticate('local', { failureRedirect: 'http://localhost:3001/login/?failed=true' }), //FIXME: Why not use successRedirect: '/' here?
 function(req, res) {
-    console.log('login');
-    console.log(req.user);
-    res.cookie('userInfo', req.user.collection, { maxAge: 1800000, httpOnly: false });
+    res.cookie('userInfo',JSON.stringify({"collection": req.user.collection, "ID": req.user._id}), { maxAge: 1800000, httpOnly: false });
     res.redirect('/api/v1/rest');
 });
 
@@ -84,14 +83,13 @@ app.get('/logout', function (req, res) {
 /**RESTAURAUNT*/
 //GET
 app.get('/api/v1/rest', function (req, res) { //get a restaurant by name?
-    console.log(req.user);
+    //console.log(req.user);
     MongoDB.find('Restaurants',req.query).then(rests=>res.send({"results":rests}));//send back query results
 });
 
 /** GET restaurant info by querying a name */
 app.get('/api/v1/rest/:restName', function (req, res) {
     let restName = req.params.restName;
-    console.log(restName);
     MongoDB.find('Restaurants',(
         {
             "restinfo.restName": {$regex:restName,$options:'i'}
@@ -143,7 +141,6 @@ app.delete('/api/v1/cust', function (req, res) { //remove a customer from databa
 app.get('/api/v1/order', function (req, res) { //get a restaurant by name?
     if(req.user) MongoDB.find('Orders',req.query).then(rests=>res.send({"results":rests}));//send back query results
     else res.send({"mess":"You need to be logged in to view orders."});
-
 });
 
 /** ENDPOINT FOR SPOT */
