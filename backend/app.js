@@ -146,13 +146,18 @@ app.get('/api/v1/order', function (req, res) { //get a restaurant by name?
 /** ENDPOINT FOR SPOT */
 //POST
 app.post('/api/v1/spot', function (req, res) {
-    console.log("ENDPOINT FOR SPOT POST");
-    MongoDB.add('Spots', req.body); //First parm is which collection to use
+    if(req.user && req.user.collection == "Restaurants"){
+        req.body.id = req.user._id
+        MongoDB.add('Spots', req.body); //First parm is which collection to use
+        res.redirect('http://localhost:3001/RestaurantView');
+    }else{
+        res.send({"mess":"You need to be logged in as restaurant to add spots."});
+    }
 });
 
 //GET
 app.get('/api/v1/spot', function (req, res) {
-    console.log("ENDPOINT FOR SPOT GET");
+    MongoDB.find('Spots',req.query).then(rests=>res.send({"results":rests}));//send back query results
 });
 app.delete('api/v1/spot', function (req, res) {
     console.log("ENDPOINT FOR SPOT DELETE");
