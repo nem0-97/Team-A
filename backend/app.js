@@ -68,7 +68,7 @@ app.post('/register', function (req, res) {
 app.post('/login',passport.authenticate('local', { failureRedirect: 'http://localhost:3001/login/?failed=true' }), //FIXME: Why not use successRedirect: '/' here?
 function(req, res) {
     res.cookie('userInfo',JSON.stringify({"collection": req.user.collection, "ID": req.user._id}), { maxAge: 1800000, httpOnly: false });
-    res.redirect('/api/v1/rest');
+    res.redirect('http://localhost:3001/RestaurantView?id='+req.user._id);
 });
 
 app.get('/logout', function (req, res) {
