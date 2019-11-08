@@ -35,6 +35,7 @@ passport.use(new locStrat({ usernameField: 'email', passReqToCallback: true },
 
 // authenticated user must be serialized to the session
 passport.serializeUser(function (user, done) {
+    console.log(user)
     done(null, { 'collection': user.collection, 'id': user._id });
 });
 
@@ -58,7 +59,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 /** Account Routes*/
-app.post('/register', function (req, res) {
+app.post('/register', function (req, res) { //TODO use this for restaurants and users
     let user = req.body;
     user.accountinfo.password = log.hashPass(user.accountinfo.password);
     MongoDB.add('Customers', user);
@@ -68,7 +69,7 @@ app.post('/register', function (req, res) {
 app.post('/login',passport.authenticate('local', { failureRedirect: 'http://localhost:3001/login/?failed=true' }), //FIXME: Why not use successRedirect: '/' here?
 function(req, res) {
     res.cookie('userInfo',JSON.stringify({"collection": req.user.collection, "ID": req.user._id}), { maxAge: 1800000, httpOnly: false });
-    res.redirect('http://localhost:3001/RestaurantView?id='+req.user._id);
+    if(req.user.collection=='Restaurants') res.redirect('http://localhost:3001/RestaurantView?id='+req.user._id);
 });
 
 app.get('/logout', function (req, res) {
@@ -83,7 +84,6 @@ app.get('/logout', function (req, res) {
 /**RESTAURAUNT*/
 //GET
 app.get('/api/v1/rest', function (req, res) { //get a restaurant by name?
-    //console.log(req.user);
     if (req.query._id) req.query._id = new MongoDB.ObjId(req.query._id)
     for(let q in req.query){
         if(q!='_id'){
@@ -103,14 +103,14 @@ app.post('/api/v1/rest', function (req, res) { //Add a new restaurant into datab
 
 //PUT TODO test
 app.put('/api/v1/rest', function (req, res) { //Update given property of a restaurant with given value
-    if (MongoDB.update('Restaurant', req.body.query, req.body.newVals))
+    if (MongoDB.update('Restaurants', req.body.query, req.body.newVals))
         res.send({ "message": 'A restaurant updated' });
     else res.send({ "message": 'Error' });
 })
 
 //DELETE TODO test
 app.delete('/api/v1/rest', function (req, res) { //remove a restaurant from database by name
-    if (MongoDB.delete('Restaurant', req.body.query))
+    if (MongoDB.delete('Restaurants', req.body.query))
         res.send({ "message": 'A restaurant deleted' });
     else res.send({ "message": 'Error' });
 })
@@ -155,16 +155,26 @@ app.post('/api/v1/spot', function (req, res) {
 
 //GET
 app.get('/api/v1/spot', function (req, res) {
-    if (req.query.restID) req.query.restID = new MongoDB.ObjId(req.query.restID)
+    if (req.query.restID) req.query.restID = new MongoDB.ObjId(req.query.restID);
+    if (req.query._id) req.query._id= new MongoDB.ObjId(req.query._id);
     MongoDB.find('Spots',req.query).then(rests=>res.send({"results":rests}));//send back query results
 });
 app.delete('/api/v1/spot', function (req, res) {
     console.log("ENDPOINT FOR SPOT DELETE");
-    /*MongoDB.findOne('Spots',req.body)
-    .then(res => console.log(res));*/
+    req.body._id = new MongoDB.ObjId(req.body._id);
+    console.log(req.user);
+    MongoDB.findOne('Spots',req.body) //TODO why is req.user undefined?
+    .then(function(r){
+        if(r.restID == req.user._id){
+            console.log('deleting');
+            MongoDB.delete('Spots',req.body).then(
+                ret => res.redirect('http://localhost:3001/RestaurantView'));//delete
+            
+        }else{
+            res.send({"mess":"You need to be logged in as a restaurant to remove its spot."});
+        }
+    });
 })
-
-
 
 https.createServer({
     key: fs.readFileSync('server.key'),
