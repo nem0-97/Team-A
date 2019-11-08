@@ -85,9 +85,7 @@ app.get('/logout', function (req, res) {
 app.get('/api/v1/rest', function (req, res) { //get a restaurant by name?
     //console.log(req.user);
     if (req.query._id) req.query._id = new MongoDB.ObjId(req.query._id)
-    console.log(req.query);
     for(let q in req.query){
-        console.log(q)
         if(q!='_id'){
             req.query['restinfo.'+q] = { $regex: req.query[q], $options: 'i' };
             delete req.query[q];
@@ -160,8 +158,10 @@ app.get('/api/v1/spot', function (req, res) {
     if (req.query.restID) req.query.restID = new MongoDB.ObjId(req.query.restID)
     MongoDB.find('Spots',req.query).then(rests=>res.send({"results":rests}));//send back query results
 });
-app.delete('api/v1/spot', function (req, res) {
+app.delete('/api/v1/spot', function (req, res) {
     console.log("ENDPOINT FOR SPOT DELETE");
+    /*MongoDB.findOne('Spots',req.body)
+    .then(res => console.log(res));*/
 })
 
 
