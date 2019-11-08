@@ -19,6 +19,7 @@ import { Redirect } from 'react-router'
 //Cookies
 import Cookies from 'js-cookie';
 import { throws } from 'assert';
+import { Button } from '@material-ui/core';
 
 /*
 TODO: 
@@ -52,6 +53,7 @@ class RestaurantDashboard extends React.Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.createSpot = this.createSpot.bind(this);
+        this.deleteSpot = this.deleteSpot.bind(this);
     }
 
     handleChange(event){
@@ -66,9 +68,9 @@ class RestaurantDashboard extends React.Component {
         const modals = document.getElementsByClassName('modal');
         // on every modal change state like in hidden modal
         for(let i=0; i<modals.length; i++) {
-        modals[i].classList.remove('show');
-        modals[i].setAttribute('aria-hidden', 'true');
-        modals[i].setAttribute('style', 'display: none');
+            modals[i].classList.remove('show');
+            modals[i].setAttribute('aria-hidden', 'true');
+            modals[i].setAttribute('style', 'display: none');
         }
 
         // get modal backdrops
@@ -76,12 +78,17 @@ class RestaurantDashboard extends React.Component {
 
         // remove every modal backdrop
         for(let i=0; i<modalsBackdrops.length; i++) {
-        document.body.removeChild(modalsBackdrops[i]);
+            document.body.removeChild(modalsBackdrops[i]);
         }
-}
+    }
+
+    deleteSpot(ID){
+        const req = { method:'DELETE' , headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({_id: ID}) };
+        fetch("https://localhost:3000/api/v1/spot", req);
+        window.location.reload();
+    }
     
     render() {
-        console.log(this.state.spots);
         if(this.state.loggedIn){
             return (
                 <Grid>
@@ -103,6 +110,7 @@ class RestaurantDashboard extends React.Component {
                                             <TableCell align="center">{spot.hours}</TableCell>
                                             <TableCell align="center"> {spot.taken}/{spot.amount}</TableCell>
                                             <TableCell align="center">${spot.price}</TableCell>
+                                            <TableCell align="center"><Button onClick={()=>{this.deleteSpot(spot._id)}}>X</Button></TableCell>
                                         </TableRow>
                                 ))}
                                 </TableBody>
