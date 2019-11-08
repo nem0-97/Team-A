@@ -45,11 +45,9 @@ class RestaurantDashboard extends React.Component {
 
         }
         if (this.state.loggedIn){
-            console.log("https://localhost:3000/api/v1/spot?restID="+use.ID);
-             fetch("https://localhost:3000/api/v1/spot?restID="+use.ID,{method:'GET'})
+            fetch("https://localhost:3000/api/v1/spot?restID="+use.ID,{method:'GET'})
             .then(res=> res.json())
-            .then(s => this.state.spots = s);
-            console.log(this.state.spots); //TODO
+            .then(s => this.setState({spots : s.results}));
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -83,6 +81,7 @@ class RestaurantDashboard extends React.Component {
 }
     
     render() {
+        console.log(this.state.spots);
         if(this.state.loggedIn){
             return (
                 <Grid>
@@ -98,15 +97,14 @@ class RestaurantDashboard extends React.Component {
                                 </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    <TableRow>
-                                    <TableCell component="th" scope="row">
-
-                                    </TableCell>
-                                    <TableCell align="center">7:00pm - 12:00am</TableCell>
-                                    <TableCell align="center"> 0/50</TableCell>
-                                    <TableCell align="center">123</TableCell>
-                                    </TableRow>
-                                
+                                {this.state.spots.map(spot=>(
+                                        <TableRow>
+                                            <TableCell component="th" scope="row">{spot.date}</TableCell>
+                                            <TableCell align="center">{spot.hours}</TableCell>
+                                            <TableCell align="center"> {spot.taken}/{spot.amount}</TableCell>
+                                            <TableCell align="center">${spot.price}</TableCell>
+                                        </TableRow>
+                                ))}
                                 </TableBody>
                             </Table>
 
