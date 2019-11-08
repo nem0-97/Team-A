@@ -1,0 +1,12 @@
+.spotTable {
+    width: 100%;
+    max-width: 450px;
+    position: relative;
+    background-color: #ccc;
+    margin-left:15px !important;
+    overflow: auto;
+    max-height: 300px;
+}
+.spotTitle {
+    margin-left: 15px !important;
+}
