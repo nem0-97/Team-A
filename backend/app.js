@@ -147,7 +147,7 @@ app.get('/api/v1/order', function (req, res) { //get a restaurant by name?
 //POST
 app.post('/api/v1/spot', function (req, res) {
     if(req.user && req.user.collection == "Restaurants"){
-        req.body.id = req.user._id
+        req.body.restID = req.user._id
         MongoDB.add('Spots', req.body); //First parm is which collection to use
         res.redirect('http://localhost:3001/RestaurantView');
     }else{
