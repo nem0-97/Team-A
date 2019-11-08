@@ -18,6 +18,7 @@ import { Redirect } from 'react-router'
 
 //Cookies
 import Cookies from 'js-cookie';
+import { throws } from 'assert';
 
 /*
 TODO: 
@@ -28,19 +29,29 @@ TODO:
 class RestaurantDashboard extends React.Component {
     constructor(props) {
         super(props);
-
-        let userInfo = Cookies.get('userInfo'); //userInfo cookie has 2 props (collection:(restaurant or customer signed in) ID:the user's mongoDB unique ID )
-        if (userInfo){
-            userInfo = (JSON.parse(userInfo).collection == 'Restaurants'); 
+        let use = Cookies.get('userInfo'); //userInfo cookie has 2 props (collection:(restaurant or customer signed in) ID:the user's mongoDB unique ID )
+        if (use){
+            use = JSON.parse(use);
         }
+        // ID is stored as this.state.userInfo.ID
         this.state = {
-            loggedIn: userInfo, 
+            userInfo: use,
+            loggedIn: (use && use.collection == 'Restaurants'), 
+            spots: [],
             date: "",
             hours: "",
             amount: "",
             price: "",
 
         }
+        if (this.state.loggedIn){
+            console.log("https://localhost:3000/api/v1/spot?restID="+use.ID);
+             fetch("https://localhost:3000/api/v1/spot?restID="+use.ID,{method:'GET'})
+            .then(res=> res.json())
+            .then(s => this.state.spots = s);
+            console.log(this.state.spots); //TODO
+        }
+
         this.handleChange = this.handleChange.bind(this);
         this.createSpot = this.createSpot.bind(this);
     }
@@ -69,7 +80,6 @@ class RestaurantDashboard extends React.Component {
         for(let i=0; i<modalsBackdrops.length; i++) {
         document.body.removeChild(modalsBackdrops[i]);
         }
-
 }
     
     render() {
