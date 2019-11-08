@@ -23,31 +23,12 @@ import Cookies from 'js-cookie';
 TODO: 
     #Make it able to search for restaurant by name
 */
-function createSpot(){
-    console.log("saved");
-    const modals = document.getElementsByClassName('modal');
-    console.log('_' + Math.random().toString(36).substr(2, 9));
-    // on every modal change state like in hidden modal
-    for(let i=0; i<modals.length; i++) {
-      modals[i].classList.remove('show');
-      modals[i].setAttribute('aria-hidden', 'true');
-      modals[i].setAttribute('style', 'display: none');
-    }
 
-     // get modal backdrops
-     const modalsBackdrops = document.getElementsByClassName('modal-backdrop');
-
-     // remove every modal backdrop
-     for(let i=0; i<modalsBackdrops.length; i++) {
-       document.body.removeChild(modalsBackdrops[i]);
-     }
-     
-
-}
 
 class RestaurantDashboard extends React.Component {
     constructor(props) {
         super(props);
+
         let userInfo = Cookies.get('userInfo'); //userInfo cookie has 2 props (collection:(restaurant or customer signed in) ID:the user's mongoDB unique ID )
         if (userInfo){
             userInfo = (JSON.parse(userInfo).collection == 'Restaurants'); 
@@ -57,9 +38,11 @@ class RestaurantDashboard extends React.Component {
             date: "",
             hours: "",
             amount: "",
-            price: ""
+            price: "",
+
         }
         this.handleChange = this.handleChange.bind(this);
+        this.createSpot = this.createSpot.bind(this);
     }
 
     handleChange(event){
@@ -68,6 +51,26 @@ class RestaurantDashboard extends React.Component {
         });
         console.log(this.state.price);
     }
+
+    createSpot(){
+        console.log("saved");
+        const modals = document.getElementsByClassName('modal');
+        // on every modal change state like in hidden modal
+        for(let i=0; i<modals.length; i++) {
+        modals[i].classList.remove('show');
+        modals[i].setAttribute('aria-hidden', 'true');
+        modals[i].setAttribute('style', 'display: none');
+        }
+
+        // get modal backdrops
+        const modalsBackdrops = document.getElementsByClassName('modal-backdrop');
+
+        // remove every modal backdrop
+        for(let i=0; i<modalsBackdrops.length; i++) {
+        document.body.removeChild(modalsBackdrops[i]);
+        }
+
+}
     
     render() {
         if(this.state.loggedIn){
@@ -87,7 +90,7 @@ class RestaurantDashboard extends React.Component {
                                 <TableBody>
                                     <TableRow>
                                     <TableCell component="th" scope="row">
-                                        {this.state.date}
+
                                     </TableCell>
                                     <TableCell align="center">7:00pm - 12:00am</TableCell>
                                     <TableCell align="center"> 0/50</TableCell>
@@ -110,7 +113,9 @@ class RestaurantDashboard extends React.Component {
                                         <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
+                                    <form method="POST" action="https://localhost:3000/api/v1/spot">
                                     <div className="modal-body">
+                                        
                                         <div className="container">
                                             <div className="row">
                                                 <div className="col-6 spotCol">
@@ -184,10 +189,12 @@ class RestaurantDashboard extends React.Component {
                                             </div>
                                         </div>
                                     </div>
+                                    
                                     <div className="modal-footer">
                                         <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" className="btn btn-primary" onClick={createSpot}>Save changes</button>
+                                        <button type="button" className="btn btn-primary"  type="submit">Save changes</button>
                                     </div>
+                                    </form>
                                     </div>
                                 </div>
                             </div>
