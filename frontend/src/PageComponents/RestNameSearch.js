@@ -54,17 +54,17 @@ class RestNameSearch extends React.Component {
     constructor(props) {
         super(props);
         let params = new URLSearchParams(window.location.search);
-        console.log(params.get("name"));
+        console.log(params.get("restName"));
 
         this.state = {
-            searchVal: params.get("name"),
+            searchVal: params.get("restName"),
             tileData: [],
         }
 
     }
 
     componentDidMount() { 
-        fetch('https://localhost:3000/api/v1/rest/'+ this.state.searchVal).then(response => response.json()).then(response1 => {this.setState({tileData: response1.results}, console.log(response1.results))});
+        fetch('https://localhost:3000/api/v1/rest?restName='+ this.state.searchVal).then(response => response.json()).then(response1 => {this.setState({tileData: response1.results}, console.log(response1.results))});
     }
 
     render() {

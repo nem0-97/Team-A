@@ -63,7 +63,7 @@ class RestCard extends React.Component{
                             
                             <GridListTile key={tile._id}>
                                 <img src={require( "../assets/placeholder.jpg")} alt={tile.restinfo.restName} />
-                                <a href={'http://localhost:3001/RestPage?name=' + tile.restinfo.restName  }>
+                                <a href={'http://localhost:3001/RestPage?restName=' + tile.restinfo.restName  }>
                             <GridListTileBar
                             title={tile.restinfo.restName}
                             subtitle={"$$ | " + tile.restinfo.address + "   | Open Hours: " + tile.restinfo.openTime + "-" + tile.restinfo.closeTime}
