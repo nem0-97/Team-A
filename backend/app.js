@@ -146,9 +146,10 @@ app.post('/api/v1/order', function (req, res) {
             if(spot.taken >= spot.amount){
                 res.send({"mess":"Spot is already full"});
             }else{
-                //TODO update spot's taken in DB 
-                delete req.body.spotID;
-                MongoDB.add('Orders', req.body);//create order
+              
+                MongoDB.add('Orders', req.body);//create order 
+                res.status(200);
+                res.redirect('http://localhost:3001');
             }
         }
     )
