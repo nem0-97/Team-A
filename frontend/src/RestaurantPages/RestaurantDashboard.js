@@ -91,9 +91,31 @@ class RestaurantDashboard extends React.Component {
     render() {
         if(this.state.loggedIn){
             return (
+                <div>
+                <Grid>
+                    <Paper className='w-75 mx-auto' width='75%' >
+                        <h2 align="center">Current Orders</h2>                    
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell align="center">Time Placed</TableCell>
+                                    <TableCell align="center">Customer First Name</TableCell>
+                                    <TableCell align="center">Customer Last Name</TableCell>
+                                    <TableCell align="center">Item(s)</TableCell>
+                                    <TableCell align="center">Order Status</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                            
+                            </TableBody>
+                        </Table>
+                    </Paper>
+                </Grid>
+
                 <Grid>
                     <Grid>
                        <Paper className='w-75 mx-auto' width='75%' >
+                        <h2 align="center">Spots</h2>                    
                         <Table aria-label="simple table">
                                 <TableHead>
                                 <TableRow>
@@ -217,13 +239,12 @@ class RestaurantDashboard extends React.Component {
                        </Paper>
                        </Grid>
                 </Grid>
+                </div>
             );
         }else{
             return (<Redirect to="/Login" />);
             //return "Your are not logged in as a restaurant";
         }
-
-      
 
     }
 }
