@@ -84,6 +84,7 @@ class RestNameSearch extends React.Component {
                                         {this.state.tileData.map(rest => 
                                         <GridListTile >
                                         <img src={require( "../assets/placeholder.jpg")} alt={rest.restinfo.restName} />
+                                        <a href={'http://localhost:3001/RestPage?ID=' + rest._id }>
                                     
                                     <GridListTileBar
                                     title={rest.restinfo.restName}
@@ -91,6 +92,7 @@ class RestNameSearch extends React.Component {
                                     
                                     />
                                 
+</a>                                
                                     </GridListTile>
                                     
                         )}
