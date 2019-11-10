@@ -8,7 +8,7 @@ TODO:
 */
 
 function fetchRestaurants(){
-    console.log("hej");
+
 }
 
 class AddressSearch extends React.Component {
@@ -41,9 +41,13 @@ class AddressSearch extends React.Component {
                      onPlaceSelected={(place) => {
                         console.log(place);
                         //Store the lat and lng coordinates and use those for the query param
-                        let lat = place.geometry.location.lat();
-                        let lng = place.geometry.location.lng();
-                        window.location.href = "http://localhost:3001/RestSearch?lat="+ lat +"&lng=" + lng + "";
+                        if(place.geometry === undefined){
+                            alert("This is not a valid address honey")
+                        }else{
+                            let lat = place.geometry.location.lat();
+                            let lng = place.geometry.location.lng();
+                            window.location.href = "http://localhost:3001/RestSearch?lat="+ lat +"&lng=" + lng + "";
+                        }
 
                      }}
                      className="form-control"

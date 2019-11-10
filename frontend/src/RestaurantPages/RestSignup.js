@@ -149,7 +149,7 @@ function handleSubmit(){
   if(!isSubmitted && !submit){
   /* this function will check if the restaurant is already registered  */
   
-    fetch(apiPath + "/" + data.restinfo.restName)
+    fetch(apiPath + "?restName=" + data.restinfo.restName)
       .then(response => {
         return response.json();
       }).then(results => {

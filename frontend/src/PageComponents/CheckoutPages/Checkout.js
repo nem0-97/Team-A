@@ -16,60 +16,46 @@ const hidden = require('../../hidden.js');
 
 class Checkout extends React.Component {
     constructor(props) {
+        let params = new URLSearchParams(window.location.search);
         super(props);
         this.state = {
+            searchVal: params.get("id"),
             firstName: "",
             lastName: "",
             email: "",
             card: "", 
             month: "", 
             year: "",
-            operation: "order"
+            operation: "order",
+            tileData: [],
+            tileData2:[]
         };
 
-        this.handleSubmit = this.handleSubmit.bind(this);
         this.handleFormChange = this.handleFormChange.bind(this);
-        
-
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleFormChange(event) {
         this.setState({ [event.target.id]: event.target.value });
     }
+     componentDidMount(){
+         fetch('https://localhost:3000/api/v1/spot?_id='+ this.state.searchVal).then(response => response.json()).then(response1 => {this.setState({tileData: response1.results}, console.log(response1.results))}).then(
+          () => fetch('https://localhost:3000/api/v1/rest?_id='+ this.state.tileData[0].restID).then(response => response.json()).then(response1 => {this.setState({tileData2: response1.results}, console.log(response1.results))})  
+        );
+    
 
-    handleSubmit(event) {
-        let data;
-        let meth;
-        let apiPath = hidden.apiPaths.base + '/Checkout'; 
-        if (this.state.operation === 'order') {
-            data = {
-                "checkout":{
-                    firstName: this.state.firstName,
-                    lastName: this.state.lastName,
-                    email: this.state.email,
-                    card: this.state.card,
-                    month: this.state.month,
-                    year: this.state.year,
-                }
-            }
-            meth = 'POST'
-        }
-
-        const req = {method: meth}
-
-        fetch(apiPath, req)
-            .then(res => res.json())
-            .then(
-                (result) => { this.setState({ submitted: true, response: result }); },
-                (error) => { this.setState({ submitted: true, error }); }
-            )
-        event.preventDefault();
+      
     }
+    handleSubmit(){}
+   
 
     // TODO(@mannat): total price, address, pickup time. Look at: 
     // https://docs.google.com/drawings/d/12avz1T7cH0vR36rV1BdCg49f1SJ6bsJ3Cba7aP4MF3U/edit?usp=sharing
     render() {
+        console.log(this.state.tileData)
+
         if (!this.state.submitted) {
+
             return (
                 <Grid container>
                     <Grid item sm={6} className="gridItem marginLeft" >
@@ -187,28 +173,23 @@ class Checkout extends React.Component {
                         </Typography>
                     <Paper id="signup-paper">
 
-                    <div className="root">
-                        <GridList cols={1} cellHeight={180} className="gridList">
-                            {orderData.map(tile => (
-                                <GridListTile key={tile.img}>
-                                <img src={tile.img} alt={tile.title} />
-                                <GridListTileBar
-                                    title={tile.title}
-                                />
-                        </GridListTile>
-                        ))}
-                        </GridList>
-                    </div>
-
-                         <Typography variant="h6" noWrap >
-                            Total:
+                        
+                        <Typography variant="h6" noWrap >
+                            Restaurant: {this.state.tileData2[0]?this.state.tileData2[0].restinfo.restName:""}
                          </Typography>
                          <Typography variant="h6" noWrap >
-                            Pick-up Time: 
+                            Address: {this.state.tileData2[0]?this.state.tileData2[0].restinfo.address:""}
                          </Typography>
                          <Typography variant="h6" noWrap >
-                            Address: 
+                            Price: ${this.state.tileData[0]?this.state.tileData[0].price:""}
                          </Typography>
+                         <Typography variant="h6" noWrap >
+                            Date for pick-up: {this.state.tileData[0]?this.state.tileData[0].date:""}
+                         </Typography>
+                         <Typography variant="h6" noWrap >
+                            Pick-up Time: {this.state.tileData[0]?this.state.tileData[0].hours:""}
+                         </Typography>
+                         
                     </Paper>
                     </Grid>    
                 </Grid>
