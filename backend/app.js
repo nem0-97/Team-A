@@ -150,7 +150,7 @@ app.post('/api/v1/order', function (req, res) {
                 MongoDB.update('Spots',{_id:req.body.spotID},{taken:spot.taken+1});//update Spot's taken value
                 MongoDB.add('Orders', req.body);//create order
                 res.status(200);
-                res.redirect("http://localhost:3001/");
+                res.redirect('http://localhost:3001');
             }
         }
     )

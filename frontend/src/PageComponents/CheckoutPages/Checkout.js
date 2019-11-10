@@ -32,7 +32,7 @@ class Checkout extends React.Component {
         };
 
         this.handleFormChange = this.handleFormChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+
     }
 
     handleFormChange(event) {
@@ -46,15 +46,13 @@ class Checkout extends React.Component {
 
       
     }
-    handleSubmit(){}
+ 
+    
    
 
-    // TODO(@mannat): total price, address, pickup time. Look at: 
-    // https://docs.google.com/drawings/d/12avz1T7cH0vR36rV1BdCg49f1SJ6bsJ3Cba7aP4MF3U/edit?usp=sharing
     render() {
-        console.log(this.state.tileData)
 
-        if (!this.state.submitted) {
+        
 
             return (
                 <Grid container>
@@ -62,10 +60,11 @@ class Checkout extends React.Component {
                         <Typography component="h1" variant="h5" id="tagline">
                             Checkout
                         </Typography>
-                            <form onSubmit={this.handleSubmit}>
+                            <form action="https://localhost:3000/api/v1/order" method="POST" >
                             <Paper id="signup-paper">
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} sm={6}>
+                                        <input name="spotID" value={this.state.tileData[0]?this.state.tileData[0]._id:"" } hidden></input> 
                                         <TextField
                                             autoComplete="fname"
                                             name="firstName"
@@ -194,8 +193,8 @@ class Checkout extends React.Component {
                     </Grid>    
                 </Grid>
             );
+    
         
-        }
 
         return <div>
             <Container component="main" maxWidth="xs">
