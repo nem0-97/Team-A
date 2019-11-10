@@ -24,14 +24,20 @@ class RestPage extends React.Component {
             tileData: [],
             tileData2: [],
         };
+        this.orderSpot = this.orderSpot.bind(this);
     }
 
     componentDidMount() { 
         fetch('https://localhost:3000/api/v1/rest?_id='+ this.state.searchVal).then(response => response.json()).then(response1 => {this.setState({tileData: response1.results}, console.log(response1.results))});
        fetch('https://localhost:3000/api/v1/spot?restID='+ this.state.searchVal).then(response => response.json()).then(response1 => {this.setState({tileData2: response1.results}, console.log(response1.results))});
+        
+    }
+    orderSpot(ID){
+        window.location.href = "http://localhost:3001/Checkout?id=" + ID
     }
 
     render() {
+        
             return (
                 <div>
                 <Container component="main" maxWidth="md">
@@ -54,11 +60,11 @@ class RestPage extends React.Component {
                                         
                                         <List className='spotTable'>
                                        
-                                            {this.state.tileData2.map(rest =>
+                                            {this.state.tileData2.map(spot =>
                                                 <ListItem>
                                                      <ListSubheader>{"Date|Time"}</ListSubheader> 
-                                                   <ListItemText primary={rest.date + " | " + rest.hours} secondary={"$" + rest.price} />
-                                                   <Button variant="contained" color="primary"  className="">
+                                                   <ListItemText primary={spot.date + " | " + spot.hours} secondary={"$" + spot.price} />
+                                                   <Button variant="contained" color="primary" type="button"  className="" onClick={()=> {this.orderSpot(spot._id)}}>
                                                         Order Spot
                                                     </Button> 
                                                     <Divider />

@@ -95,7 +95,7 @@ class RestSearch extends React.Component {
         }
 
         console.log("Latitude: " + this.state.lat);
-        console.log("Longtitude: " + this.state.lng);
+        console.log("Longtitude: " + this.state.lng); 
     }
 
     componentDidMount() { //TODO maybe store in sorted list closest to furthest and store index of last one in range insteead of outRange and inRange lists?

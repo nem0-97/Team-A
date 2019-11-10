@@ -48,7 +48,6 @@ class AddressSearch extends React.Component {
                             let lng = place.geometry.location.lng();
                             window.location.href = "http://localhost:3001/RestSearch?lat="+ lat +"&lng=" + lng + "";
                         }
-                    
 
                      }}
                      className="form-control"
