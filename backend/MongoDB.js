@@ -130,13 +130,10 @@ exports.delete = async function (coll,query){
     const collection = client.db("FoodWaste").collection(coll);
     let error =false;
 
-    collection.delete(query,function(err, res) {
+    collection.deleteOne(query,function(err, res) {
         if (err){ 
             console.error(err);
             error=true;
-        }
-        else{
-            console.log("1 document deleted from "+ coll);
         }
         client.close();
       });

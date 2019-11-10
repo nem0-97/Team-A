@@ -35,7 +35,6 @@ passport.use(new locStrat({ usernameField: 'email', passReqToCallback: true },
 
 // authenticated user must be serialized to the session
 passport.serializeUser(function (user, done) {
-    console.log(user)
     done(null, { 'collection': user.collection, 'id': user._id });
 });
 
@@ -47,7 +46,7 @@ passport.deserializeUser(function(user, done){
     });
 });
 const cookies = require('cookie-parser');
-app.use(cors());
+app.use(cors({ origin: 'http://localhost:3001', credentials:true}));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(expressSession({ secret: hidden.login.sessionSecret, resave: false, saveUninitialized: false, maxAge:1800000 }));//so passport sessions work (eexpires after 30 minutes)
@@ -74,7 +73,7 @@ function(req, res) {
 
 app.get('/logout', function (req, res) {
     req.logout();
-    res.clearCookie('userInfo'); //TODO clear session cookiee? unecessar but eh
+    res.clearCookie('userInfo');
     res.redirect('http://localhost:3001');
 });
 /** End Account Routes*/
@@ -140,41 +139,72 @@ app.get('/api/v1/order', function (req, res) { //get a restaurant by name?
     else res.send({"mess":"You need to be logged in to view orders."});
 });
 
-/** ENDPOINT FOR SPOT */
-//POST
-app.post('/api/v1/spot', function (req, res) {
-    if(req.user && req.user.collection == "Restaurants"){
-        req.body.restID = req.user._id;
-        req.body.taken = 0;
-        MongoDB.add('Spots', req.body); //First parm is which collection to use
-        res.redirect('http://localhost:3001/RestaurantView');
-    }else{
-        res.send({"mess":"You need to be logged in as restaurant to add spots."});
-    }
+//ORDER
+app.post('/api/v1/order', function (req, res) {
+    MongoDB.findOne('Spots',{_id:new MongoDB.ObjId(req.body.spotID)}).then(
+        spot =>{
+            if(spot.taken >= spot.amount){
+                res.send({"mess":"Spot is already full"});
+            }else{
+                //TODO update spot's taken in DB 
+                delete req.body.spotID;
+                MongoDB.add('Orders', req.body);//create order
+            }
+        }
+    )
 });
 
+/** ENDPOINT FOR SPOT */
 //GET
 app.get('/api/v1/spot', function (req, res) {
     if (req.query.restID) req.query.restID = new MongoDB.ObjId(req.query.restID);
     if (req.query._id) req.query._id= new MongoDB.ObjId(req.query._id);
     MongoDB.find('Spots',req.query).then(rests=>res.send({"results":rests}));//send back query results
 });
+
+//POST
+app.post('/api/v1/spot', function (req, res) {
+    if(req.user && req.user.collection == "Restaurants"){
+        req.body.restID = req.user._id;
+        req.body.taken = 0;
+        MongoDB.add('Spots', req.body);
+        res.redirect('http://localhost:3001/RestaurantView');
+    }else{
+        res.send({"mess":"You need to be logged in as restaurant to add spots."});
+    }
+});
+
+//DELETE
 app.delete('/api/v1/spot', function (req, res) {
-    console.log("ENDPOINT FOR SPOT DELETE");
     req.body._id = new MongoDB.ObjId(req.body._id);
-    console.log(req.user);
-    MongoDB.findOne('Spots',req.body) //TODO why is req.user undefined?
+    MongoDB.findOne('Spots',req.body)
     .then(function(r){
-        if(r.restID == req.user._id){
-            console.log('deleting');
-            MongoDB.delete('Spots',req.body).then(
-                ret => res.redirect('http://localhost:3001/RestaurantView'));//delete
-            
+        if(r.restID.equals(req.user._id)){
+            MongoDB.delete('Spots',{_id:r._id});
         }else{
             res.send({"mess":"You need to be logged in as a restaurant to remove its spot."});
         }
     });
 })
+/** ENDPOINT FOR REVIEWS */
+//GET
+app.get('/api/v1/review', function (req, res) {
+    if (req.query.restID) req.query.restID = new MongoDB.ObjId(req.query.restID);
+    if (req.query.custID) req.query.custID = new MongoDB.ObjId(req.query.custID);
+    if (req.query._id) req.query._id= new MongoDB.ObjId(req.query._id);
+    MongoDB.find('Reviews',req.query).then(rests=>res.send({"results":rests}));//send back query results
+});
+
+//POST
+app.post('/api/v1/review', function (req, res) {
+    if(req.user && req.user.collection == "Customers"){
+        req.body.custID = req.user._id;
+        req.body.taken = 0;
+        MongoDB.add('Reviews', req.body);
+    }else{
+        res.send({"mess":"You need to be logged in as a customr to leave reviews."});
+    }
+});
 
 https.createServer({
     key: fs.readFileSync('server.key'),

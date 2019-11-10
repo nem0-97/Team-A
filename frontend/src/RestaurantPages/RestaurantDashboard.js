@@ -83,9 +83,8 @@ class RestaurantDashboard extends React.Component {
     }
 
     deleteSpot(ID){
-        console.log()
-        const req = { method:'DELETE' , headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({_id: ID}) };
-        fetch("https://localhost:3000/api/v1/spot", req);//backend will redirect you to this same page (refresh)
+        const req = { method:'DELETE' , credentials:'include' , headers: { 'Content-Type': 'application/json'}, body: JSON.stringify({_id: ID}) };
+        fetch("https://localhost:3000/api/v1/spot", req);
     }
     
     render() {
