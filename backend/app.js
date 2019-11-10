@@ -141,7 +141,8 @@ app.get('/api/v1/order', function (req, res) { //get a restaurant by name?
 
 //ORDER
 app.post('/api/v1/order', function (req, res) {
-    MongoDB.findOne('Spots',{_id:new MongoDB.ObjId(req.body.spotID)}).then(
+    req.body.spotID = new MongoDB.ObjId(req.body.spotID);
+    MongoDB.findOne('Spots',{_id:req.body.spotID}).then(
         spot =>{
             if(spot.taken >= spot.amount){
                 res.send({"mess":"Spot is already full"});
