@@ -201,7 +201,6 @@ app.get('/api/v1/review', function (req, res) {
 app.post('/api/v1/review', function (req, res) {
     if(req.user && req.user.collection == "Customers"){
         req.body.custID = req.user._id;
-        req.body.taken = 0;
         MongoDB.add('Reviews', req.body);
     }else{
         res.send({"mess":"You need to be logged in as a customr to leave reviews."});
