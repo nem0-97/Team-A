@@ -23,6 +23,7 @@ class RestPage extends React.Component {
             searchVal: params.get("ID"),
             tileData: [],
             tileData2: [],
+            comments:[]
         };
         this.orderSpot = this.orderSpot.bind(this);
     }
@@ -30,6 +31,7 @@ class RestPage extends React.Component {
     componentDidMount() { 
         fetch('https://localhost:3000/api/v1/rest?_id='+ this.state.searchVal).then(response => response.json()).then(response1 => {this.setState({tileData: response1.results}, console.log(response1.results))});
        fetch('https://localhost:3000/api/v1/spot?restID='+ this.state.searchVal).then(response => response.json()).then(response1 => {this.setState({tileData2: response1.results}, console.log(response1.results))});
+       fetch('https://localhost:3000/api/v1/review?restID='+this.state.searchVal).then(response => response.json()).then(response1 => {this.setState({comments: response1.results}, console.log(response1.results))});
         
     }
     orderSpot(ID){
@@ -37,7 +39,7 @@ class RestPage extends React.Component {
     }
 
     render() {
-        
+        console.log(this.state.comments)
             return (
                 <div>
                 <Container component="main" maxWidth="md">
@@ -75,14 +77,33 @@ class RestPage extends React.Component {
 
 
 
+                                    <Typography variant="h5"  className="mb-5 mt-5 ml-4">
+                                        Reviews
+                                    </Typography>
+                                    <div>
+                          
+                                {this.state.comments.map(review=>(
+                                      <div>
+                                          
+                                          <p>
+                                              {review.Comment}
+                                              {review.cust}
+                                          </p>
+                                      </div>
+                                ))}
+                               
+                                    </div>
+
 
                                     <div>
                                         <form action="https://localhost:3000/api/v1/review" method="post">
+                                        <input name="restID" value={this.state.tileData[0]?this.state.tileData[0]._id:"" } hidden></input> 
                                         <TextField
                                             id="outlined-basic"
                                             wdith="75%"
                                             multiline={true}
                                             label="Comment"
+                                            name="Comment"
                                             className="w-75 ml-3 mt-5"
                                             variant="outlined"
                                         />

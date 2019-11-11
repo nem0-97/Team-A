@@ -196,6 +196,7 @@ app.get('/api/v1/review', function (req, res) {
     if (req.query.restID) req.query.restID = new MongoDB.ObjId(req.query.restID);
     if (req.query.custID) req.query.custID = new MongoDB.ObjId(req.query.custID);
     if (req.query._id) req.query._id= new MongoDB.ObjId(req.query._id);
+    console.log(req.query);
     MongoDB.find('Reviews',req.query).then(rests=>res.send({"results":rests}));//send back query results
 });
 
@@ -206,7 +207,8 @@ app.post('/api/v1/review', function (req, res) {
         req.body.cust = req.user.name;
         if (req.body.restID) req.body.restID = new MongoDB.ObjId(req.body.restID);
         MongoDB.add('Reviews', req.body);
-        res.redirect('http://localhost:3001/RestPage?ID='+req.body.restID);
+        console.log(req.body.restID)
+        res.redirect('http://localhost:3001/RestPage?ID='+ req.body.restID);
     }else{
         res.send({"mess":"You need to be logged in as a customr to leave reviews."});
     }
