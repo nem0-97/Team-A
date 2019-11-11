@@ -39,6 +39,7 @@ class RestaurantDashboard extends React.Component {
             userInfo: use,
             loggedIn: (use && use.collection == 'Restaurants'), 
             spots: [],
+            orders:[],
             date: "",
             hours: "",
             amount: "",
@@ -49,6 +50,9 @@ class RestaurantDashboard extends React.Component {
             fetch("https://localhost:3000/api/v1/spot?restID="+use.ID,{method:'GET'})
             .then(res=> res.json())
             .then(s => this.setState({spots : s.results}));
+            fetch("https://localhost:3000/api/v1/order?restID="+use.ID,{method:'GET', credentials:'include'})
+            .then(res=> res.json())
+            .then(o => {console.log(o);this.setState({orders : o.results})});
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -97,15 +101,21 @@ class RestaurantDashboard extends React.Component {
                         <Table>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell align="center">Time Placed</TableCell>
-                                    <TableCell align="center">Customer First Name</TableCell>
-                                    <TableCell align="center">Customer Last Name</TableCell>
+                                    <TableCell align="center">Email</TableCell>
+                                    <TableCell align="center">First Name</TableCell>
+                                    <TableCell align="center">Last Name</TableCell>
                                     <TableCell align="center">Item(s)</TableCell>
-                                    <TableCell align="center">Order Status</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                            
+                            {this.state.orders.map(order=>(
+                                        <TableRow>
+                                            <TableCell component="th" scope="row">{order.email}</TableCell>
+                                            <TableCell align="center">{order.firstName}</TableCell>
+                                            <TableCell align="center"> {order.lastName}</TableCell>
+                                            <TableCell align="center"> {order.spotID}</TableCell>
+                                        </TableRow>
+                            ))}
                             </TableBody>
                         </Table>
                     </Paper>
@@ -122,6 +132,8 @@ class RestaurantDashboard extends React.Component {
                                     <TableCell align="center">Hours</TableCell>
                                     <TableCell align="center">Amount</TableCell>
                                     <TableCell align="center">Price</TableCell>
+                                    <TableCell align="center">ID</TableCell>
+
                                 </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -131,6 +143,7 @@ class RestaurantDashboard extends React.Component {
                                             <TableCell align="center">{spot.hours}</TableCell>
                                             <TableCell align="center"> {spot.taken}/{spot.amount}</TableCell>
                                             <TableCell align="center">${spot.price}</TableCell>
+                                            <TableCell align="center">{spot._id}</TableCell>
                                             <TableCell align="center"><Button onClick={()=>{this.deleteSpot(spot._id)}}>X</Button></TableCell>
                                         </TableRow>
                                 ))}
