@@ -119,6 +119,7 @@ app.delete('/api/v1/rest', function (req, res) { //remove a restaurant from data
 //POST
 app.post('/api/v1/cust', function (req, res) { //Add a new customer into database
     req.body.accountinfo.password = log.hashPass(req.body.accountinfo.password);
+    req.body.name = req.body.accountinfo.firstName +req.body.accountinfo.lastName ;
     MongoDB.add('Customers', req.body); //First parm is which namespace to use
     res.send({ "message": 'POST request to the homepage, customer ' + req.body.accountinfo.firstName + ' added to database' });
 })
@@ -202,7 +203,7 @@ app.get('/api/v1/review', function (req, res) {
 app.post('/api/v1/review', function (req, res) {
     if(req.user && req.user.collection == "Customers"){
         req.body.custID = req.user._id;
-        req.body.cust = req.user.accountinfo.firstName;
+        req.body.cust = req.user.name;
         if (req.body.restID) req.body.restID = new MongoDB.ObjId(req.query.restID);
         MongoDB.add('Reviews', req.body);
         res.redirect('http://localhost:3001/RestPage?ID='+req.body.restID);
