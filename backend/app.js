@@ -204,7 +204,7 @@ app.post('/api/v1/review', function (req, res) {
     if(req.user && req.user.collection == "Customers"){
         req.body.custID = req.user._id;
         req.body.cust = req.user.name;
-        if (req.body.restID) req.body.restID = new MongoDB.ObjId(req.query.restID);
+        if (req.body.restID) req.body.restID = new MongoDB.ObjId(req.body.restID);
         MongoDB.add('Reviews', req.body);
         res.redirect('http://localhost:3001/RestPage?ID='+req.body.restID);
     }else{
