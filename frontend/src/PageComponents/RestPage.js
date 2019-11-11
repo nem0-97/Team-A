@@ -87,6 +87,7 @@ class RestPage extends React.Component {
                                           
                                           <p>
                                               {review.Comment}
+                                              {review.cust}
                                           </p>
                                       </div>
                                 ))}
