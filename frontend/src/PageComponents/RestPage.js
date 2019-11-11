@@ -77,6 +77,7 @@ class RestPage extends React.Component {
 
 
                                     <div>
+                                        <form action="https://localhost:3000/api/v1/review" method="post">
                                         <TextField
                                             id="outlined-basic"
                                             wdith="75%"
@@ -85,9 +86,10 @@ class RestPage extends React.Component {
                                             className="w-75 ml-3 mt-5"
                                             variant="outlined"
                                         />
-                                        <Button variant="contained" color="primary"  className="mb-4 ml-1 mt-5">
+                                        <Button variant="contained" color="primary" type="submit" className="mb-4 ml-1 mt-5">
                                                 Submit
                                         </Button>
+                                        </form>
                                     </div>
                                 </Paper>
                                 

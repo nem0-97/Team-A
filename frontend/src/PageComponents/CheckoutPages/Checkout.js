@@ -65,6 +65,7 @@ class Checkout extends React.Component {
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} sm={6}>
                                         <input name="spotID" value={this.state.tileData[0]?this.state.tileData[0]._id:"" } hidden></input> 
+                                        <input name="restID" value={this.state.tileData2[0]?this.state.tileData2[0]._id:"" } hidden></input> 
                                         <TextField
                                             autoComplete="fname"
                                             name="firstName"

@@ -26,7 +26,7 @@ class LoginComponent extends React.Component{
         if(params.get('failed')){ //if the query param 'failed' is true
             alert("Incorrect login information");
         }
-        this.handleSubmit = this.handleSubmit.bind(this);
+
         this.handleChange = this.handleChange.bind(this);
     }
     handleChange(event){
@@ -34,8 +34,7 @@ class LoginComponent extends React.Component{
             [event.target.id]: event.target.value
         })
     }
-    handleSubmit(event){
-    }
+    
 
 
     render(){ //move login post into handlesubmit form is not properly handling the select value
@@ -46,7 +45,7 @@ class LoginComponent extends React.Component{
             <i className="material-icons large-icon d-block">lock</i>
                 <h1>{this.state.loginType} login </h1>
             </Grid>
-            <form className="login" onSubmit={this.handleSubmit} action="https://localhost:3000/login" method="post"> 
+            <form className="login"  action="https://localhost:3000/login" method="post"> 
             <Grid item sm={12} style={formMargin}>
                 <FormControl>
                 <label htmlFor="loginType">Login type: </label>

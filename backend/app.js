@@ -69,6 +69,7 @@ app.post('/login',passport.authenticate('local', { failureRedirect: 'http://loca
 function(req, res) {
     res.cookie('userInfo',JSON.stringify({"collection": req.user.collection, "ID": req.user._id}), { maxAge: 1800000, httpOnly: false });
     if(req.user.collection=='Restaurants') res.redirect('http://localhost:3001/RestaurantView?id='+req.user._id);
+    else res.redirect('http://localhost:3001/');
 });
 
 app.get('/logout', function (req, res) {
