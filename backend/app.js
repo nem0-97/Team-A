@@ -203,6 +203,7 @@ app.post('/api/v1/review', function (req, res) {
     if(req.user && req.user.collection == "Customers"){
         req.body.custID = req.user._id;
         MongoDB.add('Reviews', req.body);
+        res.redirect('http://localhost:3001/RestPage?ID='+req.body.restID);
     }else{
         res.send({"mess":"You need to be logged in as a customr to leave reviews."});
     }
