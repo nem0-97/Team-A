@@ -122,6 +122,7 @@ export default function Sidebar() {
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
+            id = "navBarBtn"
             className={clsx(classes.menuButton, open && classes.hide)}>
             <MenuIcon />
           </IconButton>

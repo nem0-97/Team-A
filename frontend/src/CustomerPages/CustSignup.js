@@ -178,7 +178,7 @@ class CustSignup extends React.Component {
                     <Typography component="h1" variant="h5" id="tagline">
                         <i className="material-icons green large-icon">check_box</i> <br />
                         Account created successfully
-        </Typography>
+                    </Typography>
                 </Paper>
             </Container>
         </div>
