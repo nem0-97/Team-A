@@ -3,7 +3,6 @@
     margin-left:15px;
     border-radius: 4px;
     margin-bottom:15px;
-
 }
 .MuiGridListTile-tile:hover, .MuiGridListTile-imgFullWidth:hover{
     cursor: pointer;
@@ -14,4 +13,25 @@
 }
 .MuiIconButton-root:hover{
     background-color: rgba(245, 243, 243, 0.27) !important;
+}
+.MuiGridListTileBar-root {
+    background-color: red;
+}
+.MuiGridListTileBar-title {
+    font-weight: bold;
+    font-size: larger;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: left;
+}
+.MuiGridListTileBar-subtitle {
+    color: gainsboro;
+    text-align: left;
+}
+.left {
+    text-align: left;
+    float: left;
+}
+.right {
+    text-align: right;
+    float: right;
 }
