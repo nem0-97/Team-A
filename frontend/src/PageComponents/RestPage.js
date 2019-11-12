@@ -51,14 +51,14 @@ class RestPage extends React.Component {
                                             <Typography variant="h5"  className="mb-4 ml-4">
                                             
                                                 <b> <h2>{rest.restinfo.restName}</h2></b>
-                                                <br/> {rest.restinfo.address}
-                                                <br/> {rest.restinfo.openTime} {rest.restinfo.closeTime}
+                                                <br/> <h6>{rest.restinfo.address}</h6>
+                                                <br/> <h6>Operating hours: {rest.restinfo.openTime} - {rest.restinfo.closeTime}</h6>
                                                 <br/> 
                                             </Typography>
                                             
                                         )}
   
-                                            <h2 className="spotTitle"> SPOTS </h2>
+                                            <h2 className="spotTitle"> Available spots </h2>
                                         
                                         <List className='spotTable'>
                                        
@@ -77,21 +77,23 @@ class RestPage extends React.Component {
 
 
 
-                                    <Typography variant="h5"  className="mb-5 mt-5 ml-4">
+                                    <Typography variant="h5"  className="mb-1 mt-5 ml-4">
                                         Reviews
                                     </Typography>
                                     <div>
-                          
+                          <List className="reviewTable">
                                 {this.state.comments.map(review=>(
                                       <div>
-                                          
-                                          <p>
-                                              {review.Comment}
-                                              {review.cust}
-                                          </p>
+
+                                        <ListItem>
+                                                <ListSubheader><i className="material-icons reviewIcon">account_circle</i> {review.cust} | </ListSubheader> 
+                                                        <ListItemText primary={review.Comment}  />
+                                                    <Divider />
+                                                    
+                                                </ListItem>
                                       </div>
                                 ))}
-                               
+                               </List>
                                     </div>
 
 
@@ -100,15 +102,15 @@ class RestPage extends React.Component {
                                         <input name="restID" value={this.state.tileData[0]?this.state.tileData[0]._id:"" } hidden></input> 
                                         <TextField
                                             id="outlined-basic"
-                                            wdith="75%"
+                                            width="100%"
                                             multiline={true}
                                             label="Comment"
                                             name="Comment"
-                                            className="w-75 ml-3 mt-5"
+                                            className="commentBox mt-5"
                                             variant="outlined"
                                         />
-                                        <Button variant="contained" color="primary" type="submit" className="mb-4 ml-1 mt-5">
-                                                Submit
+                                        <Button variant="contained" color="primary" type="submit" className="mt-4 d-block reviewSubmit">
+                                                Submit comment 
                                         </Button>
                                         </form>
                                     </div>

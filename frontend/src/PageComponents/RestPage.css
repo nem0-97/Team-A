@@ -1,12 +1,36 @@
 .spotTable {
     width: 100%;
-    max-width: 450px;
+    max-width: 85%;
     position: relative;
-    background-color: #ccc;
-    margin-left:15px !important;
+    background-color: #fafafa;
+    border-radius: 4px;
+    margin-left:7% !important;
     overflow: auto;
     max-height: 300px;
+    color:#333;
 }
 .spotTitle {
     margin-left: 15px !important;
+}
+.reviewTable{
+    width: 100%;
+    max-width: 85%;
+    position: relative;
+    background-color: #fafafa;
+    border-radius: 4px;
+    margin-left:7% !important;
+    overflow: auto;
+    max-height: 300px;
+    color:#333;
+}
+.commentBox{
+    width:85%;
+    margin-left:7% !important;
+}
+.reviewSubmit{
+    margin-left:74% !important;
+}
+.reviewIcon{
+    position: relative;
+    top:7px;
 }
