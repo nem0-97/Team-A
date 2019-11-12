@@ -45,7 +45,7 @@ class NameSearch extends React.Component {
                      </Typography>
                      <div className="input-group mb-3">
                         <div className="input-group-prepend">
-                            <button type="button" className="searchBtn" onClick={this.search}>
+                            <button type="button" className="searchBtn" id="search" onClick={this.search}>
                             <span className="input-group-text" ><i className="material-icons">search</i></span>
                             </button>
                         </div>

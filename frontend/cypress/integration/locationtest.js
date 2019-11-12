@@ -13,5 +13,5 @@ describe('Test if you can find a restaurant by location', function() {
     })
     it('Does it contain restaurants?', function() {
         cy.get('.MuiGridList-root > :nth-child(1)')
-      })
-  })
+    })
+})
