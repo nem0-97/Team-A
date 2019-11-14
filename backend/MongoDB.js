@@ -5,17 +5,19 @@ const client = new MongoClient(hidden.mongo.uri, { useNewUrlParser: true ,useUni
 
 exports.ObjId = mongo.ObjectId;
 
+let db;
+client.connect(err => {
+    if(err) console.log(err);
+    else db = client.db("FoodWaste")
+})
+
 /**
  * Add the provided element to the proper collection in our database
  * @param coll collection to add el to
  * @param el new item to add to the collection
  * */
 exports.add = function (coll,el){
-    client.connect(err => {
-        const collection = client.db("FoodWaste").collection(coll);
-        collection.insertOne(el);
-        client.close();
-    });
+    db.collection(coll).insertOne(el);
 };
 
 /**
@@ -24,11 +26,7 @@ exports.add = function (coll,el){
  * @param query parameters to find items in the collection using 
  * */
 exports.fullFind = async function (coll,query){
-    await client.connect();
-    const collection = client.db("FoodWaste").collection(coll);
-    const results = await collection.find(query).toArray();
-    client.close();
-    return results;
+    return await db.collection(coll).find(query).toArray();
 };
 
 /**
@@ -37,11 +35,7 @@ exports.fullFind = async function (coll,query){
  * @param query parameters to find an itme in the collection using
  * */
 exports.fullFindOne = async function (coll,query){
-    await client.connect();
-    const collection = client.db("FoodWaste").collection(coll);
-    const result = await collection.findOne(query);
-    client.close();
-    return result;
+    return await db.collection(coll).findOne(query);
 };
 
 /**
@@ -50,11 +44,7 @@ exports.fullFindOne = async function (coll,query){
  * @param query parameters to find items in the collection using 
  * */
 exports.find = async function (coll,query){
-    await client.connect();
-    const collection = client.db("FoodWaste").collection(coll);
-    const results = await collection.find(query,{projection:{"accountinfo":0}}).toArray();
-    client.close();
-    return results;
+    return await db.collection(coll).find(query,{projection:{"accountinfo":0}}).toArray();
 };
 
 /**
@@ -63,11 +53,7 @@ exports.find = async function (coll,query){
  * @param query parameters to find an itme in the collection using
  * */
 exports.findOne = async function (coll,query){
-    await client.connect();
-    const collection = client.db("FoodWaste").collection(coll);
-    const result = await collection.findOne(query,{projection:{"accountinfo":0}});
-    client.close();
-    return result;
+    return await db.collection(coll).findOne(query,{projection:{"accountinfo":0}});
 };
 
 /**
@@ -77,19 +63,15 @@ exports.findOne = async function (coll,query){
  * @param newVals fields to update and their new values to set to 
  * */
 exports.update = async function (coll, query, newVals){
-    await client.connect();
-    const collection = client.db("FoodWaste").collection(coll);
-
     let error =false;
 
-    collection.updateOne(query,{$set:newVals},function(err, res) {
+    db.collection(coll).updateOne(query,{$set:newVals},function(err, res) {
         if (err){ 
             console.error(err);
             error=true;
         }
         else{
             console.log("1 document updated in"+ coll);
-            client.close();
         }
       });
       return !error;
@@ -102,12 +84,9 @@ exports.update = async function (coll, query, newVals){
  * @param newVals fields to update and their new values to set to 
  * */
 exports.updateMany = async function (coll, query, newVals){
-    await client.connect();
-    const collection = client.db("FoodWaste").collection(coll);
-
     let error =false;
 
-    collection.updateMany(query,{$set:newVals},function(err, res) {
+    db.collection(coll).updateMany(query,{$set:newVals},function(err, res) {
         if (err){ 
             console.error(err);
             error=true;
@@ -115,7 +94,6 @@ exports.updateMany = async function (coll, query, newVals){
         else{
             console.log(res.result.nModified + " document(s) updated in "+ coll);
         }
-        client.close();
       });
       return !error;
 };
@@ -126,16 +104,13 @@ exports.updateMany = async function (coll, query, newVals){
  * @param query parameters to find item to delete using 
  * */
 exports.delete = async function (coll,query){
-    await client.connect();
-    const collection = client.db("FoodWaste").collection(coll);
     let error =false;
 
-    collection.deleteOne(query,function(err, res) {
+    db.collection(coll).deleteOne(query,function(err, res) {
         if (err){ 
             console.error(err);
             error=true;
         }
-        client.close();
       });
     return !error;
 };
@@ -146,11 +121,9 @@ exports.delete = async function (coll,query){
  * @param query parameters to find an items to delete in the collection using
  * */
 exports.deleteMany = async function (coll,query){
-    await client.connect();
-    const collection = client.db("FoodWaste").collection(coll);
     let error =false;
 
-    collection.deleteMany(query,function(err, res) {
+    db.collection(coll).deleteMany(query,function(err, res) {
         if (err){ 
             console.error(err);
             error=true;
@@ -158,7 +131,6 @@ exports.deleteMany = async function (coll,query){
         else{
             console.log(res.result.n + " document(s) deleted from "+ coll);
         }
-        client.close();
       });
     return !error;
 };
