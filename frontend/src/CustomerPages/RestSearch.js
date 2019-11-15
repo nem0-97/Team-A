@@ -124,24 +124,25 @@ class RestSearch extends React.Component {
                <div>
                 <Paper style={{paddingTop: '55px', paddingBottom: '55px'}}>
                 <div>
-                <Typography variant="h5"  className="mb-4 ml-4">
+                    <Typography variant="h5"  className="mb-4 ml-4">
                         Restaurants located within 5 {this.state.units} of location
-                     </Typography>
-                    <GridList cellHeight={250} >
+                    </Typography>
+                    <GridList cellHeight={250}>
                         
-                        {this.state.inRange.map(rest => 
-                        <GridListTile >
-                        <img src={require( "../assets/placeholder.jpg")} alt={rest.restinfo.restName} />
+                        {this.state.inRange.map(rest => (
+                        <GridListTile key={rest._id}>
+
+                            <a href={'http://localhost:3001/RestPage?ID=' + rest._id} >
+                                <img src={require( "../assets/placeholder.jpg")} alt={rest.restinfo.restName} />
+                            </a>
                       
-                    <GridListTileBar
-                    title={rest.restinfo.restName}
-                    subtitle={"$$ | " + rest.restinfo.address + "   | Open Hours: " + rest.restinfo.openTime + "-" + rest.restinfo.closeTime}
-                    
-                    />
+                            <GridListTileBar
+                            title={rest.restinfo.restName}
+                            subtitle={"$$ | " + rest.restinfo.address + "   | Open Hours: " + rest.restinfo.openTime + "-" + rest.restinfo.closeTime}
+                            />
                 
-                    </GridListTile>
-                    
-        )}
+                        </GridListTile>
+        ))}
         </GridList>
         </div>
                     </Paper>
