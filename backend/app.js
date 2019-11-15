@@ -58,12 +58,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 /** Account Routes*/
-app.post('/register', function (req, res) { //TODO use this for restaurants and users
+/*app.post('/register', function (req, res) { //TODO use this for restaurants and users
     let user = req.body;
     user.accountinfo.password = log.hashPass(user.accountinfo.password);
     MongoDB.add('Customers', user);
     res.send({ "message": 'New user ' + user.email + ' was added.' });
-});
+});*/
 
 app.post('/login',passport.authenticate('local', { failureRedirect: 'http://localhost:3001/login/?failed=true' }), //FIXME: Why not use successRedirect: '/' here?
 function(req, res) {
@@ -96,6 +96,12 @@ app.get('/api/v1/rest', function (req, res) { //get a restaurant by name?
 
 //POST
 app.post('/api/v1/rest', function (req, res) { //Add a new restaurant into database
+    for(let prop in req.body.accountinfo){
+        if(!req.body.accountinfo[prop]) {res.send({ "mess": 'account info '+prop+' cannot be empty' }); return;}
+    }
+    for(let prop in req.body.restinfo){
+        if(!req.body.restinfo[prop]){ res.send({ "mess": 'rest info '+prop+' cannot be empty' }); return;}
+    }
     req.body.accountinfo.password = log.hashPass(req.body.accountinfo.password);
     MongoDB.add('Restaurants', req.body); //First parm is which namespace to use
     res.send({ "message": 'POST request to the homepage, restaurant ' + req.body.name + ' added to database' });

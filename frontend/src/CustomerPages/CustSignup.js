@@ -92,7 +92,7 @@ class CustSignup extends React.Component {
                                 <i className="material-icons large-icon d-block">local_dining</i>
                                 Customer Signup
                                </Typography>
-                            <form noValidate onSubmit={this.handleSubmit}>
+                            <form onSubmit={this.handleSubmit}>
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} sm={6}>
                                         <TextField
@@ -123,6 +123,7 @@ class CustSignup extends React.Component {
                                     </Grid>
                                     <Grid item xs={12}>
                                         <TextField
+                                            type="email"
                                             variant="outlined"
                                             required
                                             fullWidth
