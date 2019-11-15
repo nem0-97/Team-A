@@ -70,6 +70,7 @@ class AccountInfo extends React.Component {
                                     </Grid>
                                     <Grid item xs={12}>
                                         <TextField
+                                            type="email"
                                             variant="outlined"
                                             required
                                             fullWidth
