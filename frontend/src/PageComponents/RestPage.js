@@ -62,15 +62,17 @@ class RestPage extends React.Component {
                                         
                                         <List className='spotTable'>
                                        
-                                            {this.state.tileData2.map(spot =>
-                                                <ListItem>
-                                                     <ListSubheader>{"Date|Time"}</ListSubheader> 
-                                                   <ListItemText primary={spot.date + " | " + spot.hours} secondary={"$" + spot.price} />
-                                                   <Button variant="contained" color="primary" type="button"  className="" onClick={()=> {this.orderSpot(spot._id)}}>
-                                                        Order Spot
-                                                    </Button> 
-                                                    <Divider />
-                                                </ListItem>
+                                            {this.state.tileData2.map(spot =>{
+                                                if (spot.taken<spot.amount){ return (<ListItem>
+                                                        <ListSubheader>{"Date|Time"}</ListSubheader> 
+                                                    <ListItemText primary={spot.date + " | " + spot.hours} secondary={"$" + spot.price + " Available Spots: " + (spot.amount-spot.taken)} />
+                                                    <Button variant="contained" color="primary" type="button"  className="" onClick={()=> {this.orderSpot(spot._id)}}>
+                                                            Order Spot
+                                                        </Button> 
+                                                        <Divider />
+                                                    </ListItem>)
+                                                    }
+                                                }
                                             )}
                                         </List>
                                     </div>
