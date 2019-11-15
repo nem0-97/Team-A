@@ -85,7 +85,7 @@ class RestCard extends React.Component{
         const {classes} = this.props;
         return (
             
-            <div>
+        <div>
             <Paper style={{paddingTop: '60px', paddingBottom: '60px'}}>
                 <div className={classes.root}>
                     <GridList cellHeight={225} className={classes.gridList2} cols={1} spacing={28}>

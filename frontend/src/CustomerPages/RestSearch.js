@@ -18,7 +18,6 @@ const useStyles = theme => ({
       overflow: 'hidden',
       width: '90%',
       margin: '0 auto',
-      
     },
     gridList: {
       flexWrap: 'nowrap',
@@ -119,35 +118,38 @@ class RestSearch extends React.Component {
     render() {
         const {classes} = this.props;
         console.log(this.state.inRange);
+
         return (
             <Container component="main" maxWidth="md">
-               <div>
-                <Paper style={{paddingTop: '55px', paddingBottom: '55px'}}>
                 <div>
-                <Typography variant="h5"  className="mb-4 ml-4">
-                        Restaurants located within 5 {this.state.units} of location
-                     </Typography>
-                    <GridList cellHeight={250} >
-                        
-                        {this.state.inRange.map(rest => 
-                        <GridListTile >
-                        <img src={require( "../assets/placeholder.jpg")} alt={rest.restinfo.restName} />
-                      
-                    <GridListTileBar
-                    title={rest.restinfo.restName}
-                    subtitle={"$$ | " + rest.restinfo.address + "   | Open Hours: " + rest.restinfo.openTime + "-" + rest.restinfo.closeTime}
-                    
-                    />
-                
-                    </GridListTile>
-                    
-        )}
-        </GridList>
-        </div>
-                    </Paper>
-                
-            </div>
+                    <Paper style={{paddingTop: '55px', paddingBottom: '55px'}}>
+                        <div>
+                            <Typography variant="h5"  className="mb-4 ml-4">
+                                Restaurants located within 5 {this.state.units} of location
+                            </Typography>
 
+                            <GridList cellHeight={250}>
+                                
+                                {this.state.inRange.map(rest => (
+
+                                <GridListTile key={rest._id}>
+
+                                    <a href={'http://localhost:3001/RestPage?ID=' + rest._id} >
+                                        <img src={require( "../assets/placeholder.jpg")} alt={rest.restinfo.restName} />
+                            
+                                        <GridListTileBar
+                                            title={rest.restinfo.restName}
+                                            subtitle={"$$ | " + rest.restinfo.address + "   | Open Hours: " + rest.restinfo.openTime + "-" + rest.restinfo.closeTime}
+                                        />
+
+                                    </a>
+                        
+                                </GridListTile>
+                            ))}
+                            </GridList>
+                        </div>
+                    </Paper>
+                </div>
 
             </Container>
         );
