@@ -63,7 +63,19 @@ class RestCard extends React.Component{
     }
     
     componentDidMount() { /* Fetches data from backend and inputs data into tileData */
-        fetch('https://localhost:3000/api/v1/rest').then(response => response.json()).then(response1 => {this.setState({tileData: response1.results})});
+        fetch('https://localhost:3000/api/v1/rest').then(response => response.json()).then(response1 => {
+            this.setState({tileData: response1.results});
+            for(let r of response1.results){
+                fetch('https://localhost:3000/api/v1/spot?restID='+r._id).then(res=>res.json()).then(spots=> {
+                    let sum =0;
+                    for(let s of spots.results){
+                        sum+=s.amount-s.taken;
+                    }
+                    r.totalSpots=sum;
+                    this.setState({});
+                });
+            }
+        });
     }
     
 
@@ -95,7 +107,7 @@ class RestCard extends React.Component{
                                                 </Typography>
                                             }
                                             actionIcon={
-                                                <Button className={classes.spotButton} padding={1}>8 spots left</Button>
+                                                <Button className={classes.spotButton} padding={1}>{tile.totalSpots +" spots left"}</Button>
                                             }
                                         />
                                     </ThemeProvider>
