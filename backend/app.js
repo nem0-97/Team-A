@@ -96,6 +96,12 @@ app.get('/api/v1/rest', function (req, res) { //get a restaurant by name?
 
 //POST
 app.post('/api/v1/rest', function (req, res) { //Add a new restaurant into database
+    MongoDB.fullFind('Restaurants',{"accountinfo.email":req.accountinfo.email}).then(matches=>{if(matches.length > 0){
+        res.send({ "mess":"Restaurant account with email "+req.accountinfo.email +" already exists."});return;
+    }});
+    MongoDB.find('Restaurants',{"restinfo.restName":req.restinfo.restName}).then(matches=>{if(matches.length > 0){
+        res.send({ "mess":"Restaurant account with name "+req.restinfo.restName +" already exists."});return;
+    }});
     for(let prop in req.body.accountinfo){
         if(!req.body.accountinfo[prop]) {res.send({ "mess": 'account info '+prop+' cannot be empty' }); return;}
     }
@@ -124,6 +130,9 @@ app.delete('/api/v1/rest', function (req, res) { //remove a restaurant from data
 /** Customer endpoints */
 //POST
 app.post('/api/v1/cust', function (req, res) { //Add a new customer into database
+    MongoDB.fullFind('Customers',{"accountinfo.email":req.accountinfo.email}).then(matches=>{if(matches.length > 0){
+        res.send({ "mess":"Account with email "+req.accountinfo.email +" already exists."});return;
+    }});
     req.body.accountinfo.password = log.hashPass(req.body.accountinfo.password);
     req.body.name = req.body.accountinfo.firstName +' '+req.body.accountinfo.lastName ;
     MongoDB.add('Customers', req.body); //First parm is which namespace to use
