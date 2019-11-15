@@ -57,7 +57,7 @@ class LoginComponent extends React.Component{
                 </FormControl>
             </Grid>
             <Grid item sm={12} style={formMargin}>
-                <Textfield value={this.state.value} type="text" onChange={this.handleChange} variant="outlined" id="email" name="email" label="Email" maxWidth="lg" margin="dense" ></Textfield>
+                <Textfield value={this.state.value} type="email" onChange={this.handleChange} variant="outlined" id="email" name="email" label="Email" maxWidth="lg" margin="dense" ></Textfield>
             </Grid>
             <Grid item sm={12} style={formMargin}>
                 <Textfield value={this.state.value} type="password" onChange={this.handleChange} variant="outlined" id="password" name="password" label="Password" maxWidth="lg" margin="dense" ></Textfield>

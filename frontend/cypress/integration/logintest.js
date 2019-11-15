@@ -14,7 +14,6 @@ describe('Test login functionality', function() {
     })
     it('Detect Cookie',function(){
         cy.getCookie('userInfo').should('exist')
-
     })
   
   })
