@@ -23,6 +23,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import Cookies from 'js-cookie';
+
 
 const drawerWidth = 240;
 
@@ -96,7 +98,8 @@ export default function Sidebar() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-
+  const loggedIn = Cookies.get('userInfo');
+  console.log(loggedIn);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -115,7 +118,7 @@ export default function Sidebar() {
         })}
       >
         <Toolbar>
-
+        
         <div>
           <IconButton
             color="inherit"
@@ -134,10 +137,20 @@ fastfood
 
          
           </div>
+       
           <div style={floatRight}>
+          {function(){if(!loggedIn)return (
             <Link to="/Login/">
             <Button color="inherit ">Login</Button>
             </Link>
+          )
+          else return(
+            <a href="https://localhost:3000/logout">
+            <Button color="inherit ">Log out</Button>
+            </a>
+          )}()
+            
+            }
             <IconButton>
                 <Avatar>Hi</Avatar>
             </IconButton>    
