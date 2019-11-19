@@ -179,8 +179,10 @@ function handleSubmit(){
     req["body"] = JSON.stringify(data);
     console.log("FETCHING POST to REST API...");
     fetch(apiPath, req)
-      .then(res => res.json())
-      .then(mess=> {if(mess.mess){
+      .then(res => {res.json();})
+      .then(mess=> {
+        console.log(mess);
+        if(mess.mess){
         alert(mess.mess);
         window.location.replace("/Restaurant");
       } else window.location.replace("/");
