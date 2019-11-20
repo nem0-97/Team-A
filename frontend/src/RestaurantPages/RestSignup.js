@@ -235,6 +235,7 @@ export default function   Rest() {
                       color="primary"
                       onClick={handleNextBtn}
                       className={classes.button}
+                      id="next"
                     >
                       Next
                     </Button>
@@ -244,7 +245,7 @@ export default function   Rest() {
                           variant="contained"
                           color="primary"
                             onClick={handleSubmit}
-                          
+                            id="create"
                         >
                           Create Restaurant
                           
