@@ -110,6 +110,7 @@ app.post('/api/v1/rest', function (req, res) { //Add a new restaurant into datab
     }
     req.body.accountinfo.password = log.hashPass(req.body.accountinfo.password);
     MongoDB.add('Restaurants', req.body); //First param is which namespace to use
+    res.status(201);
     res.send({ "message": 'POST request to the homepage, restaurant ' + req.body.restinfo.name + ' added to database' });
 })
 
@@ -136,6 +137,7 @@ app.post('/api/v1/cust', function (req, res) { //Add a new customer into databas
     req.body.accountinfo.password = log.hashPass(req.body.accountinfo.password);
     req.body.name = req.body.accountinfo.firstName +' '+req.body.accountinfo.lastName ;
     MongoDB.add('Customers', req.body); //First parm is which namespace to use
+    res.status(201);
     res.send({ "message": 'POST request to the homepage, customer ' + req.body.accountinfo.firstName + ' added to database' });
 })
 
@@ -166,7 +168,7 @@ app.post('/api/v1/order', function (req, res) {
             }else{
                 MongoDB.update('Spots',{_id:req.body.spotID},{taken:spot.taken+1});//update Spot's taken value
                 MongoDB.add('Orders', req.body);//create order
-                res.status(200);
+                res.status(201);
                 res.redirect('http://localhost:3001');
             }
         }
@@ -187,6 +189,7 @@ app.post('/api/v1/spot', function (req, res) {
         req.body.restID = req.user._id;
         req.body.taken = 0;
         MongoDB.add('Spots', req.body);
+        res.status(201);
         res.redirect('http://localhost:3001/RestaurantView');
     }else{
         res.send({"mess":"You need to be logged in as restaurant to add spots."});
@@ -221,6 +224,7 @@ app.post('/api/v1/review', function (req, res) {
         req.body.cust = req.user.name;
         if (req.body.restID) req.body.restID = new MongoDB.ObjId(req.body.restID);
         MongoDB.add('Reviews', req.body);
+        res.status(201);
         res.redirect('http://localhost:3001/RestPage?ID='+ req.body.restID);
     }else{
         res.send({"mess":"You need to be logged in as a customr to leave reviews."});
