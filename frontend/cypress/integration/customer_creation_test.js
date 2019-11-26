@@ -11,10 +11,10 @@ describe('Test if create customer', function() {
     })
 
     it('Succesfully create a user', function(){
-      cy.get('#firstName').type('mk')
-      cy.get('#lastName').type('mk')
-      cy.get('#email').type('mk')
-      cy.get('#password').type('mk')
+      cy.get('#firstName').type('test')
+      cy.get('#lastName').type('test')
+      cy.get('#email').type('test@test.dk')
+      cy.get('#password').type('test')
       cy.get('#signup-button > .MuiButton-label').click()
       cy.get('#tagline').should('be.visible')  
     })
@@ -27,8 +27,8 @@ describe('Test if create customer', function() {
     })
 
     it('Succesfully logs in', function(){
-      cy.get('#email').type('mk')
-      cy.get('#password').type('mk')
+      cy.get('#email').type('test@test.dk')
+      cy.get('#password').type('test')
       cy.get(':nth-child(4) > .MuiButtonBase-root').click()
       cy.url().should('eq', Cypress.config().baseUrl + '/')
 

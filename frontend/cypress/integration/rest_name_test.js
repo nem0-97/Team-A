@@ -5,7 +5,7 @@ describe('Test if you can find a restaurant by location', function() {
     })
 
     it('Clicks on the search by name', function() {
-      cy.get('input[type=text]').type("Sushi").should('have.value','Sushi')
+      cy.get('input[type=text]').type("Subway").should('have.value','Subway')
       cy.get('button[type=button]').get("#search").click()
       cy.url().should('include', '/RestNameSearch?restName=')
     })

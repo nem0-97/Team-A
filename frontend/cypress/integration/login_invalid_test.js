@@ -16,7 +16,7 @@ describe('Enter a nonexistent user', function() {
       const stub = cy.stub()  
       cy.on ('window:alert', stub)
 
-      cy.get('#email').type("not valid")
+      cy.get('#email').type("not@valid")
       cy.get('#password').type('not valid')
       cy.get(':nth-child(4) > .MuiButtonBase-root').click()
       .then(() => {

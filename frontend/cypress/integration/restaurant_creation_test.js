@@ -13,33 +13,30 @@ describe('Test if create restaurant and shows up in All Restaurants dashboard', 
 
     it('Succesfully create a restaurant', function(){
       cy.get('#restName').type('testing')
-      cy.get('#city').type('mk')
-      cy.get('#zipCode').type('mk')
-      cy.get('.makeStyles-buttons-312 > .MuiButtonBase-root').click()
+      cy.get('#standard-search').type('5000n Park')
+      cy.contains("West 5000N Road").click()
+      cy.get('#city').type('testing')
+      cy.get('#zipCode').type('00000')
+      cy.get('#openTime').type('09:00')
+      cy.get('#closeTime').type('09:00')
+      cy.get('#next').click()
 
       cy.get('#firstName').type('testing')
       cy.get('#lastName').type('testing')
-      cy.get('#email').type('testing')
+      cy.get('#email').type('testing@testing.com')
       cy.get('#password').type('testing')
 
-      cy.get('.makeStyles-buttons-312 > .MuiButtonBase-root').click()
+      cy.get('#next').click()
 
-      cy.get('.makeStyles-buttons-312 > .MuiButtonBase-root').click()
-      cy.wait(3000);
-      //cy.url().should('eq', Cypress.config().baseUrl + '/')
-    // TODO(@mannat): check to see added to database?
+      cy.get('#create').click()
 
     })
 
-    // TODO(@mannat): check to see it shows up in dashboard
-    it('Succesfully sees restaurant in dashboard', function(){
-     // this.skip()
+    it('Succesfully sees restaurant in dashboard', function() {
       cy.get('#navBarBtn > .MuiIconButton-label > .MuiSvgIcon-root').click()
-      cy.get(':nth-child(3) > [href="/"]').click()
+      cy.get(':nth-child(3) > [href="/"] > .MuiListItemText-root').click()
       cy.get('.makeStyles-drawerHeader-8 > .MuiButtonBase-root > .MuiIconButton-label > .MuiSvgIcon-root').click()
+      cy.get('.App > :nth-child(2) > :nth-child(1)').contains('testing')
       cy.url().should('eq', Cypress.config().baseUrl + '/')
-
-      // see database updated, and how many restaurants there are, then check to see its visible in frontend
-      // cy.get('.MuiPaper-root:last-child' > .MuiGridListTile-tile > a > .MuiGridListTileBar-root > .MuiGridListTileBar-titleWrap > .MuiGridListTileBar-title).should('eq', 'testing')
     })
 })
