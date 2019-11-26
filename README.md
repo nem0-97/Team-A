@@ -6,11 +6,19 @@
     module.exports={
       "mongo":{
         "uri" :<your mongodb server uri>
+      },
+      "login":{
+        "sessionSecret":<whateveer string you want>
       }
     }
  
     
    Next to setup the backend run `npm install` from the backend directory to install required node modules. 
+   The backend requires a certificate to be able to run since it uses https. You can seet this up by running:
+  
+   $ openssl req -nodes -new -x509 -keyout server.key -out server.cert
+   
+   You can then just follow the prompts to make the certificate.
   
   To start the backend run the command `npm start` from the backend directory.
    
