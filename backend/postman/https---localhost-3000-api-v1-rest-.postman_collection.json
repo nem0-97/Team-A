@@ -1,0 +1,288 @@
+{
+	"info": {
+		"_postman_id": "1003af19-f81f-46fd-81b6-0a7a78e0d4be",
+		"name": "https://localhost:3000/api/v1/rest/",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "All restaurants",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6ceed727-1597-4a0e-8c80-29b3e1bba6c7",
+						"exec": [
+							"pm.test(\"Content-Type header is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body contains 0 or more _ids\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"_id\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:3000/api/v1/rest/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"rest",
+						""
+					]
+				},
+				"description": "Queries all restaurants"
+			},
+			"response": []
+		},
+		{
+			"name": "Query one result by name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "be61fcf4-9b34-4a28-bea5-10f36df7632a",
+						"exec": [
+							"",
+							"pm.test(\"Content-Type header is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Fetch restaurant through GET-request\", function () {",
+							"    pm.sendRequest(\"https://localhost:3000/api/v1/rest?restName=Sub\", function (err, response) {",
+							"    console.log(response.json());",
+							"});",
+							"});",
+							"pm.test(\"Body matches query string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Sub\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:3000/api/v1/rest?restName=Sub",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"rest"
+					],
+					"query": [
+						{
+							"key": "restName",
+							"value": "Sub"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Query one result by _ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "be61fcf4-9b34-4a28-bea5-10f36df7632a",
+						"exec": [
+							"",
+							"pm.test(\"Content-Type header is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Fetch restaurant through GET-request\", function () {",
+							"    pm.sendRequest(\"https://localhost:3000/api/v1/rest?restName=Sub\", function (err, response) {",
+							"    console.log(response.json());",
+							"});",
+							"});",
+							"pm.test(\"Body matches query string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Sub\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:3000/api/v1/rest?restName=Sub",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"rest"
+					],
+					"query": [
+						{
+							"key": "restName",
+							"value": "Sub"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SPOT request by restID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "65e337aa-66f5-409a-bdbe-c650d01f05ea",
+						"exec": [
+							"",
+							"pm.test(\"Content-Type header is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Fetch Spot through GET-request\", function () {",
+							"    pm.sendRequest(\"https://localhost:3000/api/v1/spot?restID=5dd3455ce1f76511af27454e\", function (err, response) {",
+							"    console.log(response.json());",
+							"});",
+							"});",
+							"pm.test(\"Body matches query string(find spot by restID)\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"5dd3455ce1f76511af27454e\");",
+							"    console.log(pm.response.text())",
+							"    ",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:3000/api/v1/spot?restID=5dd3455ce1f76511af27454e",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"spot"
+					],
+					"query": [
+						{
+							"key": "restID",
+							"value": "5dd3455ce1f76511af27454e"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test POST restaurant",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c9692aae-dfd2-420b-a2db-cf1fddd4bf2a",
+						"exec": [
+							"pm.test(\"Creation confirmed\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.message).to.eql(\"POST request to the homepage, restaurant postman added to database\");",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"accountinfo\":{\n\t\t\"email\":\"pass@postman.com\",\n\t\t\"password\":\"mypass\"\n\t},\"restinfo\":{\n\t\t\"name\":\"postman\"\n\t}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:3000/api/v1/rest",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"rest"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
