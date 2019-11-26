@@ -109,8 +109,8 @@ app.post('/api/v1/rest', function (req, res) { //Add a new restaurant into datab
         if(!req.body.restinfo[prop]){ res.send({ "mess": 'rest info '+prop+' cannot be empty' }); return;}
     }
     req.body.accountinfo.password = log.hashPass(req.body.accountinfo.password);
-    MongoDB.add('Restaurants', req.body); //First parm is which namespace to use
-    res.send({ "message": 'POST request to the homepage, restaurant ' + req.body.name + ' added to database' });
+    MongoDB.add('Restaurants', req.body); //First param is which namespace to use
+    res.send({ "message": 'POST request to the homepage, restaurant ' + req.body.restinfo.name + ' added to database' });
 })
 
 //PUT TODO test
