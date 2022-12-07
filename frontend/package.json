@@ -9,7 +9,7 @@
     "@material-ui/lab": "^4.0.0-alpha.29",
     "@material-ui/pickers": "^3.2.7",
     "@react-google-maps/api": "^1.7.7",
-    "cypress": "^3.6.1",
+    "cypress": "^12.0.1",
     "date-fns": "^2.0.0-beta.5",
     "google-map-react": "^1.1.5",
     "google-maps-react": "^2.0.2",
